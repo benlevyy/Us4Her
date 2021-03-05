@@ -18,18 +18,19 @@ struct ContentView: View {
         ZStack{
             MapView(coordinate: CLLocationCoordinate2D(latitude: 48.8584, longitude: 2.2945))
                 .frame(height: 860)
+            
             VStack{
                
-                HStack{
+                HStack(){
                     Spacer()
-                    Text("Us for Her")
-                        .font(.largeTitle)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color.black)
-                        .padding(.top, 41.0)
-                        
+              
+                    Image("logo")
+                        .shadow(radius: 10)
+                        .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+
                     Spacer()
                 }
+
                Spacer()
             }
             
