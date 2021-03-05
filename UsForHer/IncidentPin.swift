@@ -10,23 +10,18 @@ import SwiftUI
 import CoreLocation
 
 
-class IncidentPin: Codable{
+struct IncidentPin {
     var type: String
     var ExtraInfo: String
-    var lat: Double
-    var lon: Double
     
-    private var coordinates: Coordinates
-
-    var locationCoordinate: CLLocationCoordinate2D{
-        CLLocationCoordinate2D(
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude
-        )
+    public var loc: CLLocationCoordinate2D
+    
+    init(loc: CLLocationCoordinate2D, type: String, ExtraInfo: String){
+        self.loc = loc
+        self.type = type
+        self.ExtraInfo = ExtraInfo
     }
+    
 
-    struct Coordinates: Hashable, Codable {
-        var latitude: Double
-        var longitude: Double
-    }
+
 }
