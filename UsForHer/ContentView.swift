@@ -15,16 +15,17 @@ struct ContentView: View {
 
     
     var body: some View {
-        Map(coordinateRegion: $region, interactionModes: [])
+        MapView(coordinate: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275))
+            .frame(height: 100)
+            
         HStack{
             VStack(alignment: .center){
-                
-                    Text("Us4Her")
-                        .font(.title)
-                        .padding()
-                Spacer();
-                }
+                Text("Us4Her")
+                    .font(.title)
+                    .padding()
             Spacer();
+                }
+        Spacer();
         }
         
     }
@@ -33,7 +34,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-        IncidentPin(loc: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), type: "test", ExtraInfo: "test" )
 
     }
 }
