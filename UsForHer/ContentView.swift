@@ -48,8 +48,8 @@ struct ContentView: View {
                 HStack{
                     Spacer()
                     Image("add")
-                        .padding(.bottom, 30.0)
-                        .padding(.trailing, 20.0)
+                        .padding(.bottom, 50.0)
+                        .padding(.trailing, 25.0)
                         .shadow(radius: 10)
                         .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 }
