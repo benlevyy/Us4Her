@@ -20,12 +20,19 @@ struct ContentView: View {
      */
     
  
-
-
+    @ObservedObject var locManager = LocationManager()
+    
+    private var zero: CLLocationCoordinate2D{
+        return CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    }
+    
+    var userCoords: CLLocationCoordinate2D{
+        return locManager.lastLocation?.coordinate ?? zero
+    }
     
     var body: some View {
         ZStack{
-            MapView()
+            MapView(coordinate: userCoords)
                 .frame(height: 850) //change size
 
             VStack{

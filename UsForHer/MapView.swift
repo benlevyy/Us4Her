@@ -1,31 +1,21 @@
 import SwiftUI
 import MapKit
 
+
 struct MapView: View {
     @State private var userTrackingMode: MapUserTrackingMode = .follow
-    @ObservedObject var locManager = LocationManager()
+    var coordinate: CLLocationCoordinate2D
+    @State private var region = MKCoordinateRegion()
 
     
-    func getUserLoc() -> CLLocationCoordinate2D{
-        return locManager.lastLocation!.coordinate
-    }
-    
-    lazy var currentLoc :  CLLocationCoordinate2D = locManager.lastLocation!.coordinate
-    
-//    init(currentLoc: CLLocationCoordinate2D){
-//        self.currentLoc = locManager.lastLocation!.coordinate
-//    }
 
-    @State var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(
-            latitude: 39.3682791,
-            longitude: -111.093750),
-        span: MKCoordinateSpan(
-            latitudeDelta: 10,
-            longitudeDelta: 10
+    private func setRegion(_ coordinate: CLLocationCoordinate2D) {
+        region = MKCoordinateRegion(
+            center: coordinate,
+            span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
         )
-    )
-
+    }
+        
     var body: some View {
         Map(
             coordinateRegion: $region,
@@ -33,5 +23,9 @@ struct MapView: View {
             showsUserLocation: true,
             userTrackingMode: $userTrackingMode
         )
+        .onAppear{
+            setRegion(coordinate)
+        }
     }
+
 }
