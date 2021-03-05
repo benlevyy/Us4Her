@@ -15,9 +15,9 @@ struct ContentView: View {
     
     var body: some View {
         Map(coordinateRegion: $region, interactionModes: [])
-
         HStack{
             VStack(alignment: .center){
+                
                     Text("Us4Her")
                         .font(.title)
                         .padding()
@@ -25,6 +25,7 @@ struct ContentView: View {
                 }
             Spacer();
         }
+        
     }
 }
 
