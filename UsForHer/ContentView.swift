@@ -13,6 +13,7 @@ struct ContentView: View {
             .padding()
         Text("Ben is Gay")
         Text("Yash Code")
+        Text("Bens code")
     }
 }
 
