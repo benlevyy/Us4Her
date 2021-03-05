@@ -10,21 +10,21 @@ import MapKit
 
 
 struct ContentView: View {
-    var test = CLLocationCoordinate2D(latitude: 38.593_382, longitude:  -103.829_884)
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+
     
     var body: some View {
+        Map(coordinateRegion: $region, interactionModes: [])
+
         HStack{
-        VStack(alignment: .center){
-        Text("Us4Her")
-            .font(.title)
-            .padding()
-            
+            VStack(alignment: .center){
+                    Text("Us4Her")
+                        .font(.title)
+                        .padding()
+                Spacer();
+                }
             Spacer();
         }
-            Spacer();
-        }
-        MapView(coordinate: test)
-        
     }
 }
 
