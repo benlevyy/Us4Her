@@ -16,23 +16,18 @@ struct ContentView: View {
      Add plus button
      Create "adding incident pin" pop up
      Create hover view of other incident pin
-     Add center button which relocated map to current pos
+     Add center button which relocate d map to current pos
      */
-    @State var locationManager = CLLocationManager()
-     @State var showMapAlert = false
+    
+ 
+
 
     
     var body: some View {
         ZStack{
-            MapView(locationManager: $locationManager, showMapAlert: $showMapAlert)
+            MapView()
                 .frame(height: 850) //change size
-                 .alert(isPresented: $showMapAlert) { //this happens if user has location off
-                   Alert(title: Text("Location access denied"),
-                         message: Text("Your location is needed"),
-                         primaryButton: .cancel(),
-                         secondaryButton: .default(Text("Settings"),
-                                                   action: { self.goToDeviceSettings() }))
-             }
+
             VStack{
                 HStack(){
                     Spacer()
