@@ -10,23 +10,33 @@ import MapKit
 
 
 struct ContentView: View {
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.05))
     
 
     
     var body: some View {
-        MapView(coordinate: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275))
-            .frame(height: 100)
-            
-        HStack{
-            VStack(alignment: .center){
-                Text("Us4Her")
-                    .font(.title)
-                    .padding()
-            Spacer();
+        ZStack{
+            MapView(coordinate: CLLocationCoordinate2D(latitude: 48.8584, longitude: 2.2945))
+                .frame(height: 860)
+            VStack{
+               
+                HStack{
+                    Spacer()
+                    Text("Us for Her")
+                        .font(.largeTitle)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.black)
+                        .padding(.top, 41.0)
+                        
+                    Spacer()
                 }
-        Spacer();
+               Spacer()
+            }
+            
+            
         }
+        
+
         
     }
 }
