@@ -21,13 +21,15 @@ struct ContentView: View {
     
  
     @ObservedObject var locManager = LocationManager()
+
     
     private var zero: CLLocationCoordinate2D{
-        return CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        return CLLocationCoordinate2D(latitude: 0, longitude: 0) //if location is not allowed this is the location shown instead
     }
     
     var userCoords: CLLocationCoordinate2D{
         return locManager.lastLocation?.coordinate ?? zero
+        //active user coordinates
     }
     
     var body: some View {

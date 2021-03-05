@@ -10,7 +10,8 @@ import SwiftUI
 import CoreLocation
 
 
-struct IncidentPin {
+struct IncidentPin: {
+    
     public var type: String
     public var ExtraInfo: String
     public var loc: CLLocationCoordinate2D
