@@ -17,10 +17,12 @@ struct ContentView: View {
      Create hover view of other incident pin
      Add center button which relocated map to current pos
      */
+    @ObservedObject var locationManager = LocationManager()
+    
     
     var body: some View {
         ZStack{
-            MapView(coordinate: CLLocationCoordinate2D(latitude: 48.8584, longitude: 2.2945)) //this coordinate is a random tester coord. Should be changed to match user loc
+            MapView(coordinate: CLLocationCoordinate2D(latitude: locationManager.userLatitude, longitude: locationManager.userLongitude))
                 
                 .frame(height: 860)  //change this to match resolution of any iphone
             VStack{
