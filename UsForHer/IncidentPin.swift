@@ -11,9 +11,8 @@ import CoreLocation
 
 
 struct IncidentPin {
-    var type: String
-    var ExtraInfo: String
-    
+    public var type: String
+    public var ExtraInfo: String
     public var loc: CLLocationCoordinate2D
     
     init(loc: CLLocationCoordinate2D, type: String, ExtraInfo: String){
