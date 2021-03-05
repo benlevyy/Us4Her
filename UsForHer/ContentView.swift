@@ -6,13 +6,25 @@
 //
 
 import SwiftUI
+import MapKit
+
 
 struct ContentView: View {
+    var test = CLLocationCoordinate2D(latitude: 38.593_382, longitude:  -103.829_884)
+    
     var body: some View {
-        Text("Hello, world!")
+        HStack{
+        VStack(alignment: .center){
+        Text("Us4Her")
+            .font(.title)
             .padding()
-        Text("Ben is Gay")
-        Text("Bens code")
+            
+            Spacer();
+        }
+            Spacer();
+        }
+        MapView(coordinate: test)
+        
     }
 }
 
