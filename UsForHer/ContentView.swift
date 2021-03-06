@@ -22,23 +22,22 @@ struct ContentView: View {
  
     @ObservedObject var locManager = LocationManager()
 
-    
+    //user tracking
     private var zero: CLLocationCoordinate2D{
         return CLLocationCoordinate2D(latitude: 0, longitude: 0) //if location is not allowed this is the location shown instead
     }
-    
     var userCoords: CLLocationCoordinate2D{
         return locManager.lastLocation?.coordinate ?? zero
         //active user coordinates
     }
     
     
-    var incidentsList: [IncidentPin] = [
+    @State var incidentsList: [IncidentPin] = [
         .init(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test")
     ]
     var body: some View {
         ZStack{
-            MapView(coordinate: userCoords, incidentPin: incidentsList[0])
+            MapView(coordinate: userCoords)
                 .frame(height: 850) //change size
 
             VStack{
