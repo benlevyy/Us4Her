@@ -7,17 +7,20 @@ struct MapView: View {
     var coordinate: CLLocationCoordinate2D
     @State private var region = MKCoordinateRegion()
     
-    private let locationsToDisplay: [IncidentPin] = [
-        IncidentPin(id: CLLocationCoordinate2D(latitude: -33.8688, longitude: 151.2093), type: "Penis", ExtraInfo: "yash is shit")
-]
+     var incidentPin: IncidentPin
     
-
+    var incidents: [IncidentPin] = [
+        .init(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test")
+    ]
+    
     private func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
             center: coordinate,
             span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
         )
     }
+    
+    
         
     var body: some View {
         Map(
@@ -25,15 +28,16 @@ struct MapView: View {
             interactionModes: MapInteractionModes.all,
             showsUserLocation: true,
             userTrackingMode: $userTrackingMode,
-            annotationItems: locationsToDisplay
-        )
-        { location -> MapMarker in
-            let marker = MapMarker(coordinate: locationsToDisplay[0].loc)
-            return marker
+            annotationItems: incidents
+        ){
+            incidents in MapPin(coordinate: incidentPin.coordinate)
+
+            
         }
         .onAppear{
             setRegion(coordinate)
         }
     }
+
 
 }

@@ -10,17 +10,19 @@ import SwiftUI
 import CoreLocation
 
 
-struct IncidentPin: {
-    
-    public var type: String
-    public var ExtraInfo: String
-    public var loc: CLLocationCoordinate2D
-    
-    init(loc: CLLocationCoordinate2D, type: String, ExtraInfo: String){
-        self.loc = loc
-        self.type = type
-        self.ExtraInfo = ExtraInfo
+struct IncidentPin: Identifiable {
+
+
+//properties
+    var id = UUID()
+    var latitude: Double
+    var longitude: Double
+    var type: String
+    var ExtraInfo: String
+    var coordinate: CLLocationCoordinate2D {
+      return .init(latitude: latitude, longitude: longitude)
     }
+
     
 
 

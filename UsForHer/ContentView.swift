@@ -32,9 +32,13 @@ struct ContentView: View {
         //active user coordinates
     }
     
+    
+    var incidentsList: [IncidentPin] = [
+        .init(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test")
+    ]
     var body: some View {
         ZStack{
-            MapView(coordinate: userCoords)
+            MapView(coordinate: userCoords, incidentPin: incidentsList[0])
                 .frame(height: 850) //change size
 
             VStack{
