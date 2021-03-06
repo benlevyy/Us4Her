@@ -27,6 +27,7 @@ struct ContentView: View {
     
     
     @State var addButtonState: Bool = false
+    @State private var typeUserInput = ""
     
     
     var body: some View {
@@ -64,19 +65,18 @@ struct ContentView: View {
             
             //add Menu
                 if(addButtonState){
-                    
-                    
                         ZStack{
                             
                             Rectangle()
                                 .fill(/*@START_MENU_TOKEN@*/Color.white/*@END_MENU_TOKEN@*/)
                                 .frame(width: 350, height: 200)
                                 .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
-                            
-                            
-                            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                            VStack{
+                                Text("Report an Incident")
+                                    .padding(.bottom, 150.0)
+                            }
+//                            TextField("Enter Type of Incident:", text: $typeUserInput, onCommit: {print("Commit")})
                             HStack{
-                                
                                 VStack{
                                     Button() {
                                         addButtonState = false
@@ -91,10 +91,6 @@ struct ContentView: View {
                         }
                     
                 }
-            //hehe
-            
-            
-            
             
         }
         
