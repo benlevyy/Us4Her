@@ -5,13 +5,14 @@ import MapKit
 struct MapView: View {
     @State private var userTrackingMode: MapUserTrackingMode = .follow
     
-    var coordinate: CLLocationCoordinate2D
+    @State var coordinate: CLLocationCoordinate2D
     @State private var region = MKCoordinateRegion()
-    
-     var incidentPin: IncidentPin
-    
-    var incidents: [IncidentPin] = [
-        .init(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test")
+        
+    @State var incidents: [IncidentPin] = [
+        IncidentPin(latitude: 0, longitude: 2, type: "test", ExtraInfo: "Ex Test"),
+        IncidentPin(latitude: 0, longitude: 4, type: "test2", ExtraInfo: "Ex Test2"),
+        IncidentPin(latitude: 0, longitude: 6, type: "test3", ExtraInfo: "Ex Test3")
+
     ]
     
     private func setRegion(_ coordinate: CLLocationCoordinate2D) {
@@ -30,10 +31,8 @@ struct MapView: View {
             showsUserLocation: true,
             userTrackingMode: $userTrackingMode,
             annotationItems: incidents
-        ){
-            incidents in MapPin(coordinate: incidentPin.coordinate)
-
-            
+        ){ incident in
+            MapPin(coordinate: incident.coordinate)
         }
         .onAppear{
             setRegion(coordinate)
