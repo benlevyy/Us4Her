@@ -9,7 +9,7 @@ struct MapView: View {
     @State private var region = MKCoordinateRegion()
         
     @State var incidents: [IncidentPin] = [
-        IncidentPin(latitude: 0, longitude: 2, type: "test", ExtraInfo: "Ex Test"),
+        IncidentPin(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test"),
         IncidentPin(latitude: 0, longitude: 4, type: "test2", ExtraInfo: "Ex Test2"),
         IncidentPin(latitude: 0, longitude: 6, type: "test3", ExtraInfo: "Ex Test3")
 
@@ -32,7 +32,12 @@ struct MapView: View {
             userTrackingMode: $userTrackingMode,
             annotationItems: incidents
         ){ incident in
-            MapPin(coordinate: incident.coordinate)
+            MapAnnotation(coordinate: incident.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
+                Circle()
+                    .strokeBorder(Color.red, lineWidth: 10)
+                    .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
+                    .frame(width: 44, height: 44)
+            }
         }
         .onAppear{
             setRegion(coordinate)
