@@ -8,11 +8,11 @@ struct MapView: View {
     var coordinate: CLLocationCoordinate2D
     @State private var region = MKCoordinateRegion()
     
-     var incidentPin: IncidentPin
-    
-    var incidents: [IncidentPin] = [
-        .init(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test")
-    ]
+//     var incidentPin: IncidentPin
+//
+//    var incidents: [IncidentPin] = [
+//        .init(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test")
+//    ]
     
     private func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
@@ -28,13 +28,8 @@ struct MapView: View {
             coordinateRegion: $region,
             interactionModes: MapInteractionModes.all,
             showsUserLocation: true,
-            userTrackingMode: $userTrackingMode,
-            annotationItems: incidents
-        ){
-            incidents in MapPin(coordinate: incidentPin.coordinate)
-
-            
-        }
+            userTrackingMode: $userTrackingMode
+        )
         .onAppear{
             setRegion(coordinate)
         }
