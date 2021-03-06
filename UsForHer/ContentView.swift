@@ -31,10 +31,7 @@ struct ContentView: View {
         //active user coordinates
     }
     
-    
-    @State var incidentsList: [IncidentPin] = [
-        .init(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test")
-    ]
+
     var body: some View {
         ZStack{
             MapView(coordinate: userCoords)
