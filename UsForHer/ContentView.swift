@@ -42,11 +42,15 @@ struct ContentView: View {
                 .frame(height: 850) //change size
 
             VStack{
+                Spacer()
+                    .frame(height: 35)
                 HStack(){
                     Spacer()
-                    Image("logo")
-                        .shadow(radius: 10)
-                        .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    Image("LogoV2")
+                        .resizable()
+                        .frame(width:158, height:86)
+                        .shadow(radius: 5)
+                        .shadow(radius: 5)
 
                     Spacer()
                 }

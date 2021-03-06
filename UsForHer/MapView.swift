@@ -4,6 +4,7 @@ import MapKit
 
 struct MapView: View {
     @State private var userTrackingMode: MapUserTrackingMode = .follow
+    
     var coordinate: CLLocationCoordinate2D
     @State private var region = MKCoordinateRegion()
     
