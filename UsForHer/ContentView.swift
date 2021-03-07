@@ -70,10 +70,11 @@ struct ContentView: View {
             }
             
             //add Menu
+            //!
             if(addButtonState){
                 ZStack{
                     Rectangle() //creating rectangle for incident report
-                        .fill(Color.white)
+                        .fill(Color.black)
                         .frame(width: 352, height: 502)
                         .cornerRadius(20.0)
                     
