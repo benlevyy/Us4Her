@@ -27,7 +27,9 @@ struct ContentView: View {
     
     
     @State var addButtonState: Bool = false
-    @State private var typeUserInput = ""
+    
+    private var genderOptions = ["Cat Call", "Suspicous Vehicle", "Other"]
+    @State private var selection = 1
     
     
     var body: some View {
@@ -64,33 +66,43 @@ struct ContentView: View {
             }
             
             //add Menu
-                if(addButtonState){
-                        ZStack{
-                            
-                            Rectangle()
-                                .fill(Color.white)
-                                .frame(width: 350, height: 200)
-                                .cornerRadius(20.0)
-                            VStack{
-                                Text("Report an Incident")
-                                    .padding(.bottom, 150.0)
-                            }
-//                            TextField("Enter Type of Incident:", text: $typeUserInput, onCommit: {print("Commit")})
-                            HStack{
-                                VStack{
-                                    Button() {
-                                        addButtonState = false
-                                    } label: {
-                                        Image("exit")                                    }
-                                    .frame(width: 30, height: 30)
-                                    .position(x: 340, y:350)
-
-                                    
-                                }
+            if(!addButtonState){
+                ZStack{
+                    
+                    Rectangle()
+                        .fill(Color.white)
+                        .frame(width: 350, height: 200)
+                        .cornerRadius(20.0)
+                    
+                    
+                    Text("Report an Incident")
+                        .font(.title)
+                        .position(x: 185, y: 353)
+                    
+                    HStack{
+                        Picker("Test", selection: $selection) {
+                            ForEach(0..<genderOptions.count) {
+                                Text(self.genderOptions[$0])
                             }
                         }
+                        .pickerStyle(SegmentedPickerStyle())
+                        
+                        .position(x: 150, y: 390)
+                        .frame(width: 300)
+                    }
+                    .padding(.trailing, 0.0)
+                    
+                    
+                    Button() {
+                        addButtonState = false
+                    } label: {
+                        Image("exit")                                    }
+                    .frame(width: 30, height: 30)
+                    .position(x: 340, y:350)
                     
                 }
+                
+            }
             
         }
         
