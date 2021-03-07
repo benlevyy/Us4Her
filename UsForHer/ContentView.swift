@@ -30,16 +30,19 @@ struct ContentView: View {
     
     @State var addButtonState: Bool = false
     
-    private var incidentOptions = ["Cat Call", "Suspicous Vehicle", "Other"]
+    private var incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
     @State private var selection = 1
     @State var otherUserInput: String = ""
     @State var userDescriptionInput: String = "Desription"
-    
+    @State var submitState: Bool = false
     
     
     var body: some View {
+        let mapView = MapView(coordinate: userCoords)
+        
+        
         ZStack{
-            MapView(coordinate: userCoords)
+            mapView
                 .frame(height: 860) //change size
             
             VStack{
@@ -59,6 +62,7 @@ struct ContentView: View {
                     Spacer()
                     Button {
                         addButtonState = true
+                        mapView.addIncident(IncidentPin(latitude: userCoords.latitude, longitude: userCoords.longitude, type: "test", ExtraInfo: "test"))
                     } label: {
                         Image("add")
                     }
@@ -83,18 +87,22 @@ struct ContentView: View {
                         .frame(width: 350, height: 500)
                         .cornerRadius(20.0)
                     
-                    
-                    Text("Report an Incident") //title
-                        .font(.title)
-                        .foregroundColor(Color.black)
-                        .position(x: 185, y: 220)
+                    HStack{
+                        Spacer()
+                        Text("Report an Incident")
+                        Spacer()
+                    }
+                    //title
+                    .font(.title)
+                    .foregroundColor(Color.black)
+                    .position(x: 185, y: 220)
                     
                     HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
                             ForEach(0..<incidentOptions.count) {
                                 Text(self.incidentOptions[$0])
                                     .foregroundColor(Color.black)
-                                    
+                                
                             }
                         }
                         .position(x: 150, y: 320)
@@ -103,19 +111,47 @@ struct ContentView: View {
                     }
                     .padding(.trailing, 0.0)
                     
-                    if(selection == 2){ //if selection == other
-                        TextField("Enter the type of Incident", text: $otherUserInput)
-                            .position(x: 230, y: 350)
-                    }
+                    //                    if(selection == 2){ //if selection == other
+                    //                        TextField("Enter the type of Incident", text: $otherUserInput)
+                    //                            .position(x: 230, y: 350)
+                    //                    }
                     RoundedRectangle(cornerRadius: 16)
                         .frame(width: 325, height: 115, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-
+                    
                     RoundedRectangle(cornerRadius: 15)
                         .fill(Color.white)
                         .frame(width: 323, height: 113, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    Button(){
+                        //close the view
+                        addButtonState = false
+                        //append data to array
+                        mapView.addIncident(IncidentPin(latitude: 37.342159, longitude: -122.025620, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
+                        //clear data
+                        //TO DO
+                    
+                    } label:{
+                        HStack{
+                            Spacer()
+                            ZStack{
+                                
+                                Rectangle()
+                                    .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
+                                    .frame(width: 100.0, height: 50.0)
+                                    .cornerRadius(12)
+                                    .position(x: 185, y: 640)
+                                Text("Submit")
+                                    .font(.title)
+                                    .foregroundColor(Color.white)
+                                    .position(x: 185, y: 640)
+                            }
+                            Spacer()
+                        }
+                        
+                        
+                    }
                     Button() { //close button
                         addButtonState = false
                     } label: {
@@ -139,12 +175,17 @@ struct ContentView: View {
             }
             
         }
-        
-        
-        
     }
+    
 }
+
+
+
 extension ContentView { //if loc isn't enable redirect user to go to settings
+    
+    
+    
+    
     func goToDeviceSettings() {
         guard let url = URL.init(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -157,3 +198,4 @@ struct ContentView_Previews: PreviewProvider {
         
     }
 }
+

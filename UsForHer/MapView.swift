@@ -12,8 +12,14 @@ struct MapView: View {
         IncidentPin(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test"),
         IncidentPin(latitude: 0, longitude: 4, type: "test2", ExtraInfo: "Ex Test2"),
         IncidentPin(latitude: 0, longitude: 6, type: "test3", ExtraInfo: "Ex Test3")
-
+        
+        
     ]
+    
+    public func addIncident(_ i: IncidentPin){
+        print("added to array")
+        incidents.append(i)
+    }
     
     private func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
