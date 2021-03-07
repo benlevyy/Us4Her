@@ -18,7 +18,9 @@ struct ContentView: View {
     
     //user tracking
     private var zero: CLLocationCoordinate2D{
-        return CLLocationCoordinate2D(latitude: 0, longitude: 0) //if location is not allowed this is the location shown instead
+        return CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+        //Ortega Park Long: 37.342159, Lat -122.025620
+        //if location is not allowed this is the location shown instead
     }
     var userCoords: CLLocationCoordinate2D{
         return locManager.lastLocation?.coordinate ?? zero
@@ -40,16 +42,15 @@ struct ContentView: View {
             VStack{
                 Spacer()
                     .frame(height: 35)
-                HStack(){
-                    Spacer()
+                HStack{
+                        
                     Image("tlogo")
                         .padding(.top, 20.0)
                         .frame(width:158, height:86)
-                        .shadow(radius: 5)
-                        .shadow(radius: 5)
-                    
+                        
                     Spacer()
                 }
+                .padding(.leading, 30.0)
                 Spacer()
                 HStack{
                     Spacer()
