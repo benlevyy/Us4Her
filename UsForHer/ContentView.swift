@@ -30,8 +30,11 @@ struct ContentView: View {
     
     @State var addButtonState: Bool = false
     
-    private var genderOptions = ["Cat Call", "Suspicous Vehicle", "Other"]
+    private var incidentOptions = ["Cat Call", "Suspicous Vehicle", "Other"]
     @State private var selection = 1
+    @State var otherUserInput: String = ""
+    @State var userDescriptionInput: String = "Desription"
+    
     
     
     var body: some View {
@@ -43,11 +46,11 @@ struct ContentView: View {
                 Spacer()
                     .frame(height: 35)
                 HStack{
-                        
+                    
                     Image("tlogo")
                         .padding(.top, 20.0)
                         .frame(width:158, height:86)
-                        
+                    
                     Spacer()
                 }
                 .padding(.leading, 30.0)
@@ -67,39 +70,68 @@ struct ContentView: View {
             }
             
             //add Menu
-            if(!addButtonState){
+            if(addButtonState){
                 ZStack{
-                    
-                    Rectangle()
+                    Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
-                        .frame(width: 350, height: 200)
+                        .frame(width: 352, height: 502)
+                        .cornerRadius(20.0)
+                    
+                    Rectangle() //creating rectangle for incident report
+                        .fill(Color.white)
+                        .frame(width: 350, height: 500)
                         .cornerRadius(20.0)
                     
                     
-                    Text("Report an Incident")
+                    Text("Report an Incident") //title
                         .font(.title)
-                        .position(x: 185, y: 353)
+                        .foregroundColor(Color.black)
+                        .position(x: 185, y: 220)
                     
-                    HStack{
+                    HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
-                            ForEach(0..<genderOptions.count) {
-                                Text(self.genderOptions[$0])
+                            ForEach(0..<incidentOptions.count) {
+                                Text(self.incidentOptions[$0])
+                                    .foregroundColor(Color.black)
+                                    
                             }
                         }
-                        .pickerStyle(SegmentedPickerStyle())
-                        
-                        .position(x: 150, y: 390)
+                        .position(x: 150, y: 320)
                         .frame(width: 300)
+                        
                     }
                     .padding(.trailing, 0.0)
                     
-                    
-                    Button() {
+                    if(selection == 2){ //if selection == other
+                        TextField("Enter the type of Incident", text: $otherUserInput)
+                            .position(x: 230, y: 350)
+                    }
+                    RoundedRectangle(cornerRadius: 16)
+                        .frame(width: 325, height: 115, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(Color.white)
+                        .frame(width: 323, height: 113, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    TextEditor( text: $userDescriptionInput)
+                        .font(.title3)
+                        .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    Button() { //close button
                         addButtonState = false
                     } label: {
-                        Image("exit")                                    }
+                        ZStack{
+                            Circle()
+                                .fill(Color.black)
+                                .frame(width: 40, height: 60)
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 37, height: 38)
+                            
+                            
+                            Image("exit")
+                        }
+                    }
                     .frame(width: 30, height: 30)
-                    .position(x: 340, y:350)
+                    .position(x: 340, y:210)
                     
                 }
                 
