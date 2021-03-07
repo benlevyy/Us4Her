@@ -68,9 +68,9 @@ struct ContentView: View {
                         ZStack{
                             
                             Rectangle()
-                                .fill(/*@START_MENU_TOKEN@*/Color.white/*@END_MENU_TOKEN@*/)
+                                .fill(Color.white)
                                 .frame(width: 350, height: 200)
-                                .cornerRadius(/*@START_MENU_TOKEN@*/20.0/*@END_MENU_TOKEN@*/)
+                                .cornerRadius(20.0)
                             VStack{
                                 Text("Report an Incident")
                                     .padding(.bottom, 150.0)
@@ -81,10 +81,10 @@ struct ContentView: View {
                                     Button() {
                                         addButtonState = false
                                     } label: {
-                                        Image("exit")
-                                            .padding(.leading, 300)
-                                            .padding(.bottom, 150.0)
-                                    }
+                                        Image("exit")                                    }
+                                    .frame(width: 30, height: 30)
+                                    .position(x: 340, y:350)
+
                                     
                                 }
                             }
