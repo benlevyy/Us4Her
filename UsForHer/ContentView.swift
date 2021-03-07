@@ -33,15 +33,15 @@ struct ContentView: View {
     var body: some View {
         ZStack{
             MapView(coordinate: userCoords)
-                .frame(height: 850) //change size
+                .frame(height: 860) //change size
             
             VStack{
                 Spacer()
                     .frame(height: 35)
                 HStack(){
                     Spacer()
-                    Image("LogoV2")
-                        .resizable()
+                    Image("tlogo")
+                        .padding(.top, 20.0)
                         .frame(width:158, height:86)
                         .shadow(radius: 5)
                         .shadow(radius: 5)
