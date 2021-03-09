@@ -5,27 +5,39 @@ import MapKit
 struct MapView: View {
     @State private var userTrackingMode: MapUserTrackingMode = .follow
     
-    @State var coordinate: CLLocationCoordinate2D
-    @State private var region = MKCoordinateRegion()
+  //  @State var coordinate: CLLocationCoordinate2D
+    @State var region = MKCoordinateRegion()
         
+    @ObservedObject var locManager = LocationManager()
+
     @State var incidents: [IncidentPin] = [
-        IncidentPin(latitude: 0, longitude: 0, type: "test", ExtraInfo: "Ex Test"),
+        IncidentPin(latitude: 37.342159, longitude: -122.025620, type: "test", ExtraInfo: "Ex Test"),
         IncidentPin(latitude: 0, longitude: 4, type: "test2", ExtraInfo: "Ex Test2"),
         IncidentPin(latitude: 0, longitude: 6, type: "test3", ExtraInfo: "Ex Test3")
         
         
     ]
     
+    @State var lonZ : Double = 0.2
+    @State var latZ : Double = 0.2
+
+    
+
+    
+    
+    private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+    
     public func addIncident(_ i: IncidentPin){
         print("added to array")
         incidents.append(i)
     }
     
-    private func setRegion(_ coordinate: CLLocationCoordinate2D) {
+     func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
-            center: coordinate,
-            span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+            center: locManager.lastLocation?.coordinate ?? zero,
+            span: MKCoordinateSpan(latitudeDelta: latZ, longitudeDelta: lonZ)
         )
+       // print(region)
     }
     
     
@@ -46,7 +58,7 @@ struct MapView: View {
             }
         }
         .onAppear{
-            setRegion(coordinate)
+            setRegion(locManager.lastLocation?.coordinate ?? zero )
         }
     }
 

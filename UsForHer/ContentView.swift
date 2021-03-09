@@ -17,15 +17,15 @@ struct ContentView: View {
     @ObservedObject var locManager = LocationManager()
     
     //user tracking
-    private var zero: CLLocationCoordinate2D{
-        return CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
-        //Ortega Park Long: 37.342159, Lat -122.025620
-        //if location is not allowed this is the location shown instead
-    }
-    var userCoords: CLLocationCoordinate2D{
-        return locManager.lastLocation?.coordinate ?? zero
-        //active user coordinates
-    }
+//    lazy var zero: CLLocationCoordinate2D =  {
+//        return CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+//        //Ortega Park Long: 37.342159, Lat -122.025620
+//        //if location is not allowed this is the location shown instead
+//    }()
+//    @State var userCoords: CLLocationCoordinate2D = {
+//        return (locManager.lastLocation!.coordinate ?? zero)
+//        //active user coordinates
+//    }
     
     
     @State var addButtonState: Bool = false
@@ -33,13 +33,17 @@ struct ContentView: View {
     private var incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
     @State private var selection = 1
     @State var otherUserInput: String = ""
-    @State var userDescriptionInput: String = "Desription"
+    @State var userDescriptionInput: String = "Description"
     @State var submitState: Bool = false
     
+    @State var mapView : MapView =  MapView()
+
+
+
     
     var body: some View {
-        let mapView = MapView(coordinate: userCoords)
         
+
         
         ZStack{
             mapView
@@ -62,7 +66,8 @@ struct ContentView: View {
                     Spacer()
                     Button {
                         addButtonState = true
-                        mapView.addIncident(IncidentPin(latitude: userCoords.latitude, longitude: userCoords.longitude, type: "test", ExtraInfo: "test"))
+                        //THIS WILL FUCK YOU
+                      //  mapView.addIncident(IncidentPin(latitude: userCoords.latitude, longitude: userCoords.longitude, type: "test", ExtraInfo: "test"))
                     } label: {
                         Image("add")
                     }
@@ -124,6 +129,7 @@ struct ContentView: View {
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                   //submit button
                     Button(){
                         //close the view
                         addButtonState = false
@@ -133,25 +139,25 @@ struct ContentView: View {
                         //TO DO
                     
                     } label:{
-                        HStack{
                             Spacer()
                             ZStack{
-                                
                                 Rectangle()
                                     .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
                                     .frame(width: 100.0, height: 50.0)
                                     .cornerRadius(12)
-                                    .position(x: 185, y: 640)
+                                    
                                 Text("Submit")
                                     .font(.title)
                                     .foregroundColor(Color.white)
-                                    .position(x: 185, y: 640)
+                                    
                             }
                             Spacer()
                         }
-                        
-                        
-                    }
+                    
+                    .position(x: 185, y: 640)
+
+         
+                    
                     Button() { //close button
                         addButtonState = false
                     } label: {
@@ -171,10 +177,10 @@ struct ContentView: View {
                     .position(x: 340, y:210)
                     
                 }
-                
             }
-            
         }
+
+       
     }
     
 }
@@ -182,8 +188,12 @@ struct ContentView: View {
 
 
 extension ContentView { //if loc isn't enable redirect user to go to settings
-    
-    
+    func printLoc(){
+        
+        print("test")
+        print(log2(360 * 860 / (mapView.region.span.longitudeDelta * 128)))
+    }
+
     
     
     func goToDeviceSettings() {
