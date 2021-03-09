@@ -23,7 +23,4 @@ struct IncidentPin: Identifiable {
       return .init(latitude: latitude, longitude: longitude)
     }
 
-    
-
-
 }

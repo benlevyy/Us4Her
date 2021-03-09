@@ -177,6 +177,9 @@ struct ContentView: View {
                     .position(x: 340, y:210)
                     
                 }
+                if(mapView.buttonDisplayedState == true){
+                    Text("button time ;)")
+               }
             }
         }
 
@@ -188,10 +191,9 @@ struct ContentView: View {
 
 
 extension ContentView { //if loc isn't enable redirect user to go to settings
-    func printLoc(){
+    func printTest(){
         
         print("test")
-        print(log2(360 * 860 / (mapView.region.span.longitudeDelta * 128)))
     }
 
     
