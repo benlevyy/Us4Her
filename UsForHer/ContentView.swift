@@ -43,8 +43,6 @@ struct ContentView: View {
     
     var body: some View {
         
-
-        
         ZStack{
             mapView
                 .frame(height: 860) //change size
@@ -54,11 +52,11 @@ struct ContentView: View {
                     .frame(height: 35)
                 HStack{
                     
-                    Image("tlogo")
-                        .padding(.top, 20.0)
-                        .frame(width:158, height:86)
-                    
-                    Spacer()
+                 //  Image("tlogo")
+//                        .padding(.top, 20.0)
+                    //  .frame(width:158, height:86)
+//
+                  //  Spacer()
                 }
                 .padding(.leading, 30.0)
                 Spacer()
@@ -66,8 +64,7 @@ struct ContentView: View {
                     Spacer()
                     Button {
                         addButtonState = true
-                        //THIS WILL FUCK YOU
-                      //  mapView.addIncident(IncidentPin(latitude: userCoords.latitude, longitude: userCoords.longitude, type: "test", ExtraInfo: "test"))
+   
                     } label: {
                         Image("add")
                     }
@@ -134,9 +131,12 @@ struct ContentView: View {
                         //close the view
                         addButtonState = false
                         //append data to array
-                        mapView.addIncident(IncidentPin(latitude: 37.342159, longitude: -122.025620, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
-                        //clear data
-                        //TO DO
+                        mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
+                        
+                        print("|||||")
+                        for element in mapView.incidents {
+                          print(element)
+                        }
                     
                     } label:{
                             Spacer()

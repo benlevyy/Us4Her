@@ -6,17 +6,17 @@ struct MapView: View {
     @State private var userTrackingMode: MapUserTrackingMode = .follow
     
   //  @State var coordinate: CLLocationCoordinate2D
+    
+    
+/*
+     map view delegete important
+     */
     @State var region = MKCoordinateRegion()
         
     @ObservedObject var locManager = LocationManager()
 
-    @State var incidents: [IncidentPin] = [
-        IncidentPin(latitude: 37.342159, longitude: -122.025620, type: "test", ExtraInfo: "Ex Test"),
-        IncidentPin(latitude: 0, longitude: 4, type: "test2", ExtraInfo: "Ex Test2"),
-        IncidentPin(latitude: 0, longitude: 6, type: "test3", ExtraInfo: "Ex Test3")
-        
-        
-    ]
+    public var incidents = [IncidentPin]()
+    
     
     @State var lonZ : Double = 0.2
     @State var latZ : Double = 0.2
@@ -27,9 +27,9 @@ struct MapView: View {
     
     private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
-    public func addIncident(_ i: IncidentPin){
-        print("added to array")
-        incidents.append(i)
+    public mutating func addIncident(_ input: IncidentPin){
+       // print(input)
+        incidents.append(input)
     }
     
      func setRegion(_ coordinate: CLLocationCoordinate2D) {
