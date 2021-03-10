@@ -4,10 +4,7 @@ import MapKit
 
 struct MapView: View {
     @State private var userTrackingMode: MapUserTrackingMode = .follow
-    
-  //  @State var coordinate: CLLocationCoordinate2D
-    
-    
+        
 /*
      map view delegete important
      */
@@ -34,14 +31,26 @@ struct MapView: View {
      func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
             center: locManager.lastLocation?.coordinate ?? zero,
-            span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+            span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
         )
-       // print(region)
+    }
+    
+    func getExtraInfoState()-> Bool{
+        return buttonDisplayedState
     }
     
     public func saveInfo(_ input: IncidentPin){
         displayedInfo = input
+        
+        //debug
+        print("info saved")
+        print("button display state: ")
+        print(buttonDisplayedState)
+      
+
     }
+
+    
     
     public func clearVars(){
         displayedInfo = zeroIncident
@@ -51,7 +60,7 @@ struct MapView: View {
     var body: some View {
         Map(
             coordinateRegion: $region,
-            interactionModes: MapInteractionModes.all,
+            interactionModes: MapInteractionModes.pan,
             showsUserLocation: true,
             userTrackingMode: $userTrackingMode,
             annotationItems: incidents
@@ -62,9 +71,9 @@ struct MapView: View {
                     saveInfo(incident)
                 } label: {
                 Circle()
-                    .strokeBorder(Color.red, lineWidth: 10)
-                    .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
-                    .frame(width: 44, height: 44)
+                    .fill(Color.red)
+                    .opacity(0.2)
+                    .frame(width: 100, height: 100)
                 }
             }
             
@@ -72,7 +81,58 @@ struct MapView: View {
         .onAppear{
             setRegion(locManager.lastLocation?.coordinate ?? zero )
         }
+        if(buttonDisplayedState){
+
+                ZStack{
+                    Rectangle() //creating rectangle for incident report
+                        .fill(Color.black)
+                        .frame(width: 352, height: 252)
+                        .cornerRadius(20.0)
+                    
+                    Rectangle() //creating rectangle for incident report
+                        .fill(Color.white)
+                        .frame(width: 350, height: 250)
+                        .cornerRadius(20.0)
+                    
+                    HStack{
+                        Spacer()
+                        Text(displayedInfo.type)
+                        Spacer()
+                    }
+                    //title
+                    .font(.title)
+                    .foregroundColor(Color.black)
+                    .position(x: 185, y: 330)
+                    
+                    HStack{
+                        Text(displayedInfo.ExtraInfo)
+                            .frame(width: 340, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    }
+        
+
+                    Button() { //close button
+                       buttonDisplayedState  = false
+                    } label: {
+                        ZStack{
+                            Circle()
+                                .fill(Color.black)
+                                .frame(width: 40, height: 60)
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 37, height: 38)
+                            
+                            
+                            Image("exit")
+                        }
+                    }
+                    .frame(width: 30, height: 30)
+                    .position(x: 340, y:335)
+                    
+                }
+            
+             
+               }
+            
+
     }
-
-
-}
+    }

@@ -17,15 +17,15 @@ struct ContentView: View {
     @ObservedObject var locManager = LocationManager()
     
     //user tracking
-//    lazy var zero: CLLocationCoordinate2D =  {
-//        return CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
-//        //Ortega Park Long: 37.342159, Lat -122.025620
-//        //if location is not allowed this is the location shown instead
-//    }()
-//    @State var userCoords: CLLocationCoordinate2D = {
-//        return (locManager.lastLocation!.coordinate ?? zero)
-//        //active user coordinates
-//    }
+    //    lazy var zero: CLLocationCoordinate2D =  {
+    //        return CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+    //        //Ortega Park Long: 37.342159, Lat -122.025620
+    //        //if location is not allowed this is the location shown instead
+    //    }()
+    //    @State var userCoords: CLLocationCoordinate2D = {
+    //        return (locManager.lastLocation!.coordinate ?? zero)
+    //        //active user coordinates
+    //    }
     
     
     @State var addButtonState: Bool = false
@@ -37,11 +37,13 @@ struct ContentView: View {
     @State var submitState: Bool = false
     
     @State var mapView : MapView =  MapView()
-
-
-
+    
+    
+    
     
     var body: some View {
+        
+        
         
         ZStack{
             mapView
@@ -52,11 +54,11 @@ struct ContentView: View {
                     .frame(height: 35)
                 HStack{
                     
-                 //  Image("tlogo")
-//                        .padding(.top, 20.0)
+                    //  Image("tlogo")
+                    //                        .padding(.top, 20.0)
                     //  .frame(width:158, height:86)
-//
-                  //  Spacer()
+                    //
+                    //  Spacer()
                 }
                 .padding(.leading, 30.0)
                 Spacer()
@@ -64,7 +66,7 @@ struct ContentView: View {
                     Spacer()
                     Button {
                         addButtonState = true
-   
+                        
                     } label: {
                         Image("add")
                     }
@@ -106,6 +108,7 @@ struct ContentView: View {
                                     .foregroundColor(Color.black)
                                 
                             }
+                            
                         }
                         .position(x: 150, y: 320)
                         .frame(width: 300)
@@ -113,10 +116,6 @@ struct ContentView: View {
                     }
                     .padding(.trailing, 0.0)
                     
-                    //                    if(selection == 2){ //if selection == other
-                    //                        TextField("Enter the type of Incident", text: $otherUserInput)
-                    //                            .position(x: 230, y: 350)
-                    //                    }
                     RoundedRectangle(cornerRadius: 16)
                         .frame(width: 325, height: 115, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     
@@ -126,7 +125,7 @@ struct ContentView: View {
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                   //submit button
+                    //submit button
                     Button(){
                         //close the view
                         addButtonState = false
@@ -135,28 +134,29 @@ struct ContentView: View {
                         
                         print("|||||")
                         for element in mapView.incidents {
-                          print(element)
+                            print(element)
                         }
-                    
+                        
+                        UIApplication.shared.endEditing() // Call to dismiss keyboard
+                        
+                        
                     } label:{
-                            Spacer()
-                            ZStack{
-                                Rectangle()
-                                    .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
-                                    .frame(width: 100.0, height: 50.0)
-                                    .cornerRadius(12)
-                                    
-                                Text("Submit")
-                                    .font(.title)
-                                    .foregroundColor(Color.white)
-                                    
-                            }
-                            Spacer()
+                        Spacer()
+                        ZStack{
+                            Rectangle()
+                                .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
+                                .frame(width: 100.0, height: 50.0)
+                                .cornerRadius(12)
+                            
+                            Text("Submit")
+                                .font(.title)
+                                .foregroundColor(Color.white)
+                            
                         }
+                        Spacer()
+                    }
                     
                     .position(x: 185, y: 640)
-
-         
                     
                     Button() { //close button
                         addButtonState = false
@@ -177,37 +177,34 @@ struct ContentView: View {
                     .position(x: 340, y:210)
                     
                 }
-                if(mapView.buttonDisplayedState == true){
-                    Text("button time ;)")
-               }
+                
             }
+//            if((mapView.region.center.latitude - locManager.lastLocation?.coordinate.latitude ?? 0.0) <10 || (mapView.region.center.longitude != locManager.lastLocation?.coordinate.longitude ?? 0.0)){
+//                
+//                Text("recenter")
+//            }
+            
         }
-
-       
     }
-    
 }
 
-
-
 extension ContentView { //if loc isn't enable redirect user to go to settings
-    func printTest(){
-        
-        print("test")
-    }
-
-    
-    
     func goToDeviceSettings() {
         guard let url = URL.init(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
         
     }
 }
+
 
