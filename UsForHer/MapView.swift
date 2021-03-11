@@ -4,39 +4,39 @@ import MapKit
 
 struct MapView: View {
     @State var userTrackingMode: MapUserTrackingMode = .none
-        
-/*
+    
+    /*
      map view delegete important
      */
     @State var region = MKCoordinateRegion()
-        
+    
     @ObservedObject var locManager = LocationManager()
-
+    
     public var incidents = [IncidentPin]()
-
     
-     @State  public var buttonDisplayedState: Bool = false
-     @State public var displayedInfo: IncidentPin =  IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "")
+    
+    @State  public var buttonDisplayedState: Bool = false
+    @State public var displayedInfo: IncidentPin =  IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "")
     private var zeroIncident = IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "") //cleared var
-
-    
     private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+    
+    private var displayUserSelectionAnnatation : Bool = false
+   // @Binding var centerCoordinate: CLLocationCoordinate2D
 
     
-
     public mutating func addIncident(_ input: IncidentPin){
-       // print(input)
+        // print(input)
         incidents.append(input)
     }
     
-     func setRegion(_ coordinate: CLLocationCoordinate2D) {
+    func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
             center: locManager.lastLocation?.coordinate ?? zero,
             span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
         )
     }
     
-
+    
     
     func getExtraInfoState()-> Bool{
         return buttonDisplayedState
@@ -49,16 +49,16 @@ struct MapView: View {
         print("info saved")
         print("button display state: ")
         print(buttonDisplayedState)
-      
-
+        
+        
     }
-
-
+    
+    
     func centerMapOnLocation(location:CLLocationCoordinate2D) {
-       DispatchQueue.main.async {
-           self.setRegion(location)
-       }
-   }
+        DispatchQueue.main.async {
+            self.setRegion(location)
+        }
+    }
     
     
     
@@ -68,7 +68,7 @@ struct MapView: View {
     }
     
     public func getColor(_ input: IncidentPin)-> Color{
-         let incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
+        let incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
         
         if(input.type.elementsEqual( incidentOptions[0])){
             return Color.red
@@ -79,11 +79,11 @@ struct MapView: View {
         if(input.type.elementsEqual( incidentOptions[2])){
             return Color.orange
         }
-
+        
         
         return Color.gray
     }
-
+    
     var body: some View {
         Map(
             coordinateRegion: $region,
@@ -97,10 +97,10 @@ struct MapView: View {
                     buttonDisplayedState = true
                     saveInfo(incident)
                 } label: {
-                Circle()
-                    .fill(getColor(incident))
-                    .opacity(0.2)
-                    .frame(width: 100, height: 100)
+                    Circle()
+                        .fill(getColor(incident))
+                        .opacity(0.2)
+                        .frame(width: 100, height: 100)
                 }
             }
             
@@ -109,63 +109,87 @@ struct MapView: View {
             setRegion(locManager.lastLocation?.coordinate ?? zero )
         }
         if(buttonDisplayedState){
-
-                ZStack{
-                    Rectangle() //creating rectangle for incident report
-                        .fill(Color.black)
-                        .frame(width: 352, height: 252)
-                        .cornerRadius(20.0)
-                    
-                    Rectangle() //creating rectangle for incident report
-                        .fill(getColor(displayedInfo))
-                        .frame(width: 350, height: 250)
-                        .cornerRadius(20.0)
-                    
-                    HStack{
-                        Spacer()
-                        Text(displayedInfo.type)
-                        Spacer()
-                    }
-                    //title
-                    .font(.title)
-                    .foregroundColor(Color.black)
-                    .position(x: 185, y: 330)
-                    
-                    HStack{
-                        Text(displayedInfo.ExtraInfo)
-                            .frame(width: 340, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    }
-        
-
-                    Button() { //close button
-                       buttonDisplayedState  = false
-                        clearVars()
-                    } label: {
-                        ZStack{
-                            Circle()
-                                .fill(Color.black)
-                                .frame(width: 40, height: 60)
-                            Circle()
-                                .fill(Color.white)
-                                .frame(width: 37, height: 38)
-                            
-                            
-                            Image("exit")
-                        }
-                    }
-                    .frame(width: 30, height: 30)
-                    .position(x: 340, y:335)
-                    
+            
+            ZStack{
+                Rectangle() //creating rectangle for incident report
+                    .fill(Color.black)
+                    .frame(width: 352, height: 252)
+                    .cornerRadius(20.0)
+                
+                Rectangle() //creating rectangle for incident report
+                    .fill(getColor(displayedInfo))
+                    .frame(width: 350, height: 250)
+                    .cornerRadius(20.0)
+                
+                HStack{
+                    Spacer()
+                    Text(displayedInfo.type)
+                    Spacer()
                 }
+                //title
+                .font(.title)
+                .foregroundColor(Color.black)
+                .position(x: 185, y: 330)
+                
+                HStack{
+                    Text(displayedInfo.ExtraInfo)
+                        .frame(width: 340, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                }
+                
+                
+                Button() { //close button
+                    buttonDisplayedState  = false
+                    clearVars()
+                } label: {
+                    ZStack{
+                        Circle()
+                            .fill(Color.black)
+                            .frame(width: 40, height: 60)
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 37, height: 38)
+                        
+                        
+                        Image("exit")
+                    }
+                }
+                .frame(width: 30, height: 30)
+                .position(x: 340, y:335)
+                
+            }
             
-             
-               }
             
-
+        }
+        if(displayUserSelectionAnnatation){
+            
+        }
+        
+        
     }
     
     //getting user tap
+    
+    
+//    class Coordinator: NSObject, MKMapViewDelegate, UIGestureRecognizerDelegate {
+//        var parent: MapView
+//
+//        var gRecognizer = UITapGestureRecognizer()
+//
+//        init(_ parent: MapView) {
+//            self.parent = parent
+//            super.init()
+//            self.gRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
+//            self.gRecognizer.delegate = self
+//            self.addGestureRecognizer(gRecognizer)
+//        }
+//
+//        @objc func tapHandler(_ gesture: UITapGestureRecognizer) {
+//            // position on the screen, CGPoint
+//            let location = gRecognizer.location(in: mapView)
+//            // position on the map, CLLocationCoordinate2D
+//            let coordinate = self.parent.mapView.convert(location, toCoordinateFrom: self.parent.mapView)
+//            
+//        }
+//    }
+}
 
-    
-    
-    }

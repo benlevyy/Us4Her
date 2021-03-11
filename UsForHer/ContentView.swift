@@ -36,16 +36,21 @@ struct ContentView: View {
     @State var userDescriptionInput: String = "Description"
     @State var submitState: Bool = false
     
+    @State var mapSelector: Bool = false
+    @State private var locSelection = 0
+    private var locOptions = ["pick", "test"]
+    
+    
     @State var mapView : MapView =  MapView()
-
-
+    
+    
     
     
     var body: some View {
         
         ZStack{
- 
-                
+            
+            
             mapView
                 .frame(height: 860) //change size
             
@@ -57,7 +62,7 @@ struct ContentView: View {
                         .resizable()
                         .padding(.top, 20.0)
                         .frame(width:158, height:106)
-                        
+                    
                     
                     Spacer()
                 }
@@ -74,7 +79,7 @@ struct ContentView: View {
                         Image("add")
                             .resizable()
                             .frame(width: 100, height: 100)
-
+                        
                     }
                     .position(x:325,y:350)
                     
@@ -134,8 +139,9 @@ struct ContentView: View {
                     Button(){
                         //close the view
                         addButtonState = false
+                        mapSelector = true
                         //append data to array
-                        mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
+                        //                        mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
                         
                         print("|||||")
                         for element in mapView.incidents {
@@ -151,24 +157,24 @@ struct ContentView: View {
                                 .fill(Color.black)
                                 .frame(width: 102.0, height: 52.0)
                                 .cornerRadius(12)
-                                //.position(x:195,y:470)
+                            //.position(x:195,y:470)
                             Rectangle()
                                 .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
                                 .frame(width: 100.0, height: 50.0)
                                 .cornerRadius(11)
-                                //.position(x:195,y:470)
+                            //.position(x:195,y:470)
                             
                             
                             
                             Text("Next")
                                 .font(.title)
                                 .foregroundColor(Color.white)
-                               // .position(x:195,y:470)
+                                // .position(x:195,y:470)
                                 .background(Color.blue)
                             
                         }
                         //.position(x:195,y:470)
-                       
+                        
                     }
                     
                     .position(x: 305, y: 610)
@@ -189,11 +195,52 @@ struct ContentView: View {
                 }
                 
             }
-//            Button(){
-//                mapView.centerMapOnLocation(location: locManager.lastLocation!.coordinate)
-//            } label: {
-//                Text("recenter")
-//            }
+            if(mapSelector){
+                ZStack{
+                    Rectangle() //creating rectangle for incident report
+                        .fill(Color.black)
+                        .frame(width: 352, height: 142)
+                        .cornerRadius(20.0)
+                        .position(x: 195, y: 200)
+                    
+                    Rectangle() //creating rectangle for incident report
+                        .fill(Color.white)
+                        .frame(width: 350, height: 140)
+                        .cornerRadius(20.0)
+                        .position(x: 195, y: 200)
+                    
+                    HStack{
+                        Picker("loc", selection: $locSelection) {
+                            ForEach(0..<locOptions.count) {
+                                Text(self.locOptions[$0])
+                                    .foregroundColor(Color.black)
+                                
+                            }
+                            
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .position(x: 150, y: 240 )
+                        .frame(width: 300)
+                    }
+                    
+                    Button(){
+                        mapSelector = false
+                        addButtonState = true
+                    }label: {
+                        Text("Back")
+                        
+                        
+                    }
+                    .position(x: 50, y: 150)
+                    
+                }
+                
+            }
+            //            Button(){
+            //                mapView.centerMapOnLocation(location: locManager.lastLocation!.coordinate)
+            //            } label: {
+            //                Text("recenter")
+            //            }
             
         }
     }
