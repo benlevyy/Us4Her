@@ -37,15 +37,15 @@ struct ContentView: View {
     @State var submitState: Bool = false
     
     @State var mapView : MapView =  MapView()
-    
-    
+
+
     
     
     var body: some View {
         
-        
-        
         ZStack{
+ 
+                
             mapView
                 .frame(height: 860) //change size
             
@@ -139,7 +139,6 @@ struct ContentView: View {
                         
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
                         
-                        
                     } label:{
                         Spacer()
                         ZStack{
@@ -179,8 +178,9 @@ struct ContentView: View {
                 }
                 
             }
-//            if((mapView.region.center.latitude - locManager.lastLocation?.coordinate.latitude ?? 0.0) <10 || (mapView.region.center.longitude != locManager.lastLocation?.coordinate.longitude ?? 0.0)){
-//                
+//            Button(){
+//                mapView.centerMapOnLocation(location: locManager.lastLocation!.coordinate)
+//            } label: {
 //                Text("recenter")
 //            }
             
@@ -205,6 +205,8 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
         
     }
+    
+    
 }
 
 

@@ -3,7 +3,7 @@ import MapKit
 
 
 struct MapView: View {
-    @State private var userTrackingMode: MapUserTrackingMode = .follow
+    @State var userTrackingMode: MapUserTrackingMode = .none
         
 /*
      map view delegete important
@@ -21,8 +21,9 @@ struct MapView: View {
 
     
     private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+
     
-    
+
     public mutating func addIncident(_ input: IncidentPin){
        // print(input)
         incidents.append(input)
@@ -34,6 +35,8 @@ struct MapView: View {
             span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
         )
     }
+    
+
     
     func getExtraInfoState()-> Bool{
         return buttonDisplayedState
@@ -50,11 +53,35 @@ struct MapView: View {
 
     }
 
+
+    func centerMapOnLocation(location:CLLocationCoordinate2D) {
+       DispatchQueue.main.async {
+           self.setRegion(location)
+       }
+   }
+    
     
     
     public func clearVars(){
         displayedInfo = zeroIncident
         buttonDisplayedState = false
+    }
+    
+    public func getColor(_ input: IncidentPin)-> Color{
+         let incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
+        
+        if(input.type.elementsEqual( incidentOptions[0])){
+            return Color.red
+        }
+        if(input.type.elementsEqual( incidentOptions[1])){
+            return Color.yellow
+        }
+        if(input.type.elementsEqual( incidentOptions[2])){
+            return Color.blue
+        }
+
+        
+        return Color.gray
     }
 
     var body: some View {
@@ -71,7 +98,7 @@ struct MapView: View {
                     saveInfo(incident)
                 } label: {
                 Circle()
-                    .fill(Color.red)
+                    .fill(getColor(incident))
                     .opacity(0.2)
                     .frame(width: 100, height: 100)
                 }
@@ -90,7 +117,7 @@ struct MapView: View {
                         .cornerRadius(20.0)
                     
                     Rectangle() //creating rectangle for incident report
-                        .fill(Color.white)
+                        .fill(getColor(displayedInfo))
                         .frame(width: 350, height: 250)
                         .cornerRadius(20.0)
                     
@@ -112,6 +139,7 @@ struct MapView: View {
 
                     Button() { //close button
                        buttonDisplayedState  = false
+                        clearVars()
                     } label: {
                         ZStack{
                             Circle()
@@ -135,4 +163,9 @@ struct MapView: View {
             
 
     }
+    
+    //getting user tap
+
+    
+    
     }
