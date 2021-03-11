@@ -51,16 +51,19 @@ struct ContentView: View {
             
             VStack{
                 Spacer()
-                    .frame(height: 35)
                 HStack{
+                    Spacer()
+                    Image("tlogo")
+                        .resizable()
+                        .padding(.top, 20.0)
+                        .frame(width:158, height:106)
+                        
                     
-                    //  Image("tlogo")
-                    //                        .padding(.top, 20.0)
-                    //  .frame(width:158, height:86)
-                    //
-                    //  Spacer()
+                    Spacer()
                 }
-                .padding(.leading, 30.0)
+                .position(x:100, y:70)
+                
+                
                 Spacer()
                 HStack{
                     Spacer()
@@ -72,8 +75,6 @@ struct ContentView: View {
                     }
                     .padding(.bottom, 50.0)
                     .padding(.trailing, 25.0)
-                    .shadow(radius: 10)
-                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 }
             }
             

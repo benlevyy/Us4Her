@@ -77,7 +77,7 @@ struct MapView: View {
             return Color.yellow
         }
         if(input.type.elementsEqual( incidentOptions[2])){
-            return Color.blue
+            return Color.orange
         }
 
         
