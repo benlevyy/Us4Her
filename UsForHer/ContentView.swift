@@ -72,24 +72,27 @@ struct ContentView: View {
                         
                     } label: {
                         Image("add")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+
                     }
-                    .padding(.bottom, 50.0)
-                    .padding(.trailing, 25.0)
+                    .position(x:325,y:350)
+                    
                 }
             }
             
             //add Menu
             //!
-            if(addButtonState){
+            if(!addButtonState){
                 ZStack{
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
-                        .frame(width: 352, height: 502)
+                        .frame(width: 352, height: 602)
                         .cornerRadius(20.0)
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
-                        .frame(width: 350, height: 500)
+                        .frame(width: 350, height: 600)
                         .cornerRadius(20.0)
                     
                     HStack{
@@ -100,7 +103,7 @@ struct ContentView: View {
                     //title
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: 185, y: 220)
+                    .position(x: 195, y: 180)
                     
                     HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
@@ -111,21 +114,22 @@ struct ContentView: View {
                             }
                             
                         }
-                        .position(x: 150, y: 320)
+                        .position(x: 150, y: 270)
                         .frame(width: 300)
-                        
                     }
-                    .padding(.trailing, 0.0)
                     
                     RoundedRectangle(cornerRadius: 16)
                         .frame(width: 325, height: 115, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .position(x:195,y:400)
                     
                     RoundedRectangle(cornerRadius: 15)
                         .fill(Color.white)
                         .frame(width: 323, height: 113, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .position(x:195,y:400)
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .position(x:195,y:400)
                     //submit button
                     Button(){
                         //close the view
@@ -144,13 +148,22 @@ struct ContentView: View {
                         Spacer()
                         ZStack{
                             Rectangle()
+                                .fill(Color.black)
+                                .frame(width: 102.0, height: 52.0)
+                                .cornerRadius(12)
+                                .position(x:195,y:470)
+                            Rectangle()
                                 .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
                                 .frame(width: 100.0, height: 50.0)
-                                .cornerRadius(12)
+                                .cornerRadius(11)
+                                .position(x:195,y:470)
+                            
+                            
                             
                             Text("Submit")
                                 .font(.title)
                                 .foregroundColor(Color.white)
+                                .position(x:195,y:470)
                             
                         }
                         Spacer()
@@ -162,19 +175,15 @@ struct ContentView: View {
                         addButtonState = false
                     } label: {
                         ZStack{
-                            Circle()
-                                .fill(Color.black)
-                                .frame(width: 40, height: 60)
-                            Circle()
-                                .fill(Color.white)
-                                .frame(width: 37, height: 38)
                             
                             
                             Image("exit")
+                                .resizable()
+                                .frame(width:60, height:65)
                         }
                     }
                     .frame(width: 30, height: 30)
-                    .position(x: 340, y:210)
+                    .position(x: 345, y:160)
                     
                 }
                 
