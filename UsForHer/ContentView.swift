@@ -83,16 +83,16 @@ struct ContentView: View {
             
             //add Menu
             //!
-            if(!addButtonState){
+            if(addButtonState){
                 ZStack{
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
-                        .frame(width: 352, height: 602)
+                        .frame(width: 352, height: 432)
                         .cornerRadius(20.0)
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
-                        .frame(width: 350, height: 600)
+                        .frame(width: 350, height: 430)
                         .cornerRadius(20.0)
                     
                     HStack{
@@ -103,7 +103,7 @@ struct ContentView: View {
                     //title
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: 195, y: 180)
+                    .position(x: 195, y: 240)
                     
                     HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
@@ -114,22 +114,22 @@ struct ContentView: View {
                             }
                             
                         }
-                        .position(x: 150, y: 270)
+                        .position(x: 150, y: 340)
                         .frame(width: 300)
                     }
                     
                     RoundedRectangle(cornerRadius: 16)
                         .frame(width: 325, height: 115, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:400)
+                        .position(x:195,y:490)
                     
                     RoundedRectangle(cornerRadius: 15)
                         .fill(Color.white)
                         .frame(width: 323, height: 113, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:400)
+                        .position(x:195,y:490)
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:400)
+                        .position(x:195,y:490)
                     //submit button
                     Button(){
                         //close the view
@@ -145,31 +145,33 @@ struct ContentView: View {
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
                         
                     } label:{
-                        Spacer()
+                        
                         ZStack{
                             Rectangle()
                                 .fill(Color.black)
                                 .frame(width: 102.0, height: 52.0)
                                 .cornerRadius(12)
-                                .position(x:195,y:470)
+                                //.position(x:195,y:470)
                             Rectangle()
                                 .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
                                 .frame(width: 100.0, height: 50.0)
                                 .cornerRadius(11)
-                                .position(x:195,y:470)
+                                //.position(x:195,y:470)
                             
                             
                             
-                            Text("Submit")
+                            Text("Next")
                                 .font(.title)
                                 .foregroundColor(Color.white)
-                                .position(x:195,y:470)
+                               // .position(x:195,y:470)
+                                .background(Color.blue)
                             
                         }
-                        Spacer()
+                        //.position(x:195,y:470)
+                       
                     }
                     
-                    .position(x: 185, y: 640)
+                    .position(x: 305, y: 610)
                     
                     Button() { //close button
                         addButtonState = false
@@ -179,11 +181,10 @@ struct ContentView: View {
                             
                             Image("exit")
                                 .resizable()
-                                .frame(width:60, height:65)
+                                .frame(width:50, height:55)
                         }
                     }
-                    .frame(width: 30, height: 30)
-                    .position(x: 345, y:160)
+                    .position(x: 345, y:240)
                     
                 }
                 
