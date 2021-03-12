@@ -37,11 +37,11 @@ struct ContentView: View {
     @State var submitState: Bool = false
     
     @State var mapSelector: Bool = false
-    @State private var locSelection = 0
-    private var locOptions = ["pick", "test"]
-    
-    
-    @State var mapView : MapView =  MapView()
+    @State private var locSelection = 1
+    private var locOptions = ["Use my Location", "Use other Location"]
+    @State private var displayCircle: Bool = false
+
+    @State var mapView : MapView = MapView()
     
     
     
@@ -49,7 +49,7 @@ struct ContentView: View {
     var body: some View {
         
         ZStack{
-            
+
             
             mapView
                 .frame(height: 860) //change size
@@ -135,18 +135,11 @@ struct ContentView: View {
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .position(x:195,y:490)
-                    //submit button
+                    //next button
                     Button(){
                         //close the view
                         addButtonState = false
                         mapSelector = true
-                        //append data to array
-                        //                        mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
-                        
-                        print("|||||")
-                        for element in mapView.incidents {
-                            print(element)
-                        }
                         
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
                         
@@ -219,10 +212,9 @@ struct ContentView: View {
                             
                         }
                         .pickerStyle(SegmentedPickerStyle())
-                        .position(x: 150, y: 240 )
+                        .position(x: 150, y: 180 )
                         .frame(width: 300)
                     }
-                    
                     Button(){
                         mapSelector = false
                         addButtonState = true
@@ -232,6 +224,59 @@ struct ContentView: View {
                         
                     }
                     .position(x: 50, y: 150)
+                    
+                    if(locSelection == 1){
+                        HStack{
+                            Spacer()
+                            VStack{
+                                Spacer()
+                                Circle()
+                                    .fill(Color.black)
+                                    .opacity(0.8)
+                                    .frame(width: 20, height: 20)
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                  }
+                    
+                    Button(){
+                    if(locSelection == 0){
+                            //append data to array
+                            mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
+                            
+                        }
+                         if(locSelection == 1){
+//                            mapView.addIncident(IncidentPin(latitude: mapView.region.center.latitude, longitude: mapView.region.center.longitude, type: "", ExtraInfo: ""))
+
+                        }
+                        
+                        mapSelector = false
+                    } label:{
+                        ZStack{
+                            Rectangle()
+                                .fill(Color.black)
+                                .frame(width: 102.0, height: 52.0)
+                                .cornerRadius(12)
+                            //.position(x:195,y:470)
+                            Rectangle()
+                                .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
+                                .frame(width: 100.0, height: 50.0)
+                                .cornerRadius(11)
+                            //.position(x:195,y:470)
+                            
+                            
+                            
+                            Text("Submit")
+                                .font(.title)
+                                .foregroundColor(Color.white)
+                                // .position(x:195,y:470)
+                                .background(Color.blue)
+                            
+                        }
+                    }
+                    .position(x: 185, y: 235)
+                    
                     
                 }
                 

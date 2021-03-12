@@ -17,16 +17,25 @@ struct MapView: View {
     
     @State  public var buttonDisplayedState: Bool = false
     @State public var displayedInfo: IncidentPin =  IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "")
-    private var zeroIncident = IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "") //cleared var
-    private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+    @State private var zeroIncident = IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "") //cleared var
+    @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
     private var displayUserSelectionAnnatation : Bool = false
-   // @Binding var centerCoordinate: CLLocationCoordinate2D
+   @State var center: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    
+    @State var centerOK: Bool = false
+    
+//    public var centerCoordinate: CLLocationCoordinate2D    
 
     
     public mutating func addIncident(_ input: IncidentPin){
         // print(input)
         incidents.append(input)
+        
+        print("||||||")
+        for element in incidents {
+             print(element)
+         }
     }
     
     func setRegion(_ coordinate: CLLocationCoordinate2D) {
@@ -59,8 +68,10 @@ struct MapView: View {
             self.setRegion(location)
         }
     }
-    
-    
+//
+//    func region()-> CLLocationCoordinate2D{
+//        return CLLocatinCoordinate2d(region.center.latitude
+//    }
     
     public func clearVars(){
         displayedInfo = zeroIncident
@@ -83,6 +94,7 @@ struct MapView: View {
         
         return Color.gray
     }
+
     
     var body: some View {
         Map(
@@ -102,12 +114,16 @@ struct MapView: View {
                         .opacity(0.2)
                         .frame(width: 100, height: 100)
                 }
-            }
             
+            
+            }
         }
+        
+        
         .onAppear{
             setRegion(locManager.lastLocation?.coordinate ?? zero )
         }
+     
         if(buttonDisplayedState){
             
             ZStack{
@@ -160,13 +176,9 @@ struct MapView: View {
             
             
         }
-        if(displayUserSelectionAnnatation){
-            
-        }
-        
+   
         
     }
-    
     //getting user tap
     
     
