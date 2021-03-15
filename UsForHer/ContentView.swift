@@ -43,16 +43,24 @@ struct ContentView: View {
 
     @State var mapView : MapView = MapView()
     
-    
+    @State private var centerCoordinate = CLLocationCoordinate2D()
+    @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+
+
+
+   // @State var mls: MapLocationSelect = MapLocationSelect()
     
     
     var body: some View {
-        
+        let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
+            
+
         ZStack{
 
             
             mapView
                 .frame(height: 860) //change size
+            
             
             VStack{
                 Spacer()
@@ -135,6 +143,9 @@ struct ContentView: View {
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .position(x:195,y:490)
+                    
+              
+                    
                     //next button
                     Button(){
                         //close the view
@@ -190,6 +201,16 @@ struct ContentView: View {
             }
             if(mapSelector){
                 ZStack{
+                    
+                    if(locSelection == 1){
+                        mls //map location select
+                            
+                         Circle()
+                             .fill(Color.blue)
+                             .opacity(0.3)
+                             .frame(width: 32, height: 32)
+                    
+                  }
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
                         .frame(width: 352, height: 142)
@@ -225,20 +246,7 @@ struct ContentView: View {
                     }
                     .position(x: 50, y: 150)
                     
-                    if(locSelection == 1){
-                        HStack{
-                            Spacer()
-                            VStack{
-                                Spacer()
-                                Circle()
-                                    .fill(Color.black)
-                                    .opacity(0.8)
-                                    .frame(width: 20, height: 20)
-                                Spacer()
-                            }
-                            Spacer()
-                        }
-                  }
+        
                     
                     Button(){
                     if(locSelection == 0){
@@ -247,8 +255,7 @@ struct ContentView: View {
                             
                         }
                          if(locSelection == 1){
-//                            mapView.addIncident(IncidentPin(latitude: mapView.region.center.latitude, longitude: mapView.region.center.longitude, type: "", ExtraInfo: ""))
-
+                            mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput))
                         }
                         
                         mapSelector = false

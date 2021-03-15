@@ -21,12 +21,13 @@ struct MapView: View {
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
     private var displayUserSelectionAnnatation : Bool = false
-   @State var center: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    @State var center: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    
     
     @State var centerOK: Bool = false
     
-//    public var centerCoordinate: CLLocationCoordinate2D    
-
+    @State var centerCoordinate = CLLocationCoordinate2D  ()
+    
     
     public mutating func addIncident(_ input: IncidentPin){
         // print(input)
@@ -34,8 +35,8 @@ struct MapView: View {
         
         print("||||||")
         for element in incidents {
-             print(element)
-         }
+            print(element)
+        }
     }
     
     func setRegion(_ coordinate: CLLocationCoordinate2D) {
@@ -68,10 +69,7 @@ struct MapView: View {
             self.setRegion(location)
         }
     }
-//
-//    func region()-> CLLocationCoordinate2D{
-//        return CLLocatinCoordinate2d(region.center.latitude
-//    }
+    
     
     public func clearVars(){
         displayedInfo = zeroIncident
@@ -94,7 +92,6 @@ struct MapView: View {
         
         return Color.gray
     }
-
     
     var body: some View {
         Map(
@@ -114,16 +111,17 @@ struct MapView: View {
                         .opacity(0.2)
                         .frame(width: 100, height: 100)
                 }
-            
-            
+                
+                
             }
         }
         
         
         .onAppear{
-            setRegion(locManager.lastLocation?.coordinate ?? zero )
+            setRegion(locManager.lastLocation?.coordinate ?? zero)
         }
-     
+        
+        
         if(buttonDisplayedState){
             
             ZStack{
@@ -158,50 +156,45 @@ struct MapView: View {
                     clearVars()
                 } label: {
                     ZStack{
-                        Circle()
-                            .fill(Color.black)
-                            .frame(width: 40, height: 60)
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 37, height: 38)
-                        
-                        
                         Image("exit")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+
                     }
                 }
-                .frame(width: 30, height: 30)
                 .position(x: 340, y:335)
                 
             }
             
             
         }
-   
+        
         
     }
     //getting user tap
     
     
-//    class Coordinator: NSObject, MKMapViewDelegate, UIGestureRecognizerDelegate {
-//        var parent: MapView
-//
-//        var gRecognizer = UITapGestureRecognizer()
-//
-//        init(_ parent: MapView) {
-//            self.parent = parent
-//            super.init()
-//            self.gRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
-//            self.gRecognizer.delegate = self
-//            self.addGestureRecognizer(gRecognizer)
-//        }
-//
-//        @objc func tapHandler(_ gesture: UITapGestureRecognizer) {
-//            // position on the screen, CGPoint
-//            let location = gRecognizer.location(in: mapView)
-//            // position on the map, CLLocationCoordinate2D
-//            let coordinate = self.parent.mapView.convert(location, toCoordinateFrom: self.parent.mapView)
-//            
-//        }
-//    }
+    
 }
+//class Coordinator: NSObject, MKMapViewDelegate, UIGestureRecognizerDelegate {
+//    var parent: MapView
+//
+//    var gRecognizer = UITapGestureRecognizer()
+//
+//    init(_ parent: MapView) {
+//        self.parent = parent
+//        super.init()
+//        self.gRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
+//        self.gRecognizer.delegate = self
+//        self.addGestureRecognizer(gRecognizer)
+//    }
+//
+//    @objc func tapHandler(_ gesture: UITapGestureRecognizer) {
+//        // position on the screen, CGPoint
+//        let location = gRecognizer.location(in: mapView)
+//        // position on the map, CLLocationCoordinate2D
+//        let coordinate = self.parent.mapView.convert(location, toCoordinateFrom: self.parent.mapView)
+//
+//    }
+//}
 
