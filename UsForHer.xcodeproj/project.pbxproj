@@ -87,7 +87,6 @@
 		5CF2631525F1D5CB0083B493 = {
 			isa = PBXGroup;
 			children = (
-				5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */,
 				5CF2632025F1D5CB0083B493 /* UsForHer */,
 				5CF2633225F1D5CC0083B493 /* UsForHerTests */,
 				5CF2633D25F1D5CC0083B493 /* UsForHerUITests */,
@@ -108,6 +107,7 @@
 		5CF2632025F1D5CB0083B493 /* UsForHer */ = {
 			isa = PBXGroup;
 			children = (
+				5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */,
 				5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */,
 				5CF2632325F1D5CB0083B493 /* ContentView.swift */,
 				5CF2632525F1D5CC0083B493 /* Assets.xcassets */,
