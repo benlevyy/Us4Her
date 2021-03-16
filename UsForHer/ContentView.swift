@@ -8,7 +8,6 @@
 import SwiftUI
 import MapKit
 
-
 struct ContentView: View {
     
     
@@ -296,6 +295,8 @@ struct ContentView: View {
             
         }
     }
+    
+    
 }
 
 extension ContentView { //if loc isn't enable redirect user to go to settings
