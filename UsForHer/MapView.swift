@@ -1,5 +1,6 @@
 import SwiftUI
 import MapKit
+import FirebaseDatabase
 
 
 struct MapView: View {
@@ -47,10 +48,7 @@ struct MapView: View {
     }
     
     
-    
-    func getExtraInfoState()-> Bool{
-        return buttonDisplayedState
-    }
+
     
     public func saveInfo(_ input: IncidentPin){
         displayedInfo = input
@@ -88,8 +86,6 @@ struct MapView: View {
         if(input.type.elementsEqual( incidentOptions[2])){
             return Color.orange
         }
-        
-        
         return Color.gray
     }
     

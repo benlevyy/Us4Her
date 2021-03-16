@@ -7,7 +7,7 @@
 
 import SwiftUI
 import MapKit
-
+import Firebase
 struct ContentView: View {
     
     
@@ -248,13 +248,34 @@ struct ContentView: View {
         
                     
                     Button(){
+                        var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        
                     if(locSelection == 0){
-                            //append data to array
                             mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
-                            
+                        pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
+                        
                         }
                          if(locSelection == 1){
                             mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput))
+                            pos = CLLocationCoordinate2D(latitude: mls.getCenterLat(), longitude: mls.getCenterLong())
+                        }
+                        
+                        let incidentDictionary: [String: Any] = [
+                            "type" : incidentOptions[selection],
+                            "extra info":userDescriptionInput,
+                            "lat": pos.latitude,
+                            "long": pos.longitude
+                        ]
+                        
+                        let docRef = Firestore.firestore().document("incidentDB/\(UUID().uuidString)")
+                        print("setting data")
+                    
+                        docRef.setData(incidentDictionary){ (error) in
+                            if let error = error{
+                                print("error = \(error)")
+                            }else{
+                                print("data uploaded successfully")
+                            }
                         }
                         
                         mapSelector = false
