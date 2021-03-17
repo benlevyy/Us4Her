@@ -122,14 +122,14 @@ struct ContentView: View {
             Button(){
                update()
             } label:{
-//                ZStack{
-//                Rectangle()
-//                    .fill(Color.white)
-//                    .cornerRadius(6.0)
-//                    .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-//                Text("Update Incidents")
-//                    .accentColor(.black)
-//                }
+                ZStack{
+                Rectangle()
+                    .fill(Color.white)
+                    .cornerRadius(6.0)
+                    .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                Text("Update Incidents")
+                    .accentColor(.black)
+                }
             }
             .position(x: 185, y: 780)
             

@@ -87,7 +87,7 @@ struct MapView: View {
         return Color.gray
     }
     func getZoom(_ regionDelta: Double) -> CGFloat{
-        return 5 / CGFloat(regionDelta)
+        return 20 / sqrt( CGFloat(regionDelta))
     }
  
     var body: some View {
