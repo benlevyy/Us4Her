@@ -14,6 +14,7 @@
 		5C0A6B1926013B7F00FD2C29 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1826013B7F00FD2C29 /* FirebaseAuth */; };
 		5C0A6B1B26013B7F00FD2C29 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1A26013B7F00FD2C29 /* FirebaseFirestore */; };
 		5C0A6B1D26013B7F00FD2C29 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1C26013B7F00FD2C29 /* FirebaseDatabase */; };
+		5C0A6B2E2601B40B00FD2C29 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0A6B2D2601B40B00FD2C29 /* TimeManager.swift */; };
 		5C0C2D2125FF297300E8B88B /* MapLocationSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */; };
 		5C44A42B25F20445006D6C4C /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C44A42A25F20445006D6C4C /* MapView.swift */; };
 		5C44A44925F2D25D006D6C4C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C44A44825F2D25D006D6C4C /* LocationManager.swift */; };
@@ -52,6 +53,7 @@
 		15C0EC34CC7B2327E1F18539 /* Pods-UsForHer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsForHer.debug.xcconfig"; path = "Target Support Files/Pods-UsForHer/Pods-UsForHer.debug.xcconfig"; sourceTree = "<group>"; };
 		537604CB0219E11ABCAA7C57 /* Pods_UsForHer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UsForHer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0A6AEE26010EFB00FD2C29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5C0A6B2D2601B40B00FD2C29 /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSelect.swift; sourceTree = "<group>"; };
 		5C44A42A25F20445006D6C4C /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5C44A44825F2D25D006D6C4C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				5C44A44825F2D25D006D6C4C /* LocationManager.swift */,
 				5CB7827525F89CFE00B31FDC /* LocationService.swift */,
 				5CB7828225F89E9C00B31FDC /* LocSearch.swift */,
+				5C0A6B2D2601B40B00FD2C29 /* TimeManager.swift */,
 			);
 			path = UsForHer;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				5C44A42B25F20445006D6C4C /* MapView.swift in Sources */,
 				5C44A44925F2D25D006D6C4C /* LocationManager.swift in Sources */,
 				5CF2635525F1E1D50083B493 /* IncidentPin.swift in Sources */,
+				5C0A6B2E2601B40B00FD2C29 /* TimeManager.swift in Sources */,
 				5CB7827625F89CFE00B31FDC /* LocationService.swift in Sources */,
 				5CB7828325F89E9C00B31FDC /* LocSearch.swift in Sources */,
 				5CF2632225F1D5CB0083B493 /* UsForHerApp.swift in Sources */,

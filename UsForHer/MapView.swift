@@ -86,6 +86,9 @@ struct MapView: View {
         }
         return Color.gray
     }
+    func getZoom(_ regionDelta: Double) -> CGFloat{
+        return 5 / CGFloat(regionDelta)
+    }
  
     var body: some View {
         Map(
@@ -95,6 +98,7 @@ struct MapView: View {
             userTrackingMode: $userTrackingMode,
             annotationItems: incidents
         ){ incident in
+  //          MapMarker(coordinate: incident.coordinate , tint: getColor(incident)){
             MapAnnotation(coordinate: incident.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
                 Button(){
                     buttonDisplayedState = true
@@ -102,37 +106,37 @@ struct MapView: View {
                 } label: {
                     Circle()
                         .fill(getColor(incident))
-                        .opacity(0.2)
-                        .frame(width: 100, height: 100)
+                        .opacity(0.4)
+                        .frame(width: getZoom(region.span.latitudeDelta) , height: getZoom(region.span.longitudeDelta))  //ADD MULTIPLIER TO SCALE SIZE --- FIGURE OUT PROBLEM WITH ENUM
+                    }
                 }
-                
-                
+
             }
-        }
+        
         
         .onAppear{
             setCenter()
-            
         }
+        
         
         Button(){
             setCenter()
         } label:{
-            Text("Center")
+            Text("Center Map")
         }
-        .position(x: 350, y: 700)
+        .position(x: 320, y: 70)
         
         
         if(buttonDisplayedState){
             
             ZStack{
                 Rectangle() //creating rectangle for incident report
-                    .fill(Color.black)
+                    .fill(getColor(displayedInfo))
                     .frame(width: 352, height: 252)
                     .cornerRadius(20.0)
                 
                 Rectangle() //creating rectangle for incident report
-                    .fill(getColor(displayedInfo))
+                    .fill(Color.white)
                     .frame(width: 350, height: 250)
                     .cornerRadius(20.0)
                 
@@ -172,30 +176,5 @@ struct MapView: View {
         
         
     }
-    //getting user tap
-    
-    
-    
 }
-//class Coordinator: NSObject, MKMapViewDelegate, UIGestureRecognizerDelegate {
-//    var parent: MapView
-//
-//    var gRecognizer = UITapGestureRecognizer()
-//
-//    init(_ parent: MapView) {
-//        self.parent = parent
-//        super.init()
-//        self.gRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
-//        self.gRecognizer.delegate = self
-//        self.addGestureRecognizer(gRecognizer)
-//    }
-//
-//    @objc func tapHandler(_ gesture: UITapGestureRecognizer) {
-//        // position on the screen, CGPoint
-//        let location = gRecognizer.location(in: mapView)
-//        // position on the map, CLLocationCoordinate2D
-//        let coordinate = self.parent.mapView.convert(location, toCoordinateFrom: self.parent.mapView)
-//
-//    }
-//}
 
