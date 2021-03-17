@@ -131,7 +131,7 @@ struct ContentView: View {
                     .accentColor(.black)
                 }
             }
-            .position(x: 185, y: 780)
+            .position(x: 195, y: 780)
             
             //add Menu
             //!
@@ -145,7 +145,7 @@ struct ContentView: View {
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 430)
-                        .cornerRadius(20.0)
+                        .cornerRadius(19.0)
                     
                     HStack{
                         Spacer()
@@ -230,6 +230,9 @@ struct ContentView: View {
                             .frame(width: 32, height: 32)
                         
                     }
+                    
+                    
+                    
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
                         .frame(width: 352, height: 142)
@@ -239,8 +242,19 @@ struct ContentView: View {
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 140)
-                        .cornerRadius(20.0)
+                        .cornerRadius(19.0)
                         .position(x: 195, y: 200)
+                    
+                    HStack{
+                        Spacer()
+                        Text("Location")
+                        Spacer()
+                    }
+                    
+                    .font(.title)
+                    .foregroundColor(Color.black)
+                    .position(x: 195, y: 150)
+                    
                     
                     HStack{
                         Picker("loc", selection: $locSelection) {
@@ -252,7 +266,7 @@ struct ContentView: View {
                             
                         }
                         .pickerStyle(SegmentedPickerStyle())
-                        .position(x: 150, y: 180 )
+                        .position(x: 150, y: 185 )
                         .frame(width: 300)
                     }
                     Button(){
