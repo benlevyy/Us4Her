@@ -122,9 +122,12 @@ struct MapView: View {
         Button(){
             setCenter()
         } label:{
-            Text("Center Map")
+            Image("Recenter")
+                .resizable()
+                .frame(width: 55, height: 55)
+                
         }
-        .position(x: 320, y: 70)
+        .position(x: 38, y: 800)
         
         
         if(buttonDisplayedState){

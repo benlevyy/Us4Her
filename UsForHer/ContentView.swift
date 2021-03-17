@@ -122,14 +122,14 @@ struct ContentView: View {
             Button(){
                update()
             } label:{
-                ZStack{
-                Rectangle()
-                    .fill(Color.white)
-                    .cornerRadius(6.0)
-                    .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                Text("Update Incidents")
-                    .accentColor(.black)
-                }
+//                ZStack{
+//                Rectangle()
+//                    .fill(Color.white)
+//                    .cornerRadius(6.0)
+//                    .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                Text("Update Incidents")
+//                    .accentColor(.black)
+//                }
             }
             .position(x: 185, y: 780)
             
@@ -170,18 +170,19 @@ struct ContentView: View {
                         .frame(width: 300)
                     }
                     
-                    RoundedRectangle(cornerRadius: 16)
-                        .frame(width: 325, height: 115, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:490)
+                    RoundedRectangle(cornerRadius: 0)
+                        .frame(width: 325, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .position(x:195,y:510)
                     
-                    RoundedRectangle(cornerRadius: 15)
+                    RoundedRectangle(cornerRadius: 0)
                         .fill(Color.white)
-                        .frame(width: 323, height: 113, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:490)
+                        .frame(width: 323, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .position(x:195,y:510)
+                    
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:490)
+                        .position(x:195,y:480)
                     
                     
                     
@@ -195,33 +196,10 @@ struct ContentView: View {
                         update()
                         
                     } label:{
-                        
-                        ZStack{
-                            Rectangle()
-                                .fill(Color.black)
-                                .frame(width: 102.0, height: 52.0)
-                                .cornerRadius(12)
-                            //.position(x:195,y:470)
-                            Rectangle()
-                                .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
-                                .frame(width: 100.0, height: 50.0)
-                                .cornerRadius(11)
-                            //.position(x:195,y:470)
-                            
-                            
-                            
                             Text("Next")
-                                .font(.title)
-                                .foregroundColor(Color.white)
-                                // .position(x:195,y:470)
-                                .background(Color.blue)
-                            
-                        }
-                        //.position(x:195,y:470)
-                        
                     }
                     
-                    .position(x: 305, y: 610)
+                    .position(x: 325, y: 620)
                     
                     Button() { //close button
                         addButtonState = false
@@ -285,7 +263,7 @@ struct ContentView: View {
                         
                         
                     }
-                    .position(x: 50, y: 150)
+                    .position(x: 55, y: 250)
                     
                     
                     
@@ -326,26 +304,26 @@ struct ContentView: View {
                         ZStack{
                             Rectangle()
                                 .fill(Color.black)
-                                .frame(width: 102.0, height: 52.0)
+                                .frame(width: 72.0, height: 37.0)
                                 .cornerRadius(12)
                             //.position(x:195,y:470)
                             Rectangle()
                                 .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
-                                .frame(width: 100.0, height: 50.0)
+                                .frame(width: 70.0, height: 35.0)
                                 .cornerRadius(11)
                             //.position(x:195,y:470)
                             
                             
                             
                             Text("Submit")
-                                .font(.title)
+                                .font(.headline)
                                 .foregroundColor(Color.white)
                                 // .position(x:195,y:470)
-                                .background(Color.blue)
+                                //.background(Color.blue)
                             
                         }
                     }
-                    .position(x: 185, y: 235)
+                    .position(x: 195, y: 235)
                     
                     
                 }
