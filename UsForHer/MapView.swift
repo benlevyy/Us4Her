@@ -68,6 +68,9 @@ struct MapView: View {
         displayedInfo = zeroIncident
         buttonDisplayedState = false
     }
+    public func getRegion() -> Binding<MKCoordinateRegion>{
+        return $region
+    }
     
     public func getColor(_ input: IncidentPin)-> Color{
         let incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
@@ -86,7 +89,7 @@ struct MapView: View {
  
     var body: some View {
         Map(
-            coordinateRegion: $region,
+            coordinateRegion: getRegion(),
             interactionModes: MapInteractionModes.all,
             showsUserLocation: true,
             userTrackingMode: $userTrackingMode,
