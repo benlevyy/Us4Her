@@ -39,23 +39,50 @@ struct ContentView: View {
     @State private var locSelection = 1
     private var locOptions = ["Use my Location", "Use other Location"]
     @State private var displayCircle: Bool = false
-
+    
     @State var mapView : MapView = MapView()
     
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
-
-
-
-   // @State var mls: MapLocationSelect = MapLocationSelect()
     
     
+    
+    // @State var mls: MapLocationSelect = MapLocationSelect()
+    
+    func update(){
+        Firestore.firestore().collection("incidentDB")
+            .addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error!)")
+                    return
+                }
+                
+                
+                let t = documents.map { $0["type"]  ?? "INFO NOT FOUND" }
+                let extraInfo = documents.map { $0["extra info"] ?? "INFO NOT FOUND" }
+                let lat = documents.map { $0["lat"] ?? 0.0}
+                let long = documents.map { $0["long"] ?? 0.0 }
+                print(t)
+                print(extraInfo)
+                print(lat)
+                print(long)
+                
+                for i in 0..<lat.count{
+                    if(mapView.incidents.count < lat.count){
+                        mapView.incidents.append(IncidentPin(latitude: lat[i] as! Double, longitude: long[i] as! Double, type: t[i] as! String, ExtraInfo: extraInfo[i] as! String))
+                    }else{
+                        print("ARRAY FULL")
+                    }
+                }
+                
+            }
+    }
     var body: some View {
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
-            
-
+        
+        
         ZStack{
-
+            
             
             mapView
                 .frame(height: 860) //change size
@@ -143,7 +170,7 @@ struct ContentView: View {
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .position(x:195,y:490)
                     
-              
+                    
                     
                     //next button
                     Button(){
@@ -152,6 +179,7 @@ struct ContentView: View {
                         mapSelector = true
                         
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
+                        update()
                         
                     } label:{
                         
@@ -184,6 +212,7 @@ struct ContentView: View {
                     
                     Button() { //close button
                         addButtonState = false
+                        update()
                     } label: {
                         ZStack{
                             
@@ -203,13 +232,13 @@ struct ContentView: View {
                     
                     if(locSelection == 1){
                         mls //map location select
-                            
-                         Circle()
-                             .fill(Color.blue)
-                             .opacity(0.3)
-                             .frame(width: 32, height: 32)
-                    
-                  }
+                        
+                        Circle()
+                            .fill(Color.blue)
+                            .opacity(0.3)
+                            .frame(width: 32, height: 32)
+                        
+                    }
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
                         .frame(width: 352, height: 142)
@@ -245,17 +274,17 @@ struct ContentView: View {
                     }
                     .position(x: 50, y: 150)
                     
-        
+                    
                     
                     Button(){
                         var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-        
-                    if(locSelection == 0){
-                            mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
-                        pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
                         
+                        if(locSelection == 0){
+                            mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
+                            pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
+                            
                         }
-                         if(locSelection == 1){
+                        if(locSelection == 1){
                             mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput))
                             pos = CLLocationCoordinate2D(latitude: mls.getCenterLat(), longitude: mls.getCenterLong())
                         }
@@ -269,7 +298,7 @@ struct ContentView: View {
                         
                         let docRef = Firestore.firestore().document("incidentDB/\(UUID().uuidString)")
                         print("setting data")
-                    
+                        
                         docRef.setData(incidentDictionary){ (error) in
                             if let error = error{
                                 print("error = \(error)")
@@ -279,6 +308,7 @@ struct ContentView: View {
                         }
                         
                         mapSelector = false
+                        update()
                     } label:{
                         ZStack{
                             Rectangle()
@@ -314,9 +344,18 @@ struct ContentView: View {
             //                Text("recenter")
             //            }
             
+            Button(){
+               update()
+            } label:{
+                Text("Update")
+            }
+            .position(x: 340, y: 80)
+        }
+        .onAppear(){
+            update()
         }
     }
-    
+
     
 }
 
@@ -325,12 +364,14 @@ extension ContentView { //if loc isn't enable redirect user to go to settings
         guard let url = URL.init(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
+    
 }
 
 extension UIApplication {
     func endEditing() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+    
 }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

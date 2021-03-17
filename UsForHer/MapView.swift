@@ -1,9 +1,11 @@
 import SwiftUI
 import MapKit
 import FirebaseDatabase
+import Firebase
 
 
 struct MapView: View {
+    
     @State var userTrackingMode: MapUserTrackingMode = .none
     
     /*
@@ -23,10 +25,6 @@ struct MapView: View {
     
     private var displayUserSelectionAnnatation : Bool = false
     @State var center: CLLocationCoordinate2D = CLLocationCoordinate2D()
-    
-    
-    @State var centerOK: Bool = false
-    
     @State var centerCoordinate = CLLocationCoordinate2D  ()
     
     
@@ -61,13 +59,10 @@ struct MapView: View {
         
     }
     
-    
-    func centerMapOnLocation(location:CLLocationCoordinate2D) {
-        DispatchQueue.main.async {
-            self.setRegion(location)
-        }
+    public func setCenter(){
+        setRegion(locManager.lastLocation?.coordinate ?? zero)
+        print("Center set")
     }
-    
     
     public func clearVars(){
         displayedInfo = zeroIncident
@@ -88,11 +83,11 @@ struct MapView: View {
         }
         return Color.gray
     }
-    
+ 
     var body: some View {
         Map(
             coordinateRegion: $region,
-            interactionModes: MapInteractionModes.pan,
+            interactionModes: MapInteractionModes.all,
             showsUserLocation: true,
             userTrackingMode: $userTrackingMode,
             annotationItems: incidents
@@ -112,10 +107,17 @@ struct MapView: View {
             }
         }
         
-        
         .onAppear{
-            setRegion(locManager.lastLocation?.coordinate ?? zero)
+            setCenter()
+            
         }
+        
+        Button(){
+            setCenter()
+        } label:{
+            Text("Center")
+        }
+        .position(x: 350, y: 700)
         
         
         if(buttonDisplayedState){
