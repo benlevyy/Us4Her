@@ -135,13 +135,13 @@ struct MapView: View {
             ZStack{
                 Rectangle() //creating rectangle for incident report
                     .fill(getColor(displayedInfo))
-                    .frame(width: 352, height: 252)
+                    .frame(width: 364, height: 264)
                     .cornerRadius(20.0)
                 
                 Rectangle() //creating rectangle for incident report
                     .fill(Color.white)
-                    .frame(width: 350, height: 250)
-                    .cornerRadius(20.0)
+                    .frame(width: 352, height: 252)
+                    .cornerRadius(14.0)
                 
                 HStack{
                     Spacer()
@@ -151,7 +151,7 @@ struct MapView: View {
                 //title
                 .font(.title)
                 .foregroundColor(Color.black)
-                .position(x: 185, y: 330)
+                .position(x: 195, y: 330)
                 
                 HStack{
                     Text(displayedInfo.ExtraInfo)
@@ -166,11 +166,11 @@ struct MapView: View {
                     ZStack{
                         Image("exit")
                             .resizable()
-                            .frame(width: 50, height: 50)
+                            .frame(width: 50, height: 52)
 
                     }
                 }
-                .position(x: 340, y:335)
+                .position(x: 350, y:325)
                 
             }
             
