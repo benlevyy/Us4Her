@@ -179,7 +179,7 @@ struct ContentView: View {
                         .accentColor(.black)
                 }
             }
-            .position(x: 185, y: 780)
+            .position(x: 195, y: 780)
             
             //add Menu
             //!
@@ -203,7 +203,7 @@ struct ContentView: View {
                     //title
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: 185, y: 240)
+                    .position(x: 195, y: 240)
                     
                     HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
@@ -220,17 +220,17 @@ struct ContentView: View {
                     
                     RoundedRectangle(cornerRadius: 0)
                         .frame(width: 325, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:185,y:510)
+                        .position(x:195,y:510)
                     
                     RoundedRectangle(cornerRadius: 0)
                         .fill(Color.white)
                         .frame(width: 323, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:185,y:510)
+                        .position(x:195,y:510)
                     
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:185,y:480)
+                        .position(x:195,y:480)
                     
                     
                     
@@ -285,13 +285,13 @@ struct ContentView: View {
                         .fill(Color.black)
                         .frame(width: 352, height: 142)
                         .cornerRadius(20.0)
-                        .position(x: 185, y: 200)
+                        .position(x: 195, y: 200)
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 140)
                         .cornerRadius(19.0)
-                        .position(x: 185, y: 200)
+                        .position(x: 195, y: 200)
                     
                     HStack{
                         Spacer()
@@ -301,7 +301,7 @@ struct ContentView: View {
                     
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: 185, y: 150)
+                    .position(x: 195, y: 150)
                     
                     
                     HStack{
@@ -392,7 +392,7 @@ struct ContentView: View {
                             
                         }
                     }
-                    .position(x: 185, y: 240)
+                    .position(x: 195, y: 240)
                     
                     
                 }
