@@ -46,20 +46,11 @@ struct ContentView: View {
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
     @State var timeManager = TimeManager()
+    let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
+    @State var newDate = Date()
+
+
     
-    
-    // @State var mls: MapLocationSelect = MapLocationSelect()
-    func timer(){
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            let randomNumber = Int.random(in: 1...20)
-            //   print("Number: \(randomNumber)")
-            
-            if randomNumber == 10 {
-                print("UPDATING......")
-                timer.invalidate()
-            }
-        }
-    }
     
     func update() {
         let ref = Firestore.firestore().collection("incident_DB")
@@ -167,20 +158,28 @@ struct ContentView: View {
                     
                 }
             }
-            Button(){
-                update()
-            } label:{
-                ZStack{
-                    Rectangle()
-                        .fill(Color.white)
-                        .cornerRadius(6.0)
-                        .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    Text("Update Incidents")
-                        .accentColor(.black)
-                }
-            }
-            .position(x: 195, y: 780)
             
+            Text("")
+                .onReceive(timer){ input in
+                    self.newDate = input
+                    update()
+                }
+                .position(x: 1000, y: 1000)
+            
+//            Button(){
+//                update()
+//            } label:{
+//                ZStack{
+//                    Rectangle()
+//                        .fill(Color.white)
+//                        .cornerRadius(6.0)
+//                        .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                    Text("Update Incidents")
+//                        .accentColor(.black)
+//                }
+//            }
+//            .position(x: 195, y: 780)
+//
             //add Menu
             //!
             if(addButtonState){
