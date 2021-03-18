@@ -8,25 +8,15 @@
 import SwiftUI
 import MapKit
 import Firebase
+import UIKit
+import UserNotifications
+
 struct ContentView: View {
     
     
     
     
     @ObservedObject var locManager = LocationManager()
-    
-    //user tracking
-    //    lazy var zero: CLLocationCoordinate2D =  {
-    //        return CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
-    //        //Ortega Park Long: 37.342159, Lat -122.025620
-    //        //if location is not allowed this is the location shown instead
-    //    }()
-    //    @State var userCoords: CLLocationCoordinate2D = {
-    //        return (locManager.lastLocation!.coordinate ?? zero)
-    //        //active user coordinates
-    //    }
-    
-    
     @State var addButtonState: Bool = false
     
     private var incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
@@ -48,8 +38,17 @@ struct ContentView: View {
     @State var timeManager = TimeManager()
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     @State var newDate = Date()
+    
+    private let locationNotificationScheduler = LocationNotificationScheduler()
 
-
+    func scheduleLocationNotification(_ sender: Any) {
+        for element in mapView.incidents{
+            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 500, latitude: element.latitude, longitude: element.longitude, title: element.type, body: element.ExtraInfo, data:  ["location": "NYC Brooklyn Promenade"])
+            locationNotificationScheduler.requestNotification(with: notInfo)
+        }
+    }
+    
+    
     
     
     func update() {
@@ -90,7 +89,7 @@ struct ContentView: View {
                 }
                 
             }
-        
+//        scheduleLocationNotification(self)
         
     }
     
@@ -146,8 +145,8 @@ struct ContentView: View {
                 HStack{
                     Spacer()
                     Button {
+                      //  scheduleLocationNotification(self)
                         addButtonState = true
-                        
                     } label: {
                         Image("add") // CHANGE IMAGE
                             .resizable()
@@ -161,27 +160,10 @@ struct ContentView: View {
             
             Text("")
                 .onReceive(timer){ input in
-                    self.newDate = input
                     update()
                 }
                 .position(x: 1000, y: 1000)
             
-//            Button(){
-//                update()
-//            } label:{
-//                ZStack{
-//                    Rectangle()
-//                        .fill(Color.white)
-//                        .cornerRadius(6.0)
-//                        .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-//                    Text("Update Incidents")
-//                        .accentColor(.black)
-//                }
-//            }
-//            .position(x: 195, y: 780)
-//
-            //add Menu
-            //!
             if(addButtonState){
                 ZStack{
                     Rectangle() //creating rectangle for incident report
@@ -413,6 +395,8 @@ extension ContentView { //if loc isn't enable redirect user to go to settings
     }
     
 }
+
+
 
 extension UIApplication {
     func endEditing() {

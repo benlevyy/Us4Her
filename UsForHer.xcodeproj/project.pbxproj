@@ -18,6 +18,9 @@
 		5C0C2D2125FF297300E8B88B /* MapLocationSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */; };
 		5C44A42B25F20445006D6C4C /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C44A42A25F20445006D6C4C /* MapView.swift */; };
 		5C44A44925F2D25D006D6C4C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C44A44825F2D25D006D6C4C /* LocationManager.swift */; };
+		5C4884ED26040D4B00061499 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4884EC26040D4B00061499 /* NotificationManager.swift */; };
+		5C4884F226040E3400061499 /* LocationNotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4884F126040E3300061499 /* LocationNotificationInfo.swift */; };
+		5C4884F726040E4F00061499 /* LocationNotificationSchedulerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4884F626040E4F00061499 /* LocationNotificationSchedulerDelegate.swift */; };
 		5CB7827625F89CFE00B31FDC /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7827525F89CFE00B31FDC /* LocationService.swift */; };
 		5CF2632225F1D5CB0083B493 /* UsForHerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */; };
 		5CF2632425F1D5CB0083B493 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2632325F1D5CB0083B493 /* ContentView.swift */; };
@@ -56,6 +59,9 @@
 		5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSelect.swift; sourceTree = "<group>"; };
 		5C44A42A25F20445006D6C4C /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5C44A44825F2D25D006D6C4C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		5C4884EC26040D4B00061499 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		5C4884F126040E3300061499 /* LocationNotificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationInfo.swift; sourceTree = "<group>"; };
+		5C4884F626040E4F00061499 /* LocationNotificationSchedulerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationSchedulerDelegate.swift; sourceTree = "<group>"; };
 		5CB7827525F89CFE00B31FDC /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		5CF2631E25F1D5CB0083B493 /* UsForHer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UsForHer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsForHerApp.swift; sourceTree = "<group>"; };
@@ -155,6 +161,9 @@
 				5C44A44825F2D25D006D6C4C /* LocationManager.swift */,
 				5CB7827525F89CFE00B31FDC /* LocationService.swift */,
 				5C0A6B2D2601B40B00FD2C29 /* TimeManager.swift */,
+				5C4884EC26040D4B00061499 /* NotificationManager.swift */,
+				5C4884F126040E3300061499 /* LocationNotificationInfo.swift */,
+				5C4884F626040E4F00061499 /* LocationNotificationSchedulerDelegate.swift */,
 			);
 			path = UsForHer;
 			sourceTree = "<group>";
@@ -412,10 +421,13 @@
 				5CF2632425F1D5CB0083B493 /* ContentView.swift in Sources */,
 				5C0C2D2125FF297300E8B88B /* MapLocationSelect.swift in Sources */,
 				5C44A42B25F20445006D6C4C /* MapView.swift in Sources */,
+				5C4884ED26040D4B00061499 /* NotificationManager.swift in Sources */,
 				5C44A44925F2D25D006D6C4C /* LocationManager.swift in Sources */,
+				5C4884F226040E3400061499 /* LocationNotificationInfo.swift in Sources */,
 				5CF2635525F1E1D50083B493 /* IncidentPin.swift in Sources */,
 				5C0A6B2E2601B40B00FD2C29 /* TimeManager.swift in Sources */,
 				5CB7827625F89CFE00B31FDC /* LocationService.swift in Sources */,
+				5C4884F726040E4F00061499 /* LocationNotificationSchedulerDelegate.swift in Sources */,
 				5CF2632225F1D5CB0083B493 /* UsForHerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
