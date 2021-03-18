@@ -51,8 +51,10 @@ struct ContentView: View {
     // @State var mls: MapLocationSelect = MapLocationSelect()
     
     func update() {
-        Firestore.firestore().collection("incident_DB")
-            .addSnapshotListener { querySnapshot, error in
+        let ref = Firestore.firestore().collection("incident_DB")
+
+            ref
+                .addSnapshotListener { querySnapshot, error in
                 guard let documents = querySnapshot?.documents else {
                     print("Error fetching documents: \(error!)")
                     return
@@ -70,24 +72,33 @@ struct ContentView: View {
                         print("ARRAY FULL")
                     }
                 }
+                    print("||||||")
+                    var removeList = [String]()
+                    for element in mapView.incidents {
+                        print(element)
+                        if(checkIncidentTime(element, 60)){
+                            mapView.remove(element)
+                            let targetID: String = element.id
+                            removeList.append(targetID)
+                            if(contains(id, element.id)){
+                                ref.document(element.id).delete()
+                                print(" REMOVED ")
+                            }
+                        }
+                    }
+    
             }
-//            print("||||||")
-//            var i = 0
-//            for element in mapView.incidents {
-//                i += 1
-//                print(element)
-//                if(checkIncidentTime(element, 60)){
-//                    mapView.remove(element)
-//                    Firestore.firestore().collection("incident_DB").document(element.id).delete(){ err in
-//                        if let err = err {
-//                            print("Error removing document: \(err)")
-//                        } else {
-//                            print("Document successfully removed!")
-//                        }
-//                    }
-//                }
-//            }
+
         
+    }
+    func contains(_ idArr: [Any],_ target: String)-> Bool{
+        for elemennt in idArr{
+            if(elemennt as! String == target){
+                return true
+            }
+        }
+        return false
+
     }
     
     func checkIncidentTime(_ n: IncidentPin, _ timeBeforeDeletion: Int) -> Bool{
@@ -98,7 +109,8 @@ struct ContentView: View {
             print("Removing /\(n)")
             return true
         }
-        print("Theres time left not removing yet")
+        print("Theres this much time left :/\(dif)")
+        print("on /\(n)")
         return false
     }
     var body: some View {
@@ -215,7 +227,7 @@ struct ContentView: View {
                         mapSelector = true
                         
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
-                        update()
+                       // update()
                         
                     } label:{
                         Text("Next")
@@ -225,7 +237,7 @@ struct ContentView: View {
                     
                     Button() { //close button
                         addButtonState = false
-                        update()
+                      //  update()
                     } label: {
                         ZStack{
                             
@@ -342,7 +354,7 @@ struct ContentView: View {
                         }
                         
                         mapSelector = false
-                        update()
+                      //  update()
                     } label:{
                         ZStack{
                             Rectangle()
