@@ -49,12 +49,23 @@ struct ContentView: View {
     
     
     // @State var mls: MapLocationSelect = MapLocationSelect()
+    func timer(){
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            let randomNumber = Int.random(in: 1...20)
+            //   print("Number: \(randomNumber)")
+            
+            if randomNumber == 10 {
+                print("UPDATING......")
+                timer.invalidate()
+            }
+        }
+    }
     
     func update() {
         let ref = Firestore.firestore().collection("incident_DB")
-
-            ref
-                .addSnapshotListener { querySnapshot, error in
+        
+        ref
+            .addSnapshotListener { querySnapshot, error in
                 guard let documents = querySnapshot?.documents else {
                     print("Error fetching documents: \(error!)")
                     return
@@ -72,25 +83,26 @@ struct ContentView: View {
                         print("ARRAY FULL")
                     }
                 }
-                    print("||||||")
-                    var removeList = [String]()
-                    for element in mapView.incidents {
-                        print(element)
-                        if(checkIncidentTime(element, 60)){
-                            mapView.remove(element)
-                            let targetID: String = element.id
-                            removeList.append(targetID)
-                            if(contains(id, element.id)){
-                                ref.document(element.id).delete()
-                                print(" REMOVED ")
-                            }
+                print("||||||")
+                var removeList = [String]()
+                for element in mapView.incidents {
+                    print(element)
+                    if(checkIncidentTime(element, 60)){
+                        mapView.remove(element)
+                        let targetID: String = element.id
+                        removeList.append(targetID)
+                        if(contains(id, element.id)){
+                            ref.document(element.id).delete()
+                            print(" REMOVED ")
                         }
                     }
-    
+                }
+                
             }
-
+        
         
     }
+    
     func contains(_ idArr: [Any],_ target: String)-> Bool{
         for elemennt in idArr{
             if(elemennt as! String == target){
@@ -98,7 +110,7 @@ struct ContentView: View {
             }
         }
         return false
-
+        
     }
     
     func checkIncidentTime(_ n: IncidentPin, _ timeBeforeDeletion: Int) -> Bool{
@@ -113,6 +125,8 @@ struct ContentView: View {
         print("on /\(n)")
         return false
     }
+    
+    
     var body: some View {
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
         ZStack{
@@ -165,7 +179,7 @@ struct ContentView: View {
                         .accentColor(.black)
                 }
             }
-            .position(x: 195, y: 780)
+            .position(x: 185, y: 780)
             
             //add Menu
             //!
@@ -189,7 +203,7 @@ struct ContentView: View {
                     //title
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: 195, y: 240)
+                    .position(x: 185, y: 240)
                     
                     HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
@@ -206,17 +220,17 @@ struct ContentView: View {
                     
                     RoundedRectangle(cornerRadius: 0)
                         .frame(width: 325, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:510)
+                        .position(x:185,y:510)
                     
                     RoundedRectangle(cornerRadius: 0)
                         .fill(Color.white)
                         .frame(width: 323, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:510)
+                        .position(x:185,y:510)
                     
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:480)
+                        .position(x:185,y:480)
                     
                     
                     
@@ -227,7 +241,7 @@ struct ContentView: View {
                         mapSelector = true
                         
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
-                       // update()
+                        // update()
                         
                     } label:{
                         Text("Next")
@@ -237,7 +251,7 @@ struct ContentView: View {
                     
                     Button() { //close button
                         addButtonState = false
-                      //  update()
+                        //  update()
                     } label: {
                         ZStack{
                             
@@ -271,23 +285,23 @@ struct ContentView: View {
                         .fill(Color.black)
                         .frame(width: 352, height: 142)
                         .cornerRadius(20.0)
-                        .position(x: 195, y: 200)
+                        .position(x: 185, y: 200)
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 140)
                         .cornerRadius(19.0)
-                        .position(x: 195, y: 200)
+                        .position(x: 185, y: 200)
                     
                     HStack{
                         Spacer()
-                        Text("Location")
+                        Text("Where?")
                         Spacer()
                     }
                     
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: 195, y: 150)
+                    .position(x: 185, y: 150)
                     
                     
                     HStack{
@@ -300,7 +314,7 @@ struct ContentView: View {
                             
                         }
                         .pickerStyle(SegmentedPickerStyle())
-                        .position(x: 150, y: 185 )
+                        .position(x: 150, y: 190 )
                         .frame(width: 300)
                     }
                     Button(){
@@ -311,7 +325,7 @@ struct ContentView: View {
                         
                         
                     }
-                    .position(x: 55, y: 250)
+                    .position(x: 55, y: 245)
                     
                     
                     
@@ -354,7 +368,7 @@ struct ContentView: View {
                         }
                         
                         mapSelector = false
-                      //  update()
+                        //  update()
                     } label:{
                         ZStack{
                             Rectangle()
@@ -378,7 +392,7 @@ struct ContentView: View {
                             
                         }
                     }
-                    .position(x: 195, y: 235)
+                    .position(x: 185, y: 240)
                     
                     
                 }
