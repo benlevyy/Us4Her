@@ -19,15 +19,16 @@ struct MapView: View {
     
     
     @State  public var buttonDisplayedState: Bool = false
-    @State public var displayedInfo: IncidentPin =  IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "")
-    @State private var zeroIncident = IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "") //cleared var
+    @State public var displayedInfo: IncidentPin =  IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp(seconds: 0, nanoseconds: 0))
+    @State private var zeroIncident = IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp(seconds: 0, nanoseconds: 0)) //cleared var
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
     private var displayUserSelectionAnnatation : Bool = false
     @State var center: CLLocationCoordinate2D = CLLocationCoordinate2D()
     @State var centerCoordinate = CLLocationCoordinate2D  ()
     
-    
+    @State var timeManager = TimeManager()
+
     public mutating func addIncident(_ input: IncidentPin){
         // print(input)
         incidents.append(input)
@@ -37,7 +38,7 @@ struct MapView: View {
             print(element)
         }
     }
-    
+
     func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
             center: locManager.lastLocation?.coordinate ?? zero,
@@ -90,6 +91,21 @@ struct MapView: View {
         return 20 / sqrt( CGFloat(regionDelta))
     }
  
+    mutating func remove(_ element: IncidentPin){
+        var index = find(value: element, in: incidents)!
+        incidents.remove(at: index)
+    }
+    private func find(value searchValue: IncidentPin, in array: [IncidentPin]) -> Int?
+    {
+        for (index, value) in array.enumerated()
+        {
+            if value.id == searchValue.id {
+                return index
+            }
+        }
+
+        return nil
+    }
     var body: some View {
         Map(
             coordinateRegion: getRegion(),

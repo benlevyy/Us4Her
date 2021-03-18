@@ -45,42 +45,64 @@ struct ContentView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
+    @State var timeManager = TimeManager()
     
     
     // @State var mls: MapLocationSelect = MapLocationSelect()
     
-    func update(){
-        Firestore.firestore().collection("incidentDB")
+    func update() {
+        Firestore.firestore().collection("incident_DB")
             .addSnapshotListener { querySnapshot, error in
                 guard let documents = querySnapshot?.documents else {
                     print("Error fetching documents: \(error!)")
                     return
                 }
-                
-                
+                let id = documents.map{ $0 ["id"] ?? "ID NOT FOUND"}
                 let t = documents.map { $0["type"]  ?? "INFO NOT FOUND" }
                 let extraInfo = documents.map { $0["extra info"] ?? "INFO NOT FOUND" }
                 let lat = documents.map { $0["lat"] ?? 0.0}
                 let long = documents.map { $0["long"] ?? 0.0 }
-                print(t)
-                print(extraInfo)
-                print(lat)
-                print(long)
-                
+                let time = documents.map{ $0["time"] ?? Timestamp(seconds: 0, nanoseconds: 0)}
                 for i in 0..<lat.count{
                     if(mapView.incidents.count < lat.count){
-                        mapView.incidents.append(IncidentPin(latitude: lat[i] as! Double, longitude: long[i] as! Double, type: t[i] as! String, ExtraInfo: extraInfo[i] as! String))
+                        mapView.incidents.append(IncidentPin(id : id[i] as! String, latitude: lat[i] as! Double, longitude: long[i] as! Double, type: t[i] as! String, ExtraInfo: extraInfo[i] as! String, time: time[i] as! Timestamp))
                     }else{
                         print("ARRAY FULL")
                     }
                 }
-                
             }
+//            print("||||||")
+//            var i = 0
+//            for element in mapView.incidents {
+//                i += 1
+//                print(element)
+//                if(checkIncidentTime(element, 60)){
+//                    mapView.remove(element)
+//                    Firestore.firestore().collection("incident_DB").document(element.id).delete(){ err in
+//                        if let err = err {
+//                            print("Error removing document: \(err)")
+//                        } else {
+//                            print("Document successfully removed!")
+//                        }
+//                    }
+//                }
+//            }
+        
+    }
+    
+    func checkIncidentTime(_ n: IncidentPin, _ timeBeforeDeletion: Int) -> Bool{
+        let current = Timestamp.init()
+        let currentSecCount = current.seconds
+        let dif = currentSecCount - n.time.seconds
+        if(dif > timeBeforeDeletion){
+            print("Removing /\(n)")
+            return true
+        }
+        print("Theres time left not removing yet")
+        return false
     }
     var body: some View {
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
-        
-        
         ZStack{
             
             
@@ -120,15 +142,15 @@ struct ContentView: View {
                 }
             }
             Button(){
-               update()
+                update()
             } label:{
                 ZStack{
-                Rectangle()
-                    .fill(Color.white)
-                    .cornerRadius(6.0)
-                    .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                Text("Update Incidents")
-                    .accentColor(.black)
+                    Rectangle()
+                        .fill(Color.white)
+                        .cornerRadius(6.0)
+                        .frame(width: 150, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    Text("Update Incidents")
+                        .accentColor(.black)
                 }
             }
             .position(x: 195, y: 780)
@@ -196,7 +218,7 @@ struct ContentView: View {
                         update()
                         
                     } label:{
-                            Text("Next")
+                        Text("Next")
                     }
                     
                     .position(x: 325, y: 620)
@@ -285,23 +307,30 @@ struct ContentView: View {
                         var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
                         
                         if(locSelection == 0){
-                            mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput))
+                            mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
+                            ))
                             pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
                             
                         }
                         if(locSelection == 1){
-                            mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput))
+                            mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
+                            ))
                             pos = CLLocationCoordinate2D(latitude: mls.getCenterLat(), longitude: mls.getCenterLong())
                         }
+                        print("adding incident at")
+                        print(Timestamp.init())
+                        let curID = UUID().uuidString
                         
                         let incidentDictionary: [String: Any] = [
+                            "id" : curID,
                             "type" : incidentOptions[selection],
                             "extra info":userDescriptionInput,
                             "lat": pos.latitude,
-                            "long": pos.longitude
+                            "long": pos.longitude,
+                            "time": Timestamp.init()
                         ]
                         
-                        let docRef = Firestore.firestore().document("incidentDB/\(UUID().uuidString)")
+                        let docRef = Firestore.firestore().document("incident_DB/\(curID)")
                         print("setting data")
                         
                         docRef.setData(incidentDictionary){ (error) in
@@ -332,8 +361,8 @@ struct ContentView: View {
                             Text("Submit")
                                 .font(.headline)
                                 .foregroundColor(Color.white)
-                                // .position(x:195,y:470)
-                                //.background(Color.blue)
+                            // .position(x:195,y:470)
+                            //.background(Color.blue)
                             
                         }
                     }
@@ -348,7 +377,7 @@ struct ContentView: View {
             update()
         }
     }
-
+    
     
 }
 
