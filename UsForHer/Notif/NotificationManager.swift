@@ -39,6 +39,10 @@ class LocationNotificationScheduler: NSObject {
         }
     }
     
+    public func removeNotificationAfterShow(){
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+    }
+    
 }
 
 // MARK: - Private Functions
@@ -79,6 +83,7 @@ private extension LocationNotificationScheduler {
         }
         
     }
+
     
     func notificationContent(notificationInfo: LocationNotificationInfo) -> UNMutableNotificationContent {
         let notification = UNMutableNotificationContent()

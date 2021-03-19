@@ -30,16 +30,16 @@
             filePath = "UsForHer/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "ContentView"
-            landmarkType = "14">
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "scheduleLocationNotification(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D4B83FFB-F6FC-4656-9EC2-7B6379008DB6"
+            uuid = "D29F8168-F35C-44F9-93F1-819E882245B0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"

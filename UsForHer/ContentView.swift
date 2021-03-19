@@ -29,16 +29,20 @@ struct ContentView: View {
     @State var mapView : MapView = MapView()
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+    
     //Time Management Variables
     @State var timeManager = TimeManager()
-    let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
+    let timer = Timer.publish(every: 30, on: .current, in: .common).autoconnect()
     @State var newDate = Date()
+    
     //Notification Variable
-    private let locationNotificationScheduler = LocationNotificationScheduler()
+     let locationNotificationScheduler = LocationNotificationScheduler()
     
     //Anti-Spam Variable
     @State var submitTime = Timestamp.init().seconds
     
+    
+    //T
     func checkIfEnoughTimePassed(_ submitTime: Timestamp, _ timePassed: Int64 ) -> Bool{
         let currentTime = Timestamp.init()
         let dif = currentTime.seconds - submitTime.seconds
@@ -57,7 +61,7 @@ struct ContentView: View {
         }
     }
     
-    //General Update Method SUPER IMPORTANT
+    //General Update Method SUPER IMPORTANT (runs every second)
     func update() {
         let ref = Firestore.firestore().collection("incident_DB")
         ref
@@ -95,9 +99,10 @@ struct ContentView: View {
                 }
                 
             }
-        scheduleLocationNotification(self)
+        scheduleLocationNotification(self) //compare db to
+        locationNotificationScheduler.removeNotificationAfterShow() //delete already shown notifications
     }
-    
+    //Helper
     func contains(_ idArr: [Any],_ target: String)-> Bool{
         for elemennt in idArr{
             if(elemennt as! String == target){
@@ -107,7 +112,7 @@ struct ContentView: View {
         return false
         
     }
-    
+    //Helper
     func checkIncidentTime(_ n: IncidentPin, _ timeBeforeDeletion: Int) -> Bool{
         let current = Timestamp.init()
         let currentSecCount = current.seconds
@@ -125,12 +130,8 @@ struct ContentView: View {
     var body: some View {
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
         ZStack{
-            
-            
             mapView
                 .frame(height: 860) //change size
-            
-            
             VStack{
                 Spacer()
                 HStack{
@@ -382,20 +383,13 @@ struct ContentView: View {
                                 .fill(Color.black)
                                 .frame(width: 72.0, height: 37.0)
                                 .cornerRadius(12)
-                            //.position(x:195,y:470)
                             Rectangle()
                                 .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
                                 .frame(width: 70.0, height: 35.0)
                                 .cornerRadius(11)
-                            //.position(x:195,y:470)
-                            
-                            
-                            
                             Text("Submit")
                                 .font(.headline)
                                 .foregroundColor(Color.white)
-                            // .position(x:195,y:470)
-                            //.background(Color.blue)
                             
                         }
                     }
