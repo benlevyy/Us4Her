@@ -56,7 +56,8 @@ struct ContentView: View {
     //Notifications
     func scheduleLocationNotification(_ sender: Any) {
         for element in mapView.incidents{
-            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 500, latitude: element.latitude, longitude: element.longitude, title: "WARNING: INCIDENT NEAR YOUR LOCATION", body: element.ExtraInfo)
+            let titleText = "WARNING: \(element.type) near your location)"
+            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 500, latitude: element.latitude, longitude: element.longitude, title: titleText, body: element.ExtraInfo)
             locationNotificationScheduler.requestNotification(with: notInfo)
         }
     }
