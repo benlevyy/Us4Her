@@ -40,6 +40,7 @@ struct ContentView: View {
     
     //Anti-Spam Variable
     @State var submitTime = Timestamp.init().seconds
+    @State var mostRecentIncidentPin = IncidentPin.init(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp.init(seconds: 0, nanoseconds: 0))
     
     
     //T
@@ -316,7 +317,7 @@ struct ContentView: View {
                     
                     //Submit Button
                     
-                    if(mapView.incidents.count>0 && !checkIfEnoughTimePassed(mapView.incidents.last!.time, 10)){
+                    if(!checkIfEnoughTimePassed(mostRecentIncidentPin.time, 10)){
                         ZStack{
                             Rectangle()
                                 .fill(Color.black)
@@ -376,6 +377,8 @@ struct ContentView: View {
                             }
                         }
                         
+                        mostRecentIncidentPin = IncidentPin.init(latitude: pos.latitude, longitude: pos.longitude, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp.init()) //save most recent incident to check for spam
+        
                         mapSelector = false
                         update()
                     } label:{
