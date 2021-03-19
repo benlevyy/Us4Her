@@ -88,7 +88,7 @@ struct MapView: View {
         return Color.gray
     }
     func getZoom(_ regionDelta: Double) -> CGFloat{
-        return 20 / sqrt( CGFloat(regionDelta))
+        return (111 / CGFloat(regionDelta))/20
     }
  
     mutating func remove(_ element: IncidentPin){
@@ -106,6 +106,28 @@ struct MapView: View {
 
         return nil
     }
+    func hoursFromIncident(_ input: IncidentPin) -> String{
+        let incidentTimestamp : Double = Double(input.time.seconds)
+        let curTimestamp : Double = Double(Timestamp.init().seconds)
+        
+        let difTimestamp = curTimestamp - incidentTimestamp
+        
+        let difHours = difTimestamp / 3600
+        
+        let roundedDif = (difHours).rounded()
+        let convertedToInt : Int64 = Int64(roundedDif)
+        if(convertedToInt == 0){
+            return "Within the Last Hour"
+        }
+        return "\(convertedToInt) hours ago"
+
+    }
+    
+    let screenSize = UIScreen.main.bounds.size
+    
+    let incidentRegion = Circle()
+
+    
     var body: some View {
         Map(
             coordinateRegion: getRegion(),
@@ -120,7 +142,7 @@ struct MapView: View {
                     buttonDisplayedState = true
                     saveInfo(incident)
                 } label: {
-                    Circle()
+                   incidentRegion
                         .fill(getColor(incident))
                         .opacity(0.4)
                         .frame(width: getZoom(region.span.latitudeDelta) , height: getZoom(region.span.longitudeDelta))  //ADD MULTIPLIER TO SCALE SIZE --- FIGURE OUT PROBLEM WITH ENUM
@@ -162,17 +184,22 @@ struct MapView: View {
                 HStack{
                     Spacer()
                     Text(displayedInfo.type)
+                        .fontWeight(.bold)
                     Spacer()
                 }
                 //title
                 .font(.title)
                 .foregroundColor(Color.black)
-                .position(x: 195, y: 330)
+                .position(x: (screenSize.width/2), y: 330)
                 
                 HStack{
                     Text(displayedInfo.ExtraInfo)
                         .frame(width: 340, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
+                Text("\(hoursFromIncident(displayedInfo))")
+                    .fontWeight(.thin)
+                    .position(x: (screenSize.width/2), y: 530)
+
                 
                 
                 Button() { //close button

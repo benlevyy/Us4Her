@@ -24,7 +24,8 @@ struct ContentView: View {
     @State private var locSelection = 1
     private var locOptions = ["Use my Location", "Use other Location"]
     @State private var displayCircle: Bool = false
-    
+    let logoColor = Color(red: 0.9137, green: 0.6313, blue: 0.9058)
+
     //Map Stuff Variables
     @State var mapView : MapView = MapView()
     @State private var centerCoordinate = CLLocationCoordinate2D()
@@ -36,14 +37,18 @@ struct ContentView: View {
     @State var newDate = Date()
     
     //Notification Variable
-     let locationNotificationScheduler = LocationNotificationScheduler()
+    let locationNotificationScheduler = LocationNotificationScheduler()
     
     //Anti-Spam Variable
     @State var submitTime = Timestamp.init().seconds
     @State var mostRecentIncidentPin = IncidentPin.init(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp.init(seconds: 0, nanoseconds: 0))
     
+
+    //Getting Device Size()
+    let screenSize = UIScreen.main.bounds.size
     
-    //T
+
+    //AntiSpam
     func checkIfEnoughTimePassed(_ submitTime: Timestamp, _ timePassed: Int64 ) -> Bool{
         let currentTime = Timestamp.init()
         let dif = currentTime.seconds - submitTime.seconds
@@ -58,7 +63,7 @@ struct ContentView: View {
     func scheduleLocationNotification(_ sender: Any) {
         for element in mapView.incidents{
             let titleText = "WARNING: \(element.type) near your location)"
-            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 500, latitude: element.latitude, longitude: element.longitude, title: titleText, body: element.ExtraInfo)
+            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 1200, latitude: element.latitude, longitude: element.longitude, title: titleText, body: element.ExtraInfo)
             locationNotificationScheduler.requestNotification(with: notInfo)
         }
     }
@@ -85,11 +90,10 @@ struct ContentView: View {
                         print("ARRAY FULL")
                     }
                 }
-                print("||||||")
+                print("Running Update")
                 var removeList = [String]()
                 for element in mapView.incidents {
-                    print(element)
-                    if(checkIncidentTime(element, 60)){
+                    if(checkIncidentTime(element, 600)){
                         mapView.remove(element)
                         let targetID: String = element.id
                         removeList.append(targetID)
@@ -130,6 +134,8 @@ struct ContentView: View {
     
     
     var body: some View {
+        let horizCenter = screenSize.width/2
+        
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
         ZStack{
             mapView
@@ -150,20 +156,27 @@ struct ContentView: View {
                 
                 
                 Spacer()
-                HStack{
                     Spacer()
                     Button {
                         //  scheduleLocationNotification(self)
                         addButtonState = true
                     } label: {
-                        Image("add") // CHANGE IMAGE
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                        
+                        ZStack{
+                        Circle()
+                            .fill(Color.black)
+                            .frame(width: 66, height: 66)
+                        Circle()
+                            .fill(logoColor)
+                            .frame(width: 59, height: 59)
+                        Text("!")
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.black)
+                            .font(.custom("San Francisco", size: 40))
+                        }
                     }
-                    .position(x:325,y:350)
+                    .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
                     
-                }
+                
             }
             
             Text("")
@@ -187,12 +200,13 @@ struct ContentView: View {
                     HStack{
                         Spacer()
                         Text("Report an Incident")
+                            .fontWeight(.bold)
                         Spacer()
                     }
                     //title
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: 195, y: 240)
+                    .position(x: horizCenter, y: 240)
                     
                     HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
@@ -207,20 +221,22 @@ struct ContentView: View {
                         .frame(width: 300)
                     }
                     
-                    RoundedRectangle(cornerRadius: 0)
+                    RoundedRectangle(cornerRadius: 2)
                         .frame(width: 325, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:510)
+                        .position(x:horizCenter,y:510)
                     
-                    RoundedRectangle(cornerRadius: 0)
+                    RoundedRectangle(cornerRadius: 2)
                         .fill(Color.white)
                         .frame(width: 323, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:510)
+                        .position(x:horizCenter,y:510)
                     
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:195,y:480)
-                    
+                        .position(x:horizCenter,y:480)
+                        .onTapGesture {
+                            userDescriptionInput = ""
+                        }
                     
                     
                     //next button
@@ -272,23 +288,24 @@ struct ContentView: View {
                         .fill(Color.black)
                         .frame(width: 352, height: 142)
                         .cornerRadius(20.0)
-                        .position(x: 195, y: 200)
+                        .position(x: horizCenter, y: 200)
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 140)
                         .cornerRadius(19.0)
-                        .position(x: 195, y: 200)
+                        .position(x: horizCenter, y: 200)
                     
                     HStack{
                         Spacer()
                         Text("Where?")
+                            .fontWeight(.bold)
                         Spacer()
                     }
                     
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: 195, y: 150)
+                    .position(x: horizCenter, y: 150)
                     
                     
                     HStack{
@@ -333,76 +350,78 @@ struct ContentView: View {
                             Text("You just submitted!")
                                 .font(.headline)
                                 .foregroundColor(Color.white)
-          
+                            
                             
                         }
-                        .position(x: 195, y: 240)
+                        .position(x: horizCenter, y: 240)
                     }else{
-                    
-                    Button(){
-                        var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
                         
-                        if(locSelection == 0){
-                            mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
-                            ))
-                            pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
+                        Button(){
+                            var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
                             
-                        }
-                        if(locSelection == 1){
-                            mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
-                            ))
-                            pos = CLLocationCoordinate2D(latitude: mls.getCenterLat(), longitude: mls.getCenterLong())
-                        }
-                        print("adding incident at")
-                        print(Timestamp.init())
-                        let curID = UUID().uuidString
-                        
-                        let incidentDictionary: [String: Any] = [
-                            "id" : curID,
-                            "type" : incidentOptions[selection],
-                            "extra info":userDescriptionInput,
-                            "lat": pos.latitude,
-                            "long": pos.longitude,
-                            "time": Timestamp.init()
-                        ]
-                        
-                        let docRef = Firestore.firestore().document("incident_DB/\(curID)")
-                        print("setting data")
-                        
-                        docRef.setData(incidentDictionary){ (error) in
-                            if let error = error{
-                                print("error = \(error)")
-                            }else{
-                                print("data uploaded successfully")
+                            if(locSelection == 0){
+                                mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
+                                ))
+                                pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
+                                
+                            }
+                            if(locSelection == 1){
+                                mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
+                                ))
+                                pos = CLLocationCoordinate2D(latitude: mls.getCenterLat(), longitude: mls.getCenterLong())
+                            }
+                            print("adding incident at")
+                            print(Timestamp.init())
+                            let curID = UUID().uuidString
+                            
+                            let incidentDictionary: [String: Any] = [
+                                "id" : curID,
+                                "type" : incidentOptions[selection],
+                                "extra info":userDescriptionInput,
+                                "lat": pos.latitude,
+                                "long": pos.longitude,
+                                "time": Timestamp.init()
+                            ]
+                            
+                            let docRef = Firestore.firestore().document("incident_DB/\(curID)")
+                            print("setting data")
+                            
+                            docRef.setData(incidentDictionary){ (error) in
+                                if let error = error{
+                                    print("error = \(error)")
+                                }else{
+                                    print("data uploaded successfully")
+                                }
+                            }
+                            
+                            mostRecentIncidentPin = IncidentPin.init(latitude: pos.latitude, longitude: pos.longitude, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp.init()) //save most recent incident to check for spam
+                            
+                            userDescriptionInput = "D"
+                            mapSelector = false
+                            update()
+                        } label:{
+                            ZStack{
+                                Rectangle()
+                                    .fill(Color.black)
+                                    .frame(width: 72.0, height: 37.0)
+                                    .cornerRadius(12)
+                                Rectangle()
+                                    .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
+                                    .frame(width: 70.0, height: 35.0)
+                                    .cornerRadius(11)
+                                Text("Submit")
+                                    .font(.headline)
+                                    .foregroundColor(Color.white)
+                                
                             }
                         }
-                        
-                        mostRecentIncidentPin = IncidentPin.init(latitude: pos.latitude, longitude: pos.longitude, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp.init()) //save most recent incident to check for spam
-        
-                        mapSelector = false
-                        update()
-                    } label:{
-                        ZStack{
-                            Rectangle()
-                                .fill(Color.black)
-                                .frame(width: 72.0, height: 37.0)
-                                .cornerRadius(12)
-                            Rectangle()
-                                .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
-                                .frame(width: 70.0, height: 35.0)
-                                .cornerRadius(11)
-                            Text("Submit")
-                                .font(.headline)
-                                .foregroundColor(Color.white)
-                            
-                        }
-                    }
-                    .position(x: 195, y: 240)
+                        .position(x: horizCenter, y: 240)
                     }
                     
                 }
                 
             }
+
         }
         .onAppear(){
             update()
