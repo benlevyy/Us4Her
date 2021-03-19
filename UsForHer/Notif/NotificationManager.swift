@@ -86,9 +86,6 @@ private extension LocationNotificationScheduler {
         notification.body = notificationInfo.body
         notification.sound = UNNotificationSound.default
         
-        if let data = notificationInfo.data {
-            notification.userInfo = data
-        }
         return notification
     }
     

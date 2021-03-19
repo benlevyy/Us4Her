@@ -21,9 +21,7 @@ struct LocationNotificationInfo {
     
     // Notification
     let title: String
-    let body: String
-    let data: [String: Any]?
-    
+    let body: String    
     /// CLLocation Coordinates
     var coordinates: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: latitude,

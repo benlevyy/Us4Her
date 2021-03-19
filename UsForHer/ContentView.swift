@@ -43,7 +43,7 @@ struct ContentView: View {
 
     func scheduleLocationNotification(_ sender: Any) {
         for element in mapView.incidents{
-            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 500, latitude: element.latitude, longitude: element.longitude, title: element.type, body: element.ExtraInfo, data:  ["location": "NYC Brooklyn Promenade"])
+            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 500, latitude: element.latitude, longitude: element.longitude, title: "WARNING: INCIDENT NEAR YOUR LOCATION", body: element.ExtraInfo)
             locationNotificationScheduler.requestNotification(with: notInfo)
         }
     }
@@ -89,8 +89,7 @@ struct ContentView: View {
                 }
                 
             }
-//        scheduleLocationNotification(self)
-        
+        scheduleLocationNotification(self)
     }
     
     func contains(_ idArr: [Any],_ target: String)-> Bool{
