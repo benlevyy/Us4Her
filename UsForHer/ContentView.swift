@@ -12,35 +12,44 @@ import UIKit
 import UserNotifications
 
 struct ContentView: View {
-    
-    
-    
-    
+    //General Variables
     @ObservedObject var locManager = LocationManager()
     @State var addButtonState: Bool = false
-    
     private var incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
     @State private var selection = 1
     @State var otherUserInput: String = ""
     @State var userDescriptionInput: String = "Description"
     @State var submitState: Bool = false
-    
     @State var mapSelector: Bool = false
     @State private var locSelection = 1
     private var locOptions = ["Use my Location", "Use other Location"]
     @State private var displayCircle: Bool = false
     
+    //Map Stuff Variables
     @State var mapView : MapView = MapView()
-    
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
-    
+    //Time Management Variables
     @State var timeManager = TimeManager()
     let timer = Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     @State var newDate = Date()
-    
+    //Notification Variable
     private let locationNotificationScheduler = LocationNotificationScheduler()
-
+    
+    //Anti-Spam Variable
+    @State var submitTime = Timestamp.init().seconds
+    
+    func checkIfEnoughTimePassed(_ submitTime: Timestamp, _ timePassed: Int64 ) -> Bool{
+        let currentTime = Timestamp.init()
+        let dif = currentTime.seconds - submitTime.seconds
+        
+        if(dif > timePassed){
+            return true
+        }
+        return false
+    }
+    
+    //Notifications
     func scheduleLocationNotification(_ sender: Any) {
         for element in mapView.incidents{
             let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 500, latitude: element.latitude, longitude: element.longitude, title: "WARNING: INCIDENT NEAR YOUR LOCATION", body: element.ExtraInfo)
@@ -48,12 +57,9 @@ struct ContentView: View {
         }
     }
     
-    
-    
-    
+    //General Update Method SUPER IMPORTANT
     func update() {
         let ref = Firestore.firestore().collection("incident_DB")
-        
         ref
             .addSnapshotListener { querySnapshot, error in
                 guard let documents = querySnapshot?.documents else {
@@ -144,7 +150,7 @@ struct ContentView: View {
                 HStack{
                     Spacer()
                     Button {
-                      //  scheduleLocationNotification(self)
+                        //  scheduleLocationNotification(self)
                         addButtonState = true
                     } label: {
                         Image("add") // CHANGE IMAGE
@@ -221,8 +227,6 @@ struct ContentView: View {
                         mapSelector = true
                         
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
-                        // update()
-                        
                     } label:{
                         Text("Next")
                     }
@@ -308,6 +312,29 @@ struct ContentView: View {
                     .position(x: 55, y: 245)
                     
                     
+                    //Submit Button
+                    
+                    if(mapView.incidents.count>0 && !checkIfEnoughTimePassed(mapView.incidents.last!.time, 10)){
+                        ZStack{
+                            Rectangle()
+                                .fill(Color.black)
+                                .frame(width: 182.0, height: 37.0)
+                                .cornerRadius(12)
+                            Rectangle()
+                                .fill(Color.gray)
+                                .frame(width: 180.0, height: 35.0)
+                                .cornerRadius(11)
+                            
+                            
+                            
+                            Text("You just submitted!")
+                                .font(.headline)
+                                .foregroundColor(Color.white)
+          
+                            
+                        }
+                        .position(x: 195, y: 240)
+                    }else{
                     
                     Button(){
                         var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
@@ -348,7 +375,7 @@ struct ContentView: View {
                         }
                         
                         mapSelector = false
-                        //  update()
+                        update()
                     } label:{
                         ZStack{
                             Rectangle()
@@ -373,7 +400,7 @@ struct ContentView: View {
                         }
                     }
                     .position(x: 195, y: 240)
-                    
+                    }
                     
                 }
                 
