@@ -413,7 +413,7 @@ struct ContentView: View {
                             
                             userDescriptionInput = "D"
                             mapSelector = false
-                            update()
+                          //  update()
                         } label:{
                             ZStack{
                                 Rectangle()
@@ -439,7 +439,7 @@ struct ContentView: View {
 
         }
         .onAppear(){
-            update()
+          //  update()
         }
     }
     
