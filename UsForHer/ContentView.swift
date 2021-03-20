@@ -33,7 +33,7 @@ struct ContentView: View {
     
     //Time Management Variables
     @State var timeManager = TimeManager()
-    let timer = Timer.publish(every: 30, on: .current, in: .common).autoconnect()
+    let timer = Timer.publish(every: 5, on: .current, in: .common).autoconnect()
     @State var newDate = Date()
     
     //Notification Variable
@@ -92,6 +92,7 @@ struct ContentView: View {
                 }
                 print("Running Update")
                 var removeList = [String]()
+                
                 for element in mapView.incidents {
                     if(checkIncidentTime(element, 600)){
                         mapView.remove(element)
@@ -99,6 +100,7 @@ struct ContentView: View {
                         removeList.append(targetID)
                         if(contains(id, element.id)){
                             ref.document(element.id).delete()
+                            locationNotificationScheduler.deleteNotif(element.id)
                             print(" REMOVED ")
                         }
                     }
@@ -107,6 +109,19 @@ struct ContentView: View {
             }
         scheduleLocationNotification(self) //compare db to
         locationNotificationScheduler.removeNotificationAfterShow() //delete already shown notifications
+
+        let center = UNUserNotificationCenter.current()
+   //     center.removeAllPendingNotificationRequests()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            if(requests.count == 0){
+                print("NO NOTIFS SCHEDULED")
+            }
+            for request in requests {
+                print("NOTIFS:")
+                print(request)
+            }
+            print("||| END NOTIFS")
+        })
     }
     //Helper
     func contains(_ idArr: [Any],_ target: String)-> Bool{
@@ -152,7 +167,7 @@ struct ContentView: View {
                     
                     Spacer()
                 }
-                .position(x:100, y:70)
+                .position(x:100, y:100)
                 
                 
                 Spacer()

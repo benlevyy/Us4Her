@@ -5,12 +5,6 @@ import Firebase
 
 
 struct MapView: View {
-    
-    @State var userTrackingMode: MapUserTrackingMode = .none
-    
-    /*
-     map view delegete important
-     */
     @State var region = MKCoordinateRegion()
     
     @ObservedObject var locManager = LocationManager()
@@ -45,9 +39,6 @@ struct MapView: View {
             span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
         )
     }
-    
-    
-
     
     public func saveInfo(_ input: IncidentPin){
         displayedInfo = input
@@ -133,10 +124,8 @@ struct MapView: View {
             coordinateRegion: getRegion(),
             interactionModes: MapInteractionModes.all,
             showsUserLocation: true,
-            userTrackingMode: $userTrackingMode,
             annotationItems: incidents
         ){ incident in
-  //          MapMarker(coordinate: incident.coordinate , tint: getColor(incident)){
             MapAnnotation(coordinate: incident.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
                 Button(){
                     buttonDisplayedState = true
@@ -145,7 +134,8 @@ struct MapView: View {
                    incidentRegion
                         .fill(getColor(incident))
                         .opacity(0.4)
-                        .frame(width: getZoom(region.span.latitudeDelta) , height: getZoom(region.span.longitudeDelta))  //ADD MULTIPLIER TO SCALE SIZE --- FIGURE OUT PROBLEM WITH ENUM
+                    //.frame(width: 185, height: 185)
+                        .frame(width: getZoom(region.span.latitudeDelta) , height: getZoom(region.span.longitudeDelta))  //ADD MULTIPLIER TO check both???? 
                     }
                 }
 

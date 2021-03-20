@@ -43,6 +43,22 @@ class LocationNotificationScheduler: NSObject {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
     
+    func getCurrentNotif(){
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            for request in requests {
+                print(request)
+            }
+        })
+    }
+    func getCurrentNotif()-> UNUserNotificationCenter{
+        return UNUserNotificationCenter.current()
+    }
+    func deleteNotif(_ notifId: String){
+        print("deleted notif")
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notifId])
+    }
+    
 }
 
 // MARK: - Private Functions
@@ -69,12 +85,12 @@ private extension LocationNotificationScheduler {
     func requestNotification(notificationInfo: LocationNotificationInfo) {
         let notification = notificationContent(notificationInfo: notificationInfo)
         let destRegion = destinationRegion(notificationInfo: notificationInfo)
-        let trigger = UNLocationNotificationTrigger(region: destRegion, repeats: true)
+        let trigger = UNLocationNotificationTrigger(region: destRegion, repeats: false)
         
         let request = UNNotificationRequest(identifier: notificationInfo.notificationId,
                                             content: notification,
                                             trigger: trigger)
-        print(request)
+     //   print(request)
 
         UNUserNotificationCenter.current().add(request) { [weak self] (error) in
             DispatchQueue.main.async {
