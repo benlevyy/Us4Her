@@ -6,22 +6,22 @@ import Firebase
 
 struct MapView: View {
     @State var region = MKCoordinateRegion()
+
+    let locManager = LocationManager()
     
-    @ObservedObject var locManager = LocationManager()
-    
-    public var incidents = [IncidentPin]()
+     var incidents : [IncidentPin]
     
     
-    @State  public var buttonDisplayedState: Bool = false
-    @State public var displayedInfo: IncidentPin =  IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp(seconds: 0, nanoseconds: 0))
-    @State private var zeroIncident = IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp(seconds: 0, nanoseconds: 0)) //cleared var
-    @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+  @State  var buttonDisplayedState: Bool = false
+    @State var displayedInfo: IncidentPin =  IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp(seconds: 0, nanoseconds: 0))
+    private let zeroIncident = IncidentPin(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp(seconds: 0, nanoseconds: 0)) //cleared var
+    private let zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
-    private var displayUserSelectionAnnatation : Bool = false
-    @State var center: CLLocationCoordinate2D = CLLocationCoordinate2D()
-    @State var centerCoordinate = CLLocationCoordinate2D  ()
+    let displayUserSelectionAnnatation : Bool = false
+     let center: CLLocationCoordinate2D = CLLocationCoordinate2D()
+     let centerCoordinate = CLLocationCoordinate2D  ()
     
-    @State var timeManager = TimeManager()
+    let timeManager = TimeManager()
 
     public mutating func addIncident(_ input: IncidentPin){
         // print(input)
@@ -33,7 +33,7 @@ struct MapView: View {
         }
     }
 
-    func setRegion(_ coordinate: CLLocationCoordinate2D) {
+    mutating func setRegion(_ coordinate: CLLocationCoordinate2D) {
         region = MKCoordinateRegion(
             center: locManager.lastLocation?.coordinate ?? zero,
             span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
@@ -51,15 +51,15 @@ struct MapView: View {
         
     }
     
-    public func setCenter(){
+    public mutating func setCenter(){
         setRegion(locManager.lastLocation?.coordinate ?? zero)
         print("Center set")
     }
     
-    public func clearVars(){
-        displayedInfo = zeroIncident
-        buttonDisplayedState = false
-    }
+//    public func clearVars(){
+//        displayedInfo = zeroIncident
+//        buttonDisplayedState = false
+//    }
     public func getRegion() -> Binding<MKCoordinateRegion>{
         return $region
     }
@@ -152,9 +152,9 @@ struct MapView: View {
             }
         
         
-        .onAppear{
-            setCenter()
-        }
+//        .onAppear{
+//            setCenter()
+//        }
         
 //        
 //        Button(){
@@ -204,7 +204,7 @@ struct MapView: View {
                 
                 Button() { //close button
                     buttonDisplayedState  = false
-                    clearVars()
+                 //   clearVars()
                 } label: {
                     ZStack{
                         Image("exit")

@@ -26,8 +26,12 @@ struct ContentView: View {
     @State private var displayCircle: Bool = false
     let logoColor = Color(red: 0.9137, green: 0.6313, blue: 0.9058)
     
+    @State var incidents = [IncidentPin]()
     //Map Stuff Variables
-    @State var mapView : MapView = MapView()
+    
+    @State var selctedPlace = MKPointAnnotation()
+    @State var showingPlaceDetails = false
+    //    @State var mapView : MapView = MapView()
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
@@ -61,7 +65,7 @@ struct ContentView: View {
     
     //Notifications
     func scheduleLocationNotification(_ sender: Any) {
-        for element in mapView.incidents{
+        for element in incidents{
             let titleText = "WARNING: \(element.type) near your location)"
             let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 1200, latitude: element.latitude, longitude: element.longitude, title: titleText, body: element.ExtraInfo)
             locationNotificationScheduler.requestNotification(with: notInfo)
@@ -83,10 +87,10 @@ struct ContentView: View {
                 let lat = documents.map { $0["lat"] ?? 0.0}
                 let long = documents.map { $0["long"] ?? 0.0 }
                 let time = documents.map{ $0["time"] ?? Timestamp(seconds: 0, nanoseconds: 0)}
-                if(mapView.incidents.count < lat.count){
+                if(incidents.count < lat.count){
                     for i in 0..<lat.count{
                         print("ARRAYS DONT MATCH....UPDATING")
-                        mapView.incidents.append(IncidentPin(id : id[i] as! String, latitude: lat[i] as! Double, longitude: long[i] as! Double, type: t[i] as! String, ExtraInfo: extraInfo[i] as! String, time: time[i] as! Timestamp))
+                        incidents.append(IncidentPin(id : id[i] as! String, latitude: lat[i] as! Double, longitude: long[i] as! Double, type: t[i] as! String, ExtraInfo: extraInfo[i] as! String, time: time[i] as! Timestamp))
                     }
                     }else{
                         print("ARRAY MATCHES DB")
@@ -95,9 +99,9 @@ struct ContentView: View {
                 print("Running Update")
                 var removeList = [String]()
                 
-                for element in mapView.incidents {
+                for element in incidents {
                     if(checkIncidentTime(element, 600)){
-                        mapView.remove(element)
+                    //    mapView.remove(element)
                         let targetID: String = element.id
                         removeList.append(targetID)
                         if(contains(id, element.id)){
@@ -148,14 +152,29 @@ struct ContentView: View {
         print("on /\(n)")
         return false
     }
-    
-    
-    var body: some View {
+    func getRegion() -> MKCoordinateRegion{
+        return MKCoordinateRegion(
+            center: locManager.lastLocation?.coordinate ?? zero,
+            span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
+        )
+    }
+    func convertToAnnot()-> [mapAnnotation]{
+        var out = [mapAnnotation]()
+        for element in incidents{
+            let loc = mapAnnotation(tag: element.id)
+            loc.coordinate = element.coordinate
+            loc.title = element.type
+            
+            out.append(loc)
+        }
+        return out
+    }
+    var body: some View{
         let horizCenter = screenSize.width/2
         
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
         ZStack{
-            mapView
+            MV(annotations: convertToAnnot(), selectedIncident: selctedPlace, showingPlaceDetails: false, incidents: incidents)
                 .frame(height: 860) //change size
             VStack{
                 Spacer()
