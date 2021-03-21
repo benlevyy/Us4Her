@@ -25,7 +25,7 @@ struct ContentView: View {
     private var locOptions = ["Use my Location", "Use other Location"]
     @State private var displayCircle: Bool = false
     let logoColor = Color(red: 0.9137, green: 0.6313, blue: 0.9058)
-
+    
     //Map Stuff Variables
     @State var mapView : MapView = MapView()
     @State private var centerCoordinate = CLLocationCoordinate2D()
@@ -43,11 +43,11 @@ struct ContentView: View {
     @State var submitTime = Timestamp.init().seconds
     @State var mostRecentIncidentPin = IncidentPin.init(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp.init(seconds: 0, nanoseconds: 0))
     
-
+    
     //Getting Device Size()
     let screenSize = UIScreen.main.bounds.size
     
-
+    
     //AntiSpam
     func checkIfEnoughTimePassed(_ submitTime: Timestamp, _ timePassed: Int64 ) -> Bool{
         let currentTime = Timestamp.init()
@@ -83,13 +83,15 @@ struct ContentView: View {
                 let lat = documents.map { $0["lat"] ?? 0.0}
                 let long = documents.map { $0["long"] ?? 0.0 }
                 let time = documents.map{ $0["time"] ?? Timestamp(seconds: 0, nanoseconds: 0)}
-                for i in 0..<lat.count{
-                    if(mapView.incidents.count < lat.count){
+                if(mapView.incidents.count < id.count){
+                    for i in 0..<id.count{
+                        print("ARRAYS DONT MATCH....UPDATING : \(i)")
                         mapView.incidents.append(IncidentPin(id : id[i] as! String, latitude: lat[i] as! Double, longitude: long[i] as! Double, type: t[i] as! String, ExtraInfo: extraInfo[i] as! String, time: time[i] as! Timestamp))
-                    }else{
-                        print("ARRAY FULL")
                     }
-                }
+                    }else{
+                        print("ARRAY MATCHES DB")
+                    }
+                
                 print("Running Update")
                 var removeList = [String]()
                 
@@ -109,19 +111,19 @@ struct ContentView: View {
             }
         scheduleLocationNotification(self) //compare db to
         locationNotificationScheduler.removeNotificationAfterShow() //delete already shown notifications
-
-        let center = UNUserNotificationCenter.current()
-   //     center.removeAllPendingNotificationRequests()
-        center.getPendingNotificationRequests(completionHandler: { requests in
-            if(requests.count == 0){
-                print("NO NOTIFS SCHEDULED")
-            }
-            for request in requests {
-                print("NOTIFS:")
-                print(request)
-            }
-            print("||| END NOTIFS")
-        })
+        
+    //    let center = UNUserNotificationCenter.current()
+        //   //     center.removeAllPendingNotificationRequests()
+        //        center.getPendingNotificationRequests(completionHandler: { requests in
+        //            if(requests.count == 0){
+        //                print("NO NOTIFS SCHEDULED")
+        //            }
+        //            for request in requests {
+        //                print("NOTIFS:")
+        //                print(request)
+        //            }
+        //            print("||| END NOTIFS")
+        //        })
     }
     //Helper
     func contains(_ idArr: [Any],_ target: String)-> Bool{
@@ -139,11 +141,11 @@ struct ContentView: View {
         let currentSecCount = current.seconds
         let dif = currentSecCount - n.time.seconds
         if(dif > timeBeforeDeletion){
-            print("Removing /\(n)")
+            //print("Removing /\(n)")
             return true
         }
-        print("Theres this much time left :/\(dif)")
-        print("on /\(n)")
+//        print("Theres this much time left :/\(dif)")
+//        print("on /\(n)")
         return false
     }
     
@@ -171,12 +173,12 @@ struct ContentView: View {
                 
                 
                 Spacer()
-                    Spacer()
-                    Button {
-                        //  scheduleLocationNotification(self)
-                        addButtonState = true
-                    } label: {
-                        ZStack{
+                Spacer()
+                Button {
+                    //  scheduleLocationNotification(self)
+                    addButtonState = true
+                } label: {
+                    ZStack{
                         Circle()
                             .fill(Color.black)
                             .frame(width: 66, height: 66)
@@ -187,10 +189,10 @@ struct ContentView: View {
                             .fontWeight(.bold)
                             .foregroundColor(Color.black)
                             .font(.custom("San Francisco", size: 40))
-                        }
                     }
-                    .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
-                    
+                }
+                .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
+                
                 
             }
             
@@ -375,14 +377,14 @@ struct ContentView: View {
                             var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
                             
                             if(locSelection == 0){
-                                mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
-                                ))
+//                                mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
+//                                ))
                                 pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
                                 
                             }
                             if(locSelection == 1){
-                                mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
-                                ))
+//                                mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
+//                                ))
                                 pos = CLLocationCoordinate2D(latitude: mls.getCenterLat(), longitude: mls.getCenterLong())
                             }
                             print("adding incident at")
@@ -411,9 +413,9 @@ struct ContentView: View {
                             
                             mostRecentIncidentPin = IncidentPin.init(latitude: pos.latitude, longitude: pos.longitude, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp.init()) //save most recent incident to check for spam
                             
-                            userDescriptionInput = "D"
+                            userDescriptionInput = ""
                             mapSelector = false
-                          //  update()
+                            update()
                         } label:{
                             ZStack{
                                 Rectangle()
@@ -436,10 +438,10 @@ struct ContentView: View {
                 }
                 
             }
-
+            
         }
         .onAppear(){
-          //  update()
+            //  update()
         }
     }
     

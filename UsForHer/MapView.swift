@@ -78,8 +78,18 @@ struct MapView: View {
         }
         return Color.gray
     }
-    func getZoom(_ regionDelta: Double) -> CGFloat{
-        return (111 / CGFloat(regionDelta))/20
+    func getZoom(_ regionDelta: MKCoordinateSpan) -> CGFloat{
+        let latDif = regionDelta.latitudeDelta
+        let longDif = regionDelta.latitudeDelta
+         var calculate : Double
+        
+        if(latDif > longDif){
+            calculate = longDif
+        }else{
+            calculate = latDif
+        }
+        
+        return (111 / CGFloat(calculate))/20
     }
  
     mutating func remove(_ element: IncidentPin){
@@ -133,10 +143,9 @@ struct MapView: View {
                 } label: {
                    incidentRegion
                         .fill(getColor(incident))
-                        //.fill(Color.gray)
-                        .opacity(0.4)
-                        .frame(width: 155, height: 155)
-                        //.frame(width: getZoom(region.span.latitudeDelta) , height: getZoom(region.span.longitudeDelta))  //ADD MULTIPLIER TO check both????
+                       .opacity(0.4)
+                      .frame(width: 155 , height: 155)  //ADD MULTIPLIER TO check both????
+                      //  .frame(width: getZoom(region.span) , height: getZoom(region.span))  //ADD MULTIPLIER TO check both????
                     }
                 }
 
