@@ -29,6 +29,7 @@ struct MapLocationSelect: UIViewRepresentable {
     }
     func makeUIView(context: Context) -> MKMapView {
         let mapLocationSelect = MKMapView()
+        mapLocationSelect.region =  MKCoordinateRegion(center: locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
         mapLocationSelect.delegate = context.coordinator
         return mapLocationSelect
     }

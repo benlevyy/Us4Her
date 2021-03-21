@@ -164,7 +164,7 @@ struct ContentView: View {
             let loc = mapAnnotation(tag: element.id)
             loc.coordinate = element.coordinate
             loc.title = element.type
-            
+            loc.subtitle = element.ExtraInfo
             out.append(loc)
         }
         return out
@@ -174,7 +174,7 @@ struct ContentView: View {
         
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
         ZStack{
-            MV(annotations: convertToAnnot(), selectedIncident: selctedPlace, showingPlaceDetails: false, incidents: incidents)
+            MV(annotations: convertToAnnot(), incidents: incidents)
                 .frame(height: 860) //change size
             VStack{
                 Spacer()
