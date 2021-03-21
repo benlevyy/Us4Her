@@ -437,6 +437,14 @@ struct ContentView: View {
                                 }
                             }
                             
+                            Firestore.firestore().document("general_DB/\(curID)").setData(incidentDictionary){(error) in
+                                if let error = error{
+                                    print("error = \(error)")
+                                }else{
+                                    print("data uploaded to general successfully")
+                                }
+                            }
+                            
                             mostRecentIncidentPin = IncidentPin.init(latitude: pos.latitude, longitude: pos.longitude, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp.init()) //save most recent incident to check for spam
                             
                             userDescriptionInput = ""
