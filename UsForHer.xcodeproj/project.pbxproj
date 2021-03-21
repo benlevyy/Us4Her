@@ -16,7 +16,6 @@
 		5C0A6B1D26013B7F00FD2C29 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1C26013B7F00FD2C29 /* FirebaseDatabase */; };
 		5C0A6B2E2601B40B00FD2C29 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0A6B2D2601B40B00FD2C29 /* TimeManager.swift */; };
 		5C0C2D2125FF297300E8B88B /* MapLocationSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */; };
-		5C1F53C7260704C500ED0DE4 /* MV copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F53C6260704C500ED0DE4 /* MV copy.swift */; };
 		5C1F53CF26070FFA00ED0DE4 /* annotationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F53CE26070FFA00ED0DE4 /* annotationInfo.swift */; };
 		5C1F53D4260715BF00ED0DE4 /* mapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1F53D3260715BF00ED0DE4 /* mapAnnotation.swift */; };
 		5C44A42B25F20445006D6C4C /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C44A42A25F20445006D6C4C /* MapView.swift */; };
@@ -33,6 +32,7 @@
 		5CF2633F25F1D5CC0083B493 /* UsForHerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2633E25F1D5CC0083B493 /* UsForHerUITests.swift */; };
 		5CF2635525F1E1D50083B493 /* IncidentPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2635425F1E1D50083B493 /* IncidentPin.swift */; };
 		86F243468BB696F35AE0B3F6 /* Pods_UsForHerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06CCACAB20CA0E9F3B199718 /* Pods_UsForHerTests.framework */; };
+		D3262152260718B8006561AB /* MV copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3262151260718B8006561AB /* MV copy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,6 @@
 		5C0A6AEE26010EFB00FD2C29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5C0A6B2D2601B40B00FD2C29 /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSelect.swift; sourceTree = "<group>"; };
-		5C1F53C6260704C500ED0DE4 /* MV copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MV copy.swift"; path = "../../MV copy.swift"; sourceTree = "<group>"; };
 		5C1F53CE26070FFA00ED0DE4 /* annotationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = annotationInfo.swift; sourceTree = "<group>"; };
 		5C1F53D3260715BF00ED0DE4 /* mapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapAnnotation.swift; sourceTree = "<group>"; };
 		5C44A42A25F20445006D6C4C /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -85,6 +84,7 @@
 		9E61A350CE6851707ECC082F /* Pods-UsForHerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsForHerTests.release.xcconfig"; path = "Target Support Files/Pods-UsForHerTests/Pods-UsForHerTests.release.xcconfig"; sourceTree = "<group>"; };
 		9F6936D28581B45287D830E3 /* Pods-UsForHerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsForHerTests.debug.xcconfig"; path = "Target Support Files/Pods-UsForHerTests/Pods-UsForHerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C820A86249C25AC64C37369E /* Pods-UsForHer-UsForHerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsForHer-UsForHerUITests.debug.xcconfig"; path = "Target Support Files/Pods-UsForHer-UsForHerUITests/Pods-UsForHer-UsForHerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D3262151260718B8006561AB /* MV copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "MV copy.swift"; path = "../../../Downloads/MV copy.swift"; sourceTree = "<group>"; };
 		DE892E2F2E27B40B42463A76 /* Pods_UsForHer_UsForHerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UsForHer_UsForHerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -165,7 +165,7 @@
 		5CF2632025F1D5CB0083B493 /* UsForHer */ = {
 			isa = PBXGroup;
 			children = (
-				5C1F53C6260704C500ED0DE4 /* MV copy.swift */,
+				D3262151260718B8006561AB /* MV copy.swift */,
 				5CBE9B3D26042687006CFAB7 /* Notif */,
 				5C0A6AEE26010EFB00FD2C29 /* GoogleService-Info.plist */,
 				5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */,
@@ -443,10 +443,10 @@
 				5C44A44925F2D25D006D6C4C /* LocationManager.swift in Sources */,
 				5C4884F226040E3400061499 /* LocationNotificationInfo.swift in Sources */,
 				5C1F53D4260715BF00ED0DE4 /* mapAnnotation.swift in Sources */,
-				5C1F53C7260704C500ED0DE4 /* MV copy.swift in Sources */,
 				5CF2635525F1E1D50083B493 /* IncidentPin.swift in Sources */,
 				5C0A6B2E2601B40B00FD2C29 /* TimeManager.swift in Sources */,
 				5CB7827625F89CFE00B31FDC /* LocationService.swift in Sources */,
+				D3262152260718B8006561AB /* MV copy.swift in Sources */,
 				5C4884F726040E4F00061499 /* LocationNotificationSchedulerDelegate.swift in Sources */,
 				5CF2632225F1D5CB0083B493 /* UsForHerApp.swift in Sources */,
 			);
@@ -608,7 +608,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"UsForHer/Preview Content\"";
-				DEVELOPMENT_TEAM = Z59UGG7SZG;
+				DEVELOPMENT_TEAM = JH3S5V87NK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = UsForHer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -631,7 +631,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"UsForHer/Preview Content\"";
-				DEVELOPMENT_TEAM = Z59UGG7SZG;
+				DEVELOPMENT_TEAM = JH3S5V87NK;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = UsForHer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

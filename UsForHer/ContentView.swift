@@ -100,7 +100,7 @@ struct ContentView: View {
                 var removeList = [String]()
                 
                 for element in incidents {
-                    if(checkIncidentTime(element, 600)){
+                    if(checkIncidentTime(element, 6000)){
                     //    mapView.remove(element)
                         let targetID: String = element.id
                         removeList.append(targetID)
@@ -311,10 +311,17 @@ struct ContentView: View {
                     if(locSelection == 1){
                         mls //map location select
                         
-                        Circle()
-                            .fill(Color.blue)
-                            .opacity(0.3)
-                            .frame(width: 32, height: 32)
+//                        Circle()
+//                            .fill(Color.blue)
+//                            .opacity(0.3)
+//                            .frame(width: 32, height: 32)
+                        
+                        Image("MapMarker")
+                            .resizable()
+                            .frame(width: 90.0, height: 90.0)
+                            
+                            
+                            
                         
                     }
                     
