@@ -83,9 +83,9 @@ struct ContentView: View {
                 let lat = documents.map { $0["lat"] ?? 0.0}
                 let long = documents.map { $0["long"] ?? 0.0 }
                 let time = documents.map{ $0["time"] ?? Timestamp(seconds: 0, nanoseconds: 0)}
-                if(mapView.incidents.count < id.count){
-                    for i in 0..<id.count{
-                        print("ARRAYS DONT MATCH....UPDATING : \(i)")
+                if(mapView.incidents.count < lat.count){
+                    for i in 0..<lat.count{
+                        print("ARRAYS DONT MATCH....UPDATING")
                         mapView.incidents.append(IncidentPin(id : id[i] as! String, latitude: lat[i] as! Double, longitude: long[i] as! Double, type: t[i] as! String, ExtraInfo: extraInfo[i] as! String, time: time[i] as! Timestamp))
                     }
                     }else{
@@ -112,7 +112,7 @@ struct ContentView: View {
         scheduleLocationNotification(self) //compare db to
         locationNotificationScheduler.removeNotificationAfterShow() //delete already shown notifications
         
-    //    let center = UNUserNotificationCenter.current()
+        let center = UNUserNotificationCenter.current()
         //   //     center.removeAllPendingNotificationRequests()
         //        center.getPendingNotificationRequests(completionHandler: { requests in
         //            if(requests.count == 0){
@@ -141,11 +141,11 @@ struct ContentView: View {
         let currentSecCount = current.seconds
         let dif = currentSecCount - n.time.seconds
         if(dif > timeBeforeDeletion){
-            //print("Removing /\(n)")
+            print("Removing /\(n)")
             return true
         }
-//        print("Theres this much time left :/\(dif)")
-//        print("on /\(n)")
+        print("Theres this much time left :/\(dif)")
+        print("on /\(n)")
         return false
     }
     

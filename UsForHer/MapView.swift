@@ -132,7 +132,7 @@ struct MapView: View {
     var body: some View {
         Map(
             coordinateRegion: getRegion(),
-            interactionModes: MapInteractionModes.pan,
+            interactionModes: MapInteractionModes.all,
             showsUserLocation: true,
             annotationItems: incidents
         ){ incident in
@@ -144,8 +144,8 @@ struct MapView: View {
                    incidentRegion
                         .fill(getColor(incident))
                        .opacity(0.4)
-                      .frame(width: 155 , height: 155)  //ADD MULTIPLIER TO check both????
-                      //  .frame(width: getZoom(region.span) , height: getZoom(region.span))  //ADD MULTIPLIER TO check both????
+               //       .frame(width: 155 , height: 155)  //ADD MULTIPLIER TO check both????
+                        .frame(width: getZoom(region.span) , height: getZoom(region.span))  //ADD MULTIPLIER TO check both????
                     }
                 }
 
