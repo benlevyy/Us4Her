@@ -42,7 +42,10 @@ class LocationNotificationScheduler: NSObject {
     public func removeNotificationAfterShow(){
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
-    
+    public func clearAll(){
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
     func getCurrentNotif(){
         let center = UNUserNotificationCenter.current()
         center.getPendingNotificationRequests(completionHandler: { requests in

@@ -15,7 +15,7 @@ struct ContentView: View {
     //General Variables
     @ObservedObject var locManager = LocationManager()
     @State var addButtonState: Bool = false
-    private var incidentOptions = ["Verbal Assualt/Cat Call", "Suspicous Behaviour", "Following/Stalking", "Other"]
+    private var incidentOptions = ["Verbal Assault/Cat Call", "Suspicious Behaviour", "Following/Stalking", "Other"]
     @State private var selection = 1
     @State var otherUserInput: String = ""
     @State var userDescriptionInput: String = "Description"
@@ -101,7 +101,7 @@ struct ContentView: View {
                 
                 for element in incidents {
                     if(checkIncidentTime(element, 6000)){
-                    //    mapView.remove(element)
+                        remove(element)
                         let targetID: String = element.id
                         removeList.append(targetID)
                         if(contains(id, element.id)){
@@ -114,21 +114,37 @@ struct ContentView: View {
                 
             }
         scheduleLocationNotification(self) //compare db to
-        locationNotificationScheduler.removeNotificationAfterShow() //delete already shown notifications
+        locationNotificationScheduler.removeNotificationAfterShow() //delete already shown 
         
         let center = UNUserNotificationCenter.current()
-        //   //     center.removeAllPendingNotificationRequests()
-        //        center.getPendingNotificationRequests(completionHandler: { requests in
-        //            if(requests.count == 0){
-        //                print("NO NOTIFS SCHEDULED")
-        //            }
-        //            for request in requests {
-        //                print("NOTIFS:")
-        //                print(request)
-        //            }
-        //            print("||| END NOTIFS")
-        //        })
+           //     center.removeAllPendingNotificationRequests()
+                center.getPendingNotificationRequests(completionHandler: { requests in
+                    if(requests.count == 0){
+                        print("NO NOTIFS SCHEDULED")
+                    }
+                    for request in requests {
+                        print("NOTIFS:")
+                        print(request)
+                    }
+                    print("||| END NOTIFS")
+                })
     }
+     func remove(_ element: IncidentPin){
+        let index = find(value: element, in: incidents)!
+        incidents.remove(at: index)
+    }
+    private func find(value searchValue: IncidentPin, in array: [IncidentPin]) -> Int?
+    {
+        for (index, value) in array.enumerated()
+        {
+            if value.id == searchValue.id {
+                return index
+            }
+        }
+
+        return nil
+    }
+    
     //Helper
     func contains(_ idArr: [Any],_ target: String)-> Bool{
         for elemennt in idArr{
@@ -325,8 +341,6 @@ struct ContentView: View {
                         
                     }
                     
-                    
-                    
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
                         .frame(width: 352, height: 142)
@@ -437,14 +451,6 @@ struct ContentView: View {
                                 }
                             }
                             
-                            Firestore.firestore().document("general_DB/\(curID)").setData(incidentDictionary){(error) in
-                                if let error = error{
-                                    print("error = \(error)")
-                                }else{
-                                    print("data uploaded to general successfully")
-                                }
-                            }
-                            
                             mostRecentIncidentPin = IncidentPin.init(latitude: pos.latitude, longitude: pos.longitude, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp.init()) //save most recent incident to check for spam
                             
                             userDescriptionInput = ""
@@ -475,7 +481,9 @@ struct ContentView: View {
             
         }
         .onAppear(){
-            //  update()
+            locationNotificationScheduler.clearAll()
+            incidents.removeAll()
+            update()
         }
     }
     

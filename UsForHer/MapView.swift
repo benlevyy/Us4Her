@@ -137,11 +137,15 @@ struct MapView: View {
             annotationItems: incidents
         ){ incident in
             MapAnnotation(coordinate: incident.coordinate, anchorPoint: CGPoint(x: 0.5, y: 0.5)) {
+//                Circle()
+//                    .fill(getColor(incident))
+//                    .opacity(0.4)
+//                    .frame(width: getZoom(region.span) , height: getZoom(region.span))
                 Button(){
                     buttonDisplayedState = true
                     saveInfo(incident)
                 } label: {
-                   incidentRegion
+                   Circle()
                         .fill(getColor(incident))
                        .opacity(0.4)
                //       .frame(width: 155 , height: 155)  //ADD MULTIPLIER TO check both????
