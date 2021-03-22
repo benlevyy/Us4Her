@@ -37,7 +37,7 @@ struct ContentView: View {
     
     //Time Management Variables
     @State var timeManager = TimeManager()
-    let timer = Timer.publish(every: 5, on: .current, in: .common).autoconnect()
+    let timer = Timer.publish(every: 30, on: .current, in: .common).autoconnect()
     @State var newDate = Date()
     
     //Notification Variable
@@ -100,7 +100,7 @@ struct ContentView: View {
                 var removeList = [String]()
                 
                 for element in incidents {
-                    if(checkIncidentTime(element, 6000)){
+                    if(checkIncidentTime(element, 43200)){
                         remove(element)
                         let targetID: String = element.id
                         removeList.append(targetID)
@@ -116,18 +116,8 @@ struct ContentView: View {
         scheduleLocationNotification(self) //compare db to
         locationNotificationScheduler.removeNotificationAfterShow() //delete already shown 
         
-        let center = UNUserNotificationCenter.current()
-           //     center.removeAllPendingNotificationRequests()
-                center.getPendingNotificationRequests(completionHandler: { requests in
-                    if(requests.count == 0){
-                        print("NO NOTIFS SCHEDULED")
-                    }
-                    for request in requests {
-                        print("NOTIFS:")
-                        print(request)
-                    }
-                    print("||| END NOTIFS")
-                })
+//2021-03-21 22:20:15.934527-0700 UsForHer[27466:5509415] [VKDefault] Style Z is requested for an invisible rect
+
     }
      func remove(_ element: IncidentPin){
         let index = find(value: element, in: incidents)!
