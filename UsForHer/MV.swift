@@ -12,21 +12,24 @@ import Firebase
 struct MV: UIViewRepresentable {
     var annotations: [MKPointAnnotation]
     var incidents: [IncidentPin]
-    @State var selectedAnnotation = mapAnnotation(tag: "")
+    @State var selectedAnnotation = mapAnnotation(tag: "", time: Timestamp.init())
 @State var locManager = LocationManager()
 
-    
+    var didSelect: (mapAnnotation) -> ()  // callback
+
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.region =  MKCoordinateRegion(center: locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
-        mapView.showsUserLocation = true
+     //    mapView.showsUserLocation = true
         
         mapView.delegate = context.coordinator
 
         return mapView
     }
-
+    func getAnnotCount()->Int{
+        return annotations.count
+    }
     func updateUIView(_ view: MKMapView, context: Context) {
         if annotations.count != view.annotations.count {
             view.removeAnnotations(view.annotations)
@@ -52,7 +55,8 @@ struct MV: UIViewRepresentable {
             let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
             annotationView.animatesWhenAdded = true
             annotationView.canShowCallout = true
-            annotationView.rightCalloutAccessoryView = UIControl()
+            let btn = UIButton(type: .detailDisclosure)
+            annotationView.rightCalloutAccessoryView = btn
             switch annotation.title!! {
                 case "Verbal Assault/Cat Call":
                     annotationView.markerTintColor = UIColor.red
@@ -77,6 +81,22 @@ struct MV: UIViewRepresentable {
             
             return annotationView
         }
-   
+        func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+            if let v = view.annotation as? mapAnnotation{
+                print(v.coordinate)
+
+                parent.didSelect(v) // << here !!
+            }
+        }
+//        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+//            if let v = view.annotation as? mapAnnotation{
+//                print(v.coordinate)
+//
+//                parent.didSelect(v) // << here !!
+//            }
+//        }
+      
+        
+
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C0A6AEF26010EFB00FD2C29 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C0A6AEE26010EFB00FD2C29 /* GoogleService-Info.plist */; };
 		5C0A6B1526013B7F00FD2C29 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1426013B7F00FD2C29 /* FirebaseStorageSwift-Beta */; };
 		5C0A6B1726013B7F00FD2C29 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1626013B7F00FD2C29 /* FirebaseStorage */; };
 		5C0A6B1926013B7F00FD2C29 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1826013B7F00FD2C29 /* FirebaseAuth */; };
@@ -23,6 +22,7 @@
 		5C4884F226040E3400061499 /* LocationNotificationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4884F126040E3300061499 /* LocationNotificationInfo.swift */; };
 		5C4884F726040E4F00061499 /* LocationNotificationSchedulerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4884F626040E4F00061499 /* LocationNotificationSchedulerDelegate.swift */; };
 		5C5C97EB26086AFB00A0EBAF /* MV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C97EA26086AFA00A0EBAF /* MV.swift */; };
+		5C5C980426090B5000A0EBAF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C5C980326090B5000A0EBAF /* GoogleService-Info.plist */; };
 		5CB7827625F89CFE00B31FDC /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7827525F89CFE00B31FDC /* LocationService.swift */; };
 		5CF2632225F1D5CB0083B493 /* UsForHerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */; };
 		5CF2632425F1D5CB0083B493 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2632325F1D5CB0083B493 /* ContentView.swift */; };
@@ -53,7 +53,6 @@
 /* Begin PBXFileReference section */
 		11C5C4E789DC93C899385F65 /* Pods-UsForHer-UsForHerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsForHer-UsForHerUITests.release.xcconfig"; path = "Target Support Files/Pods-UsForHer-UsForHerUITests/Pods-UsForHer-UsForHerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		15C0EC34CC7B2327E1F18539 /* Pods-UsForHer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UsForHer.debug.xcconfig"; path = "Target Support Files/Pods-UsForHer/Pods-UsForHer.debug.xcconfig"; sourceTree = "<group>"; };
-		5C0A6AEE26010EFB00FD2C29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5C0A6B2D2601B40B00FD2C29 /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationSelect.swift; sourceTree = "<group>"; };
 		5C1F53CE26070FFA00ED0DE4 /* annotationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = annotationInfo.swift; sourceTree = "<group>"; };
@@ -64,6 +63,7 @@
 		5C4884F126040E3300061499 /* LocationNotificationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationInfo.swift; sourceTree = "<group>"; };
 		5C4884F626040E4F00061499 /* LocationNotificationSchedulerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationSchedulerDelegate.swift; sourceTree = "<group>"; };
 		5C5C97EA26086AFA00A0EBAF /* MV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MV.swift; sourceTree = "<group>"; };
+		5C5C980326090B5000A0EBAF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CB7827525F89CFE00B31FDC /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		5CF2631E25F1D5CB0083B493 /* UsForHer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UsForHer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsForHerApp.swift; sourceTree = "<group>"; };
@@ -147,8 +147,8 @@
 		5CF2632025F1D5CB0083B493 /* UsForHer */ = {
 			isa = PBXGroup;
 			children = (
+				5C5C980326090B5000A0EBAF /* GoogleService-Info.plist */,
 				5CBE9B3D26042687006CFAB7 /* Notif */,
-				5C0A6AEE26010EFB00FD2C29 /* GoogleService-Info.plist */,
 				5C0C2D2025FF297300E8B88B /* MapLocationSelect.swift */,
 				5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */,
 				5CF2632325F1D5CB0083B493 /* ContentView.swift */,
@@ -323,7 +323,7 @@
 			files = (
 				5CF2632925F1D5CC0083B493 /* Preview Assets.xcassets in Resources */,
 				5CF2632625F1D5CC0083B493 /* Assets.xcassets in Resources */,
-				5C0A6AEF26010EFB00FD2C29 /* GoogleService-Info.plist in Resources */,
+				5C5C980426090B5000A0EBAF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,7 +598,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.us4her;
+				PRODUCT_BUNDLE_IDENTIFIER = com.usforher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -621,7 +621,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.us4her;
+				PRODUCT_BUNDLE_IDENTIFIER = com.usforher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

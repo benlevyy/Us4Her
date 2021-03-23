@@ -7,10 +7,13 @@
 
 import Foundation
 import MapKit
+import Firebase
 class mapAnnotation: MKPointAnnotation {
      var tag: String
+    var time: Timestamp
 
-     init(tag: String) {
+    init(tag: String, time: Timestamp) {
           self.tag = tag
+        self.time = time
      }
 }

@@ -28,7 +28,6 @@ struct ContentView: View {
     
     @State var incidents = [IncidentPin]()
     //Map Stuff Variables
-    
     @State var selctedPlace = MKPointAnnotation()
     @State var showingPlaceDetails = false
     //    @State var mapView : MapView = MapView()
@@ -51,7 +50,9 @@ struct ContentView: View {
     //Getting Device Size()
     let screenSize = UIScreen.main.bounds.size
     
-    
+    //Showing Info
+    @State var showInfo = false
+    @State var savedInfoPin = mapAnnotation(tag: "", time: Timestamp.init())
     //AntiSpam
     func checkIfEnoughTimePassed(_ submitTime: Timestamp, _ timePassed: Int64 ) -> Bool{
         let currentTime = Timestamp.init()
@@ -114,9 +115,7 @@ struct ContentView: View {
                 
             }
         scheduleLocationNotification(self) //compare db to
-        locationNotificationScheduler.removeNotificationAfterShow() //delete already shown 
-        
-//2021-03-21 22:20:15.934527-0700 UsForHer[27466:5509415] [VKDefault] Style Z is requested for an invisible rect
+        locationNotificationScheduler.removeNotificationAfterShow() //delete already shown
 
     }
      func remove(_ element: IncidentPin){
@@ -164,23 +163,34 @@ struct ContentView: View {
             span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
         )
     }
+    
     func convertToAnnot()-> [mapAnnotation]{
-        var out = [mapAnnotation]()
-        for element in incidents{
-            let loc = mapAnnotation(tag: element.id)
-            loc.coordinate = element.coordinate
-            loc.title = element.type
-            loc.subtitle = element.ExtraInfo
-            out.append(loc)
-        }
-        return out
-    }
+           var out = [mapAnnotation]()
+           for element in incidents{
+            let loc = mapAnnotation(tag: element.id, time: element.time)
+               loc.coordinate = element.coordinate
+               loc.title = element.type
+               loc.subtitle = element.ExtraInfo
+               out.append(loc)
+           }
+           return out
+       }
+    
     var body: some View{
-        let horizCenter = screenSize.width/2
+        Text("")
+            .onReceive(timer){ input in
+              update()
+            }
+            .position(x: 1000, y: 1000)
         
+        let horizCenter = screenSize.width/2
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
+    
         ZStack{
-            MV(annotations: convertToAnnot(), incidents: incidents)
+            MV(annotations: convertToAnnot(), incidents: incidents){annotation in
+                savedInfoPin = annotation
+                showInfo = true
+            }
                 .frame(height: 860) //change size
             VStack{
                 Spacer()
@@ -190,18 +200,18 @@ struct ContentView: View {
                         .resizable()
                         .padding(.top, 20.0)
                         .frame(width:158, height:106)
-                    
-                    
+
+
                     Spacer()
                 }
                 .position(x:100, y:100)
-                
-                
+
+
                 Spacer()
                 Spacer()
                 Button {
                     //  scheduleLocationNotification(self)
-                    addButtonState = true
+                    addButtonState = true;
                 } label: {
                     ZStack{
                         Circle()
@@ -217,15 +227,11 @@ struct ContentView: View {
                     }
                 }
                 .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
-                
-                
+
+
             }
             
-            Text("")
-                .onReceive(timer){ input in
-                    update()
-                }
-                .position(x: 1000, y: 1000)
+      
             
             if(addButtonState){
                 ZStack{
@@ -315,20 +321,10 @@ struct ContentView: View {
                 ZStack{
                     
                     if(locSelection == 1){
-                        mls //map location select
-                        
-//                        Circle()
-//                            .fill(Color.blue)
-//                            .opacity(0.3)
-//                            .frame(width: 32, height: 32)
-                        
+                        mls
                         Image("MapMarker")
                             .resizable()
                             .frame(width: 90.0, height: 90.0)
-                            
-                            
-                            
-                        
                     }
                     
                     Rectangle() //creating rectangle for incident report
@@ -407,14 +403,10 @@ struct ContentView: View {
                             var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
                             
                             if(locSelection == 0){
-//                                mapView.addIncident(IncidentPin(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0 , longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
-//                                ))
                                 pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
                                 
                             }
                             if(locSelection == 1){
-//                                mapView.addIncident(IncidentPin(latitude: mls.getCenterLat(), longitude: mls.getCenterLong(), type:  incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp(seconds: 0, nanoseconds: 0)
-//                                ))
                                 pos = CLLocationCoordinate2D(latitude: mls.getCenterLat(), longitude: mls.getCenterLong())
                             }
                             print("adding incident at")
@@ -459,7 +451,6 @@ struct ContentView: View {
                                 Text("Submit")
                                     .font(.headline)
                                     .foregroundColor(Color.white)
-                                
                             }
                         }
                         .position(x: horizCenter, y: 240)
@@ -468,7 +459,23 @@ struct ContentView: View {
                 }
                 
             }
-            
+            if(showInfo){
+                annotationInfo(displayedInfo: savedInfoPin)
+                Button() { //close button
+                    print("button tapped")
+                    showInfo = false
+                 //   clearVars()
+                } label: {
+                    ZStack{
+                        Image("exit")
+                            .resizable()
+                            .frame(width: 50, height: 52)
+
+                    }
+                }
+                .position(x: 335, y: 325)
+                
+            }
         }
         .onAppear(){
             locationNotificationScheduler.clearAll()
