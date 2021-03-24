@@ -60,8 +60,8 @@ struct annotationInfo: View {
         ZStack{
             Rectangle() //creating rectangle for incident report
                 .fill(getColor(title))
-                .frame(width: 364, height: 264)
-                .cornerRadius(20.0)
+                .frame(width: 354, height: 254)
+                .cornerRadius(14.0)
             
             Rectangle() //creating rectangle for incident report
                 .fill(Color.white)
@@ -77,27 +77,24 @@ struct annotationInfo: View {
             //title
             .font(.title)
             .foregroundColor(Color.black)
-            .position(x: (screenSize.width/2), y: 340)
+            .position(x: (screenSize.width/2), y: 412)
             
             HStack{
                 Text(description)
-                    .frame(width: 340, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 340, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             }
-//            Text("\(hoursFromIncident(displayedInfo))")
-//                .fontWeight(.thin)
-//                .position(x: (screenSize.width/2), y: 530)
-
-      //  }
+            
             Button(action: {
                 actionSheet(displayedInfo)
             }, label: {
-                Text("Share")
+                Image("share button")
             })
-            .position(x: UIScreen.main.bounds.size.width - 60, y: 530.0)
+            .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
+            .position(x: (UIScreen.main.bounds.size.width/2) + 150, y: 600.0)
             
             Text("\(hoursFromIncident(displayedInfo as! mapAnnotation))")
                 .fontWeight(.thin)
-                .position(x: 100, y: 530)
+                .position(x: (UIScreen.main.bounds.size.width/2) - 100, y: 600)
             
         }
         

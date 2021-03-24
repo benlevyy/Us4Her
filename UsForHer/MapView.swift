@@ -21,7 +21,7 @@ struct MapView: View {
      let center: CLLocationCoordinate2D = CLLocationCoordinate2D()
      let centerCoordinate = CLLocationCoordinate2D  ()
     
-    let timeManager = TimeManager()
+//    let timeManager = TimeManager()
 
     public mutating func addIncident(_ input: IncidentPin){
         // print(input)

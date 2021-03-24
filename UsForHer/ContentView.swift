@@ -35,7 +35,7 @@ struct ContentView: View {
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
     //Time Management Variables
-    @State var timeManager = TimeManager()
+  //  @State var timeManager = TimeManager()
     let timer = Timer.publish(every: 30, on: .current, in: .common).autoconnect()
     @State var newDate = Date()
     
@@ -191,7 +191,7 @@ struct ContentView: View {
                 savedInfoPin = annotation
                 showInfo = true
             }
-                .frame(height: 860) //change size
+                .frame(height: 1000) //change size
             VStack{
                 Spacer()
                 HStack{
@@ -204,7 +204,7 @@ struct ContentView: View {
 
                     Spacer()
                 }
-                .position(x:100, y:100)
+                .position(x:100, y: 130)
 
 
                 Spacer()
@@ -254,7 +254,7 @@ struct ContentView: View {
                     //title
                     .font(.title)
                     .foregroundColor(Color.black)
-                    .position(x: horizCenter, y: 240)
+                    .position(x: horizCenter, y: 310)
                     
                     HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
@@ -265,23 +265,23 @@ struct ContentView: View {
                             }
                             
                         }
-                        .position(x: 150, y: 340)
+                        .position(x: 150, y: 410)
                         .frame(width: 300)
                     }
                     
                     RoundedRectangle(cornerRadius: 2)
                         .frame(width: 325, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:510)
+                        .position(x:horizCenter,y:580)
                     
                     RoundedRectangle(cornerRadius: 2)
                         .fill(Color.white)
                         .frame(width: 323, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:510)
+                        .position(x:horizCenter,y:580)
                     
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:480)
+                        .position(x:horizCenter,y:550)
                         .onTapGesture {
                             userDescriptionInput = ""
                         }
@@ -297,8 +297,7 @@ struct ContentView: View {
                     } label:{
                         Text("Next")
                     }
-                    
-                    .position(x: 325, y: 620)
+                    .position(x: 325, y: 690)
                     
                     Button() { //close button
                         addButtonState = false
@@ -312,7 +311,7 @@ struct ContentView: View {
                                 .frame(width:50, height:55)
                         }
                     }
-                    .position(x: 345, y:240)
+                    .position(x: 345, y:310)
                     
                 }
                 
@@ -447,7 +446,7 @@ struct ContentView: View {
                                 Rectangle()
                                     .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
                                     .frame(width: 70.0, height: 35.0)
-                                    .cornerRadius(11)
+                                    .cornerRadius(12)
                                 Text("Submit")
                                     .font(.headline)
                                     .foregroundColor(Color.white)
@@ -473,7 +472,7 @@ struct ContentView: View {
 
                     }
                 }
-                .position(x: 335, y: 325)
+                .position(x: screenSize.width/2 + 155, y: 395)
                 
             }
         }
