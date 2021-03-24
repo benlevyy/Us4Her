@@ -67,8 +67,8 @@ struct ContentView: View {
     //Notifications
     func scheduleLocationNotification(_ sender: Any) {
         for element in incidents{
-            let titleText = "WARNING: \(element.type) near your location)"
-            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 1200, latitude: element.latitude, longitude: element.longitude, title: titleText, body: element.ExtraInfo)
+            let titleText = "WARNING: \(element.type) near your location"
+            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 750, latitude: element.latitude, longitude: element.longitude, title: titleText, body: element.ExtraInfo)
             locationNotificationScheduler.requestNotification(with: notInfo)
         }
     }
@@ -199,7 +199,7 @@ struct ContentView: View {
                     Image("tlogo")
                         .resizable()
                         .padding(.top, 20.0)
-                        .frame(width:158, height:106)
+                        .frame(width:158, height:110)
 
 
                     Spacer()
@@ -375,8 +375,7 @@ struct ContentView: View {
                     
                     
                     //Submit Button
-                    
-                    if(!checkIfEnoughTimePassed(mostRecentIncidentPin.time, 10)){
+                    if(!checkIfEnoughTimePassed(mostRecentIncidentPin.time, 3600)){
                         ZStack{
                             Rectangle()
                                 .fill(Color.black)
@@ -411,7 +410,9 @@ struct ContentView: View {
                             print("adding incident at")
                             print(Timestamp.init())
                             let curID = UUID().uuidString
-                            
+                            if(userDescriptionInput == "Description"){
+                                userDescriptionInput = ""
+                            }
                             let incidentDictionary: [String: Any] = [
                                 "id" : curID,
                                 "type" : incidentOptions[selection],

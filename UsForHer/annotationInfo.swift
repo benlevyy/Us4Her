@@ -123,7 +123,7 @@ struct annotationInfo: View {
 
             print(titleFinal)
         print(descriptionFinal)
-        let items: [Any] = ["Watch out! There is a \(titleFinal) incident that may affect you! Here's some more info: \(descriptionFinal) and the location:", URL(string: "http://maps.google.com/maps/search/?api=1&query=\(posString)")! ]
+        let items: [Any] = ["Watch out! There is an incident that may affect you! Here's the location:", URL(string: "http://maps.google.com/maps/search/?api=1&query=\(posString)")! ]
            let av = UIActivityViewController(activityItems: items, applicationActivities: nil)
            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
        }
