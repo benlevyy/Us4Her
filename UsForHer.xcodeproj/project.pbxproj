@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5C0A6B1526013B7F00FD2C29 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1426013B7F00FD2C29 /* FirebaseStorageSwift-Beta */; };
-		5C0A6B1726013B7F00FD2C29 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1626013B7F00FD2C29 /* FirebaseStorage */; };
 		5C0A6B1926013B7F00FD2C29 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1826013B7F00FD2C29 /* FirebaseAuth */; };
 		5C0A6B1B26013B7F00FD2C29 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1A26013B7F00FD2C29 /* FirebaseFirestore */; };
 		5C0A6B1D26013B7F00FD2C29 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5C0A6B1C26013B7F00FD2C29 /* FirebaseDatabase */; };
@@ -88,7 +87,6 @@
 			files = (
 				5C0A6B1D26013B7F00FD2C29 /* FirebaseDatabase in Frameworks */,
 				5C0A6B1526013B7F00FD2C29 /* FirebaseStorageSwift-Beta in Frameworks */,
-				5C0A6B1726013B7F00FD2C29 /* FirebaseStorage in Frameworks */,
 				5C0A6B1B26013B7F00FD2C29 /* FirebaseFirestore in Frameworks */,
 				5C0A6B1926013B7F00FD2C29 /* FirebaseAuth in Frameworks */,
 			);
@@ -213,7 +211,6 @@
 			name = UsForHer;
 			packageProductDependencies = (
 				5C0A6B1426013B7F00FD2C29 /* FirebaseStorageSwift-Beta */,
-				5C0A6B1626013B7F00FD2C29 /* FirebaseStorage */,
 				5C0A6B1826013B7F00FD2C29 /* FirebaseAuth */,
 				5C0A6B1A26013B7F00FD2C29 /* FirebaseFirestore */,
 				5C0A6B1C26013B7F00FD2C29 /* FirebaseDatabase */,
@@ -761,11 +758,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5C0A6B1326013B7F00FD2C29 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageSwift-Beta";
-		};
-		5C0A6B1626013B7F00FD2C29 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5C0A6B1326013B7F00FD2C29 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
 		};
 		5C0A6B1826013B7F00FD2C29 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

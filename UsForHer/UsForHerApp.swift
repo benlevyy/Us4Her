@@ -32,6 +32,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         if(application.applicationState == .background){
             cW.update()
         }
+        
         return true
     }
     

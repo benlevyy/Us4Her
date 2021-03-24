@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import UsForHer
+//@testable import UsForHer
 
 class UsForHerTests: XCTestCase {
 

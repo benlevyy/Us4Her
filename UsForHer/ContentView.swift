@@ -175,7 +175,14 @@ struct ContentView: View {
            }
            return out
        }
-    
+    func getTitleY()-> CGFloat{
+        if(screenSize.height > 880 ){
+            return 110;
+        }else if(screenSize.height > 800){
+            return 150
+        }
+        return 200;
+    }
     var body: some View{
         Text("")
             .onReceive(timer){ input in
@@ -185,7 +192,9 @@ struct ContentView: View {
         
         let horizCenter = screenSize.width/2
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
-    
+        
+        
+        let posTitleY = getTitleY()
         ZStack{
             MV(annotations: convertToAnnot(), incidents: incidents){annotation in
                 savedInfoPin = annotation
@@ -199,12 +208,12 @@ struct ContentView: View {
                     Image("tlogo")
                         .resizable()
                         .padding(.top, 20.0)
-                        .frame(width:158, height:110)
+                        .frame(width:158, height: 106)
 
 
                     Spacer()
                 }
-                .position(x:100, y: 130)
+                .position(x:100, y:  posTitleY)
 
 
                 Spacer()
@@ -213,18 +222,9 @@ struct ContentView: View {
                     //  scheduleLocationNotification(self)
                     addButtonState = true;
                 } label: {
-                    ZStack{
-                        Circle()
-                            .fill(Color.black)
-                            .frame(width: 66, height: 66)
-                        Circle()
-                            .fill(logoColor)
-                            .frame(width: 59, height: 59)
-                        Text("!")
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.black)
-                            .font(.custom("San Francisco", size: 40))
-                    }
+                   Image("ReportButton")
+                    .resizable()
+                    .frame(width: 100, height: 90)
                 }
                 .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
 
