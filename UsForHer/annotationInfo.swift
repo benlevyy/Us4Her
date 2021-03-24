@@ -108,7 +108,7 @@ struct annotationInfo: View {
         
         let choosenpin = choosen
         
-        var titleString = "\(String(describing: choosenpin.title)))"
+        let titleString = "\(String(describing: choosenpin.title)))"
         let descriptionString = "\(String(describing: choosenpin.subtitle)))"
         
         let titleEnd =  titleString.index(titleString.endIndex, offsetBy: -3)

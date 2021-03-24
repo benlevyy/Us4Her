@@ -93,7 +93,7 @@ struct MapView: View {
     }
  
     mutating func remove(_ element: IncidentPin){
-        var index = find(value: element, in: incidents)!
+        let index = find(value: element, in: incidents)!
         incidents.remove(at: index)
     }
     private func find(value searchValue: IncidentPin, in array: [IncidentPin]) -> Int?
