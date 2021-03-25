@@ -61,12 +61,10 @@ struct annotationInfo: View {
             Rectangle() //creating rectangle for incident report
                 .fill(getColor(title))
                 .frame(width: 354, height: 254)
-                .cornerRadius(14.0)
             
             Rectangle() //creating rectangle for incident report
                 .fill(Color.white)
                 .frame(width: 352, height: 252)
-                .cornerRadius(14.0)
             
             HStack{
                 Spacer()
@@ -94,7 +92,7 @@ struct annotationInfo: View {
             
             Text("\(hoursFromIncident(displayedInfo as! mapAnnotation))")
                 .fontWeight(.thin)
-                .position(x: (UIScreen.main.bounds.size.width/2) - 100, y: 600)
+                .position(x: (UIScreen.main.bounds.size.width/2) - 95, y: 600)
             
         }
         

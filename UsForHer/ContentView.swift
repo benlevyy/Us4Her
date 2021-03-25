@@ -183,6 +183,8 @@ struct ContentView: View {
         }
         return 200;
     }
+    
+    
     var body: some View{
         Text("")
             .onReceive(timer){ input in
@@ -236,14 +238,21 @@ struct ContentView: View {
             if(addButtonState){
                 ZStack{
                     Rectangle() //creating rectangle for incident report
-                        .fill(Color.black)
-                        .frame(width: 352, height: 432)
-                        .cornerRadius(20.0)
-                    
-                    Rectangle() //creating rectangle for incident report
-                        .fill(Color.white)
-                        .frame(width: 350, height: 430)
-                        .cornerRadius(19.0)
+                         .fill(Color.black)
+                         .frame(width: 352, height: 432)
+
+                         
+
+                     Rectangle() //creating rectangle for incident report
+                         .fill(Color.white)
+                         .frame(width: 350, height: 430)
+
+                     
+
+                     Rectangle() //creating rectangle for incident report
+                         .fill(Color.gray)
+                         .frame(width: 330, height: 1)
+                         .position(x:horizCenter, y:495)
                     
                     HStack{
                         Spacer()
@@ -269,19 +278,21 @@ struct ContentView: View {
                         .frame(width: 300)
                     }
                     
-                    RoundedRectangle(cornerRadius: 2)
-                        .frame(width: 325, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:580)
+                    Rectangle()
+                        .frame(width: 315, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .position(x:horizCenter,y:585)
+
                     
-                    RoundedRectangle(cornerRadius: 2)
+
+                    Rectangle()
                         .fill(Color.white)
-                        .frame(width: 323, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:580)
+                        .frame(width: 313, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .position(x:horizCenter,y:585)
                     
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
-                        .frame(width: 305, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:550)
+                        .frame(width: 305, height: 160, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .position(x:horizCenter,y:585)
                         .onTapGesture {
                             userDescriptionInput = ""
                         }
@@ -295,9 +306,21 @@ struct ContentView: View {
                         
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
                     } label:{
-                        Text("Next")
+                        ZStack{
+                            Rectangle()
+                                .fill(Color.black)
+                                .frame(width: 62.0, height: 37.0)
+                                .cornerRadius(12)
+                            Rectangle()
+                                .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
+                                .frame(width: 60.0, height: 35.0)
+                                .cornerRadius(12)
+                            Text("Next")
+                                .font(.headline)
+                                .foregroundColor(Color.white)
+                        }
                     }
-                    .position(x: 325, y: 690)
+                    .position(x: 340, y: 692)
                     
                     Button() { //close button
                         addButtonState = false
@@ -311,7 +334,7 @@ struct ContentView: View {
                                 .frame(width:50, height:55)
                         }
                     }
-                    .position(x: 345, y:310)
+                    .position(x: 360, y:310)
                     
                 }
                 
@@ -329,13 +352,11 @@ struct ContentView: View {
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
                         .frame(width: 352, height: 142)
-                        .cornerRadius(20.0)
                         .position(x: horizCenter, y: 200)
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 140)
-                        .cornerRadius(19.0)
                         .position(x: horizCenter, y: 200)
                     
                     HStack{
@@ -371,7 +392,7 @@ struct ContentView: View {
                         
                         
                     }
-                    .position(x: 55, y: 245)
+                    .position(x: 65, y: 252)
                     
                     
                     //Submit Button
@@ -385,8 +406,6 @@ struct ContentView: View {
                                 .fill(Color.gray)
                                 .frame(width: 180.0, height: 35.0)
                                 .cornerRadius(11)
-                            
-                            
                             
                             Text("You just submitted!")
                                 .font(.headline)
