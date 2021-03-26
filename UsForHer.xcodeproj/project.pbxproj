@@ -22,6 +22,7 @@
 		5C4884F726040E4F00061499 /* LocationNotificationSchedulerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4884F626040E4F00061499 /* LocationNotificationSchedulerDelegate.swift */; };
 		5C5C97EB26086AFB00A0EBAF /* MV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C97EA26086AFA00A0EBAF /* MV.swift */; };
 		5CB7827625F89CFE00B31FDC /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7827525F89CFE00B31FDC /* LocationService.swift */; };
+		5CC248A2260E64FC00F97CE6 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CC248A1260E64FB00F97CE6 /* Launch Screen.storyboard */; };
 		5CF2632225F1D5CB0083B493 /* UsForHerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */; };
 		5CF2632425F1D5CB0083B493 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2632325F1D5CB0083B493 /* ContentView.swift */; };
 		5CF2632625F1D5CC0083B493 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CF2632525F1D5CC0083B493 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 		5C4884F626040E4F00061499 /* LocationNotificationSchedulerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNotificationSchedulerDelegate.swift; sourceTree = "<group>"; };
 		5C5C97EA26086AFA00A0EBAF /* MV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MV.swift; sourceTree = "<group>"; };
 		5CB7827525F89CFE00B31FDC /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		5CC248A1260E64FB00F97CE6 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5CF2631E25F1D5CB0083B493 /* UsForHer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UsForHer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsForHerApp.swift; sourceTree = "<group>"; };
 		5CF2632325F1D5CB0083B493 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */,
 				5CF2632525F1D5CC0083B493 /* Assets.xcassets */,
 				5CF2632725F1D5CC0083B493 /* Preview Content */,
+				5CC248A1260E64FB00F97CE6 /* Launch Screen.storyboard */,
 			);
 			path = UsForHer;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			files = (
 				5CF2632925F1D5CC0083B493 /* Preview Assets.xcassets in Resources */,
 				5CF2632625F1D5CC0083B493 /* Assets.xcassets in Resources */,
+				5CC248A2260E64FC00F97CE6 /* Launch Screen.storyboard in Resources */,
 				5C36D8E4260AE62F001EC827 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
