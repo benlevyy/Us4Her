@@ -294,7 +294,9 @@ struct ContentView: View {
                         .frame(width: 305, height: 160, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .position(x:horizCenter,y:585)
                         .onTapGesture {
+                            if(userDescriptionInput == "Description"){
                             userDescriptionInput = ""
+                            }
                         }
                     
                     
@@ -331,10 +333,10 @@ struct ContentView: View {
                             
                             Image("exit")
                                 .resizable()
-                                .frame(width:50, height:55)
+                                .frame(width:25, height:25)
                         }
                     }
-                    .position(x: 360, y:310)
+                    .position(x: 370, y:305)
                     
                 }
                 
@@ -392,7 +394,7 @@ struct ContentView: View {
                         
                         
                     }
-                    .position(x: 65, y: 252)
+                    .position(x: 64, y: 252)
                     
                     
                     //Submit Button
@@ -400,20 +402,23 @@ struct ContentView: View {
                         ZStack{
                             Rectangle()
                                 .fill(Color.black)
-                                .frame(width: 182.0, height: 37.0)
+                                .frame(width: 72.0, height: 37.0)
                                 .cornerRadius(12)
                             Rectangle()
                                 .fill(Color.gray)
-                                .frame(width: 180.0, height: 35.0)
-                                .cornerRadius(11)
-                            
-                            Text("You just submitted!")
+                                .frame(width: 70.0, height: 35.0)
+                                .cornerRadius(12)
+                            Text("Submit")
                                 .font(.headline)
                                 .foregroundColor(Color.white)
-                            
-                            
                         }
                         .position(x: horizCenter, y: 240)
+                        
+                        Text("You can only \n submit every hour")
+                            .fontWeight(.thin)
+                            .multilineTextAlignment(.center)
+                            .position(x: horizCenter + 105 , y: 240)
+
                     }else{
                         
                         Button(){
@@ -488,7 +493,7 @@ struct ContentView: View {
                     ZStack{
                         Image("exit")
                             .resizable()
-                            .frame(width: 50, height: 52)
+                            .frame(width: 25, height: 25)
 
                     }
                 }
