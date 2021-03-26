@@ -322,7 +322,7 @@ struct ContentView: View {
                                 .foregroundColor(Color.white)
                         }
                     }
-                    .position(x: 340, y: 692)
+                    .position(x: screenSize.width/2 + 130, y: 692)
                     
                     Button() { //close button
                         addButtonState = false
@@ -336,7 +336,7 @@ struct ContentView: View {
                                 .frame(width:25, height:25)
                         }
                     }
-                    .position(x: 370, y:305)
+                    .position(x: screenSize.width/2 + 155, y:305)
                     
                 }
                 
