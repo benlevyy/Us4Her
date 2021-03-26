@@ -533,7 +533,7 @@ struct ContentView: View {
                         }
                         .position(x: horizCenter, y: 340)
                         .alert(isPresented: $showingLocationTooFarAlert){
-                            Alert(title: Text("Error with your sumbission!"), message: Text("Try picking somewhre closer or removing profanity."), dismissButton: .default(Text("Okay")))
+                            Alert(title: Text("Oops! Something Went Wrong..."), message: Text("Please Make Sure the Description is Appropriate and Your Incident is Within 50km of Your Location"), dismissButton: .default(Text("Try Again")))
                         }
                     }
                     
