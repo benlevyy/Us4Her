@@ -61,11 +61,13 @@ struct annotationInfo: View {
             Rectangle() //creating rectangle for incident report
                 .fill(getColor(title))
                 .frame(width: 354, height: 254)
-            
+                .cornerRadius(4)
+
             Rectangle() //creating rectangle for incident report
                 .fill(Color.white)
                 .frame(width: 352, height: 252)
-            
+                .cornerRadius(4)
+
             HStack{
                 Spacer()
                 Text(title)

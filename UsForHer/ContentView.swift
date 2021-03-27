@@ -259,13 +259,13 @@ struct ContentView: View {
                         .resizable()
                         .padding(.top, 20.0)
                         .frame(width:158, height: 106)
-                    
-                    
+
+
                     Spacer()
                 }
                 .position(x:100, y:  posTitleY)
-                
-                
+
+
                 Spacer()
                 Spacer()
                 Button {
@@ -278,7 +278,7 @@ struct ContentView: View {
                 }
                 .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
 
-                
+
             }
             
             
@@ -287,14 +287,14 @@ struct ContentView: View {
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
                         .frame(width: 352, height: 432)
+                        .cornerRadius(4)
                     
                     
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 430)
-                    
-                    
+                        .cornerRadius(4)
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.gray)
@@ -389,14 +389,16 @@ struct ContentView: View {
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
+                        .cornerRadius(4)
                         .frame(width: 352, height: 142)
                         .position(x: horizCenter, y: 300)
-                    
+
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
+                        .cornerRadius(4)
                         .frame(width: 350, height: 140)
                         .position(x: horizCenter, y: 300)
-                    
+
                     HStack{
                         Spacer()
                         Text("Where?")
@@ -430,7 +432,6 @@ struct ContentView: View {
                     }
                     .position(x: 64, y: 352)
                     
-                    
                     //Submit Button
                     if(!checkIfEnoughTimePassed(mostRecentIncidentPin.time, 3600)){
                         ZStack{
@@ -456,7 +457,6 @@ struct ContentView: View {
                     }else{
                         
                         Button(){
-                            
                             var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
                             
                             if(locSelection == 0){
