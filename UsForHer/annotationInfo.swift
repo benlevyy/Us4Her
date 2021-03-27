@@ -66,7 +66,7 @@ struct annotationInfo: View {
             Rectangle() //creating rectangle for incident report
                 .fill(Color.white)
                 .frame(width: 352, height: 252)
-                .cornerRadius(4)
+                .cornerRadius(3)
 
             HStack{
                 Spacer()

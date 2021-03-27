@@ -294,7 +294,7 @@ struct ContentView: View {
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 430)
-                        .cornerRadius(4)
+                        .cornerRadius(3)
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.gray)
@@ -395,7 +395,7 @@ struct ContentView: View {
 
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
-                        .cornerRadius(4)
+                        .cornerRadius(3)
                         .frame(width: 350, height: 140)
                         .position(x: horizCenter, y: 300)
 
