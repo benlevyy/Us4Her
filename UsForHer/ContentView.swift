@@ -328,19 +328,19 @@ struct ContentView: View {
                     
                     Rectangle()
                         .frame(width: 315, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:585)
+                        .position(x:horizCenter,y:590)
                     
                     
                     
                     Rectangle()
                         .fill(Color.white)
                         .frame(width: 313, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:585)
+                        .position(x:horizCenter,y:590)
                     
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 160, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:585)
+                        .position(x:horizCenter,y:590)
                         .onTapGesture {
                             if(userDescriptionInput == "Description"){
                                 userDescriptionInput = ""
@@ -356,17 +356,7 @@ struct ContentView: View {
                         UIApplication.shared.endEditing() // Call to dismiss keyboard
                     } label:{
                         ZStack{
-                            Rectangle()
-                                .fill(Color.black)
-                                .frame(width: 62.0, height: 37.0)
-                                .cornerRadius(12)
-                            Rectangle()
-                                .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
-                                .frame(width: 60.0, height: 35.0)
-                                .cornerRadius(12)
                             Text("Next")
-                                .font(.headline)
-                                .foregroundColor(Color.white)
                         }
                     }
                     .position(x: getPosX() - 25, y: 692)
@@ -525,7 +515,7 @@ struct ContentView: View {
                                 Rectangle()
                                     .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
                                     .frame(width: 70.0, height: 35.0)
-                                    .cornerRadius(12)
+                                    .cornerRadius(11)
                                 Text("Submit")
                                     .font(.headline)
                                     .foregroundColor(Color.white)
