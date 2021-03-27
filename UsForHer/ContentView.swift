@@ -277,10 +277,9 @@ struct ContentView: View {
                         .frame(width: 100, height: 90)
                 }
                 .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
-                
+
                 
             }
-            
             
             
             if(addButtonState){
