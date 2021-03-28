@@ -47,7 +47,7 @@ struct ContentView: View {
     @State var submitTime = Timestamp.init().seconds
     @State var mostRecentIncidentPin = IncidentPin.init(latitude: 0, longitude: 0, type: "", ExtraInfo: "", time: Timestamp.init(seconds: 0, nanoseconds: 0))
     @State var showingLocationTooFarAlert = false
-    
+    @State var timeError = false
     //Getting Device Size()
     let screenSize = UIScreen.main.bounds.size
     
@@ -223,15 +223,15 @@ struct ContentView: View {
         return dist
     }
     func containsBadWord(_ input: String) {
-            //Sorry for bad words
-            let badWords = ["anus","ash0le","ash0les","asholes","ass","Ass Monkey","Assface","assh0le","assh0lez","asshole","assholes","assholz","asswipe","azzhole","bassterds","bastard","bastards","bastardz","basterds","basterdz","biatch","bitch","bitches","Blow Job","boffing","butthole","buttwipe","c0ck","c0cks","c0k","Carpet Muncher","cawk","cawks","Clit","cnts","cock","cockhead","cock-head","cocks","CockSucker","cock-sucker","crap","cum","cunt","cunts","cuntz","dick","dild0","dild0s","dildo","dildos","","dilld0s","dominatricks","dominatrics","dominatrix","dyke","enema","f u c k","f u c k e r","fag","fag1t","faget","fagg1t","faggit","faggot","fagit","fags","fagz","faig","faigs","fart","flipping the bird","fuck","fucker","fuckin","fucking","fucks","Fudge Packer","fuk","Fukah","Fuken","fuker","Fukin","Fukk","Fukkah","Fukken","Fukker","Fukkin","g00k","gayboy","gaygirl","gays","gayz","God-damned","h00r","h0ar","h0re","hells","hoar","hoor","hoore","jackoff","jap","japs","jerk-off","jisim","jiss","jizm","jizz","knob","knobs","knobz","kunts","kuntz","Lesbian","Lezzian","Lipshits","Lipshitz","masochist","massterbait","masstrbait","masstrbate","masterbate","masterbates","Motha Fucker","Motha Fuker","Motha Fukkah","Motha Fukker","Mother Fucker","Mother Fukah","Mother Fuker","Mother Fukkah","Mother Fukker","mother-fucker","Mutha Fucker","Mutha Fukah","Mutha Fuker","Mutha Fukkah","Mutha","Fukker","n1gr","nastt","nigger","nigur","niiger","niigr","orafis","orgasim","orgasm","orgasum","oriface","orifice","packi","packie","packy","paki","pakie","paky","pecker","peeenus","peeenusss","peenus","peinus","pen1s","penas","penis","penis-breath","penus","penuus","Phuc","Phuck","Phuk","Phuker","Phukker","polac","polack","polak","Poonani","pr1c","pr1ck","pr1k","pusse","pussee","pussy","puuke","puuker","queer","queers","queerz","qweers","qweerz","qweir","recktum","rectum","retard","sadist","scank","schlon","screwing","semen","sexy","Sh!t","sh1ter","sh1ts","sh1tter","sh1tz","shits","shitter","Shitty","shitz","Shyte","Shytty","Shyty","skanck","skank","skankee","skankey","skanks","Skanky","slut","sluts","Slutty","slutz","son-of-a-bitch","tit","turd","va1jina","vag1navagiina","vagina","vaj1na","vajina","vullva","vulva","w0p","wh00r","wh0re","whore","xrated","xxx","b!+ch","bitch","clit","arschloch","fuck","shit","ass","asshole","b!tch","b17ch","b1tch","bastard","bi+ch","boiolas","buceta","c0ck","cawk","chink","cipa","clits","cock","cum","cunt","dildo","dirsa","ejakulate","fatass","fcuk","fuk","hoer","hore","jism","kawk","l3itch","l3i+ch","lesbian","masturbate","masterbat*","masterbat3","motherfucker","s.o.b.","mofo","nazi","nigga","nigger","nutsack","phuck","pimpis","pusse","pussy","scrotum","sh!t","shemale","shi+","sh!+","slut","smut","teets","titsboobs","b00bs","teez","testical","testicle","titt","w00se","jackoff","wank","whoar","whore","damn","*dyke","*fuck*","*shit*","@$$","amcik","andskota","arse*","assrammer","ayir","bi7ch","bitch*","bollock*","butt-pirate","cabron","cazzo","chraa","chuj","Cock*","cunt*","d4mn","daygo","dego","dick*","dike*","dupa","dziwka","ejackulate","Ekrem*","Ekto","enculer","faen","fag*","fanculo","fanny","feces","feg","Felcher","ficken","fitt*","Flikker","foreskin","Fotze","Fu(*","fuk*","futkretzn","gay","gook","gguiena","h0r","h4x0r","hell","helvete","hoer*","honkey","Huevon","hui","injun","jizz","kanker*","kike","klootzak","kraut","knulle","kuk","kuksuger","Kurac","kurwa","kusi*","kyrpa*","lesbo","mamhoon","masturbat*","merd*","mibun","monkleigh","mouliewop","muie","mulkku","muschi","nazis","nepesaurio","nigger*","orospu","paska*","perse","picka","pierdol*","pillu*","pimmel","piss*","pizda","poontsee","poop","porn","p0rn","pr0n","preteen","pula","pule","puta","puto","qahbeh","queef*","rautenberg","schaffer","scheiss*","schlampe","schmuck","screw","sh!t*","sharmuta","sharmute","shipal","shiz","skribz","skurwysyn","sphencter","spic","spierdalaj","splooge","suka","b00b*","testicle*","titt*","twat","vittu","wank*","wetback*","wichser","wop*","yed","zabourah"]
-            for word in badWords {
-                if input.lowercased().contains(word) {
-                    print("bad word found")
-                    showingLocationTooFarAlert = true
-                }
+        //Sorry for bad words
+        let badWords = ["anus","ash0le","ash0les","asholes","ass","Ass Monkey","Assface","assh0le","assh0lez","asshole","assholes","assholz","asswipe","azzhole","bassterds","bastard","bastards","bastardz","basterds","basterdz","biatch","bitch","bitches","Blow Job","boffing","butthole","buttwipe","c0ck","c0cks","c0k","Carpet Muncher","cawk","cawks","Clit","cnts","cock","cockhead","cock-head","cocks","CockSucker","cock-sucker","crap","cum","cunt","cunts","cuntz","dick","dild0","dild0s","dildo","dildos","","dilld0s","dominatricks","dominatrics","dominatrix","dyke","enema","f u c k","f u c k e r","fag","fag1t","faget","fagg1t","faggit","faggot","fagit","fags","fagz","faig","faigs","fart","flipping the bird","fuck","fucker","fuckin","fucking","fucks","Fudge Packer","fuk","Fukah","Fuken","fuker","Fukin","Fukk","Fukkah","Fukken","Fukker","Fukkin","g00k","gayboy","gaygirl","gays","gayz","God-damned","h00r","h0ar","h0re","hells","hoar","hoor","hoore","jackoff","jap","japs","jerk-off","jisim","jiss","jizm","jizz","knob","knobs","knobz","kunts","kuntz","Lesbian","Lezzian","Lipshits","Lipshitz","masochist","massterbait","masstrbait","masstrbate","masterbate","masterbates","Motha Fucker","Motha Fuker","Motha Fukkah","Motha Fukker","Mother Fucker","Mother Fukah","Mother Fuker","Mother Fukkah","Mother Fukker","mother-fucker","Mutha Fucker","Mutha Fukah","Mutha Fuker","Mutha Fukkah","Mutha","Fukker","n1gr","nastt","nigger","nigur","niiger","niigr","orafis","orgasim","orgasm","orgasum","oriface","orifice","packi","packie","packy","paki","pakie","paky","pecker","peeenus","peeenusss","peenus","peinus","pen1s","penas","penis","penis-breath","penus","penuus","Phuc","Phuck","Phuk","Phuker","Phukker","polac","polack","polak","Poonani","pr1c","pr1ck","pr1k","pusse","pussee","pussy","puuke","puuker","queer","queers","queerz","qweers","qweerz","qweir","recktum","rectum","retard","sadist","scank","schlon","screwing","semen","sexy","Sh!t","sh1ter","sh1ts","sh1tter","sh1tz","shits","shitter","Shitty","shitz","Shyte","Shytty","Shyty","skanck","skank","skankee","skankey","skanks","Skanky","slut","sluts","Slutty","slutz","son-of-a-bitch","tit","turd","va1jina","vag1navagiina","vagina","vaj1na","vajina","vullva","vulva","w0p","wh00r","wh0re","whore","xrated","xxx","b!+ch","bitch","clit","arschloch","fuck","shit","ass","asshole","b!tch","b17ch","b1tch","bastard","bi+ch","boiolas","buceta","c0ck","cawk","chink","cipa","clits","cock","cum","cunt","dildo","dirsa","ejakulate","fatass","fcuk","fuk","hoer","hore","jism","kawk","l3itch","l3i+ch","lesbian","masturbate","masterbat*","masterbat3","motherfucker","s.o.b.","mofo","nazi","nigga","nigger","nutsack","phuck","pimpis","pusse","pussy","scrotum","sh!t","shemale","shi+","sh!+","slut","smut","teets","titsboobs","b00bs","teez","testical","testicle","titt","w00se","jackoff","wank","whoar","whore","damn","*dyke","*fuck*","*shit*","@$$","amcik","andskota","arse*","assrammer","ayir","bi7ch","bitch*","bollock*","butt-pirate","cabron","cazzo","chraa","chuj","Cock*","cunt*","d4mn","daygo","dego","dick*","dike*","dupa","dziwka","ejackulate","Ekrem*","Ekto","enculer","faen","fag*","fanculo","fanny","feces","feg","Felcher","ficken","fitt*","Flikker","foreskin","Fotze","Fu(*","fuk*","futkretzn","gay","gook","gguiena","h0r","h4x0r","hell","helvete","hoer*","honkey","Huevon","hui","injun","jizz","kanker*","kike","klootzak","kraut","knulle","kuk","kuksuger","Kurac","kurwa","kusi*","kyrpa*","lesbo","mamhoon","masturbat*","merd*","mibun","monkleigh","mouliewop","muie","mulkku","muschi","nazis","nepesaurio","nigger*","orospu","paska*","perse","picka","pierdol*","pillu*","pimmel","piss*","pizda","poontsee","poop","porn","p0rn","pr0n","preteen","pula","pule","puta","puto","qahbeh","queef*","rautenberg","schaffer","scheiss*","schlampe","schmuck","screw","sh!t*","sharmuta","sharmute","shipal","shiz","skribz","skurwysyn","sphencter","spic","spierdalaj","splooge","suka","b00b*","testicle*","titt*","twat","vittu","wank*","wetback*","wichser","wop*","yed","zabourah"]
+        for word in badWords {
+            if input.lowercased().contains(word) {
+                print("bad word found")
+                showingLocationTooFarAlert = true
             }
         }
+    }
     
     var body: some View{
         Text("")
@@ -259,13 +259,13 @@ struct ContentView: View {
                         .resizable()
                         .padding(.top, 20.0)
                         .frame(width:158, height: 106)
-
-
+                    
+                    
                     Spacer()
                 }
                 .position(x:100, y:  posTitleY)
-
-
+                
+                
                 Spacer()
                 Spacer()
                 Button {
@@ -277,8 +277,8 @@ struct ContentView: View {
                         .frame(width: 100, height: 90)
                 }
                 .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
-
-
+                
+                
             }
             
             
@@ -392,13 +392,13 @@ struct ContentView: View {
                         .cornerRadius(4)
                         .frame(width: 352, height: 142)
                         .position(x: horizCenter, y: 300)
-
+                    
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .cornerRadius(3)
                         .frame(width: 350, height: 140)
                         .position(x: horizCenter, y: 300)
-
+                    
                     HStack{
                         Spacer()
                         Text("Where?")
@@ -434,28 +434,29 @@ struct ContentView: View {
                     
                     //Submit Button
                     if(!checkIfEnoughTimePassed(mostRecentIncidentPin.time, 3600)){
-                        ZStack{
-                            Rectangle()
-                                .fill(Color.black)
-                                .frame(width: 72.0, height: 37.0)
-                                .cornerRadius(12)
-                            Rectangle()
-                                .fill(Color.gray)
-                                .frame(width: 70.0, height: 35.0)
-                                .cornerRadius(12)
-                            Text("Submit")
-                                .font(.headline)
-                                .foregroundColor(Color.white)
+                        Button(){
+                           timeError = true
+                        } label:{
+                            ZStack{
+                                Rectangle()
+                                    .fill(Color.black)
+                                    .frame(width: 72.0, height: 37.0)
+                                    .cornerRadius(12)
+                                Rectangle()
+                                    .fill(/*@START_MENU_TOKEN@*/Color.blue/*@END_MENU_TOKEN@*/)
+                                    .frame(width: 70.0, height: 35.0)
+                                    .cornerRadius(11)
+                                Text("Submit")
+                                    .font(.headline)
+                                    .foregroundColor(Color.white)
+                            }
                         }
                         .position(x: horizCenter, y: 340)
-                        
-                        Text("You can only \n submit every hour")
-                            .fontWeight(.thin)
-                            .multilineTextAlignment(.center)
-                            .position(x: horizCenter + 105 , y: 340)
-                        
+                        .alert(isPresented: $timeError){
+                            Alert(title: Text("Oops! Something Went Wrong..."), message: Text("You Can Only Submit Once an Hour"), dismissButton: .default(Text("Okay")))
+                        }
+
                     }else{
-                        
                         Button(){
                             var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
                             
@@ -553,8 +554,8 @@ struct ContentView: View {
             update()
         }
     }
-
-   
+    
+    
 }
 
 extension ContentView { //if loc isn't enable redirect user to go to settings

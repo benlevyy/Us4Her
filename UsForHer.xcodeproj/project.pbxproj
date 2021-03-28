@@ -135,6 +135,7 @@
 		5CF2632025F1D5CB0083B493 /* UsForHer */ = {
 			isa = PBXGroup;
 			children = (
+				5CF2632525F1D5CC0083B493 /* Assets.xcassets */,
 				5C36D8E3260AE62F001EC827 /* GoogleService-Info.plist */,
 				5CF2632A25F1D5CC0083B493 /* Info.plist */,
 				5CB7827525F89CFE00B31FDC /* LocationService.swift */,
@@ -159,7 +160,6 @@
 		5CF2632725F1D5CC0083B493 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				5CF2632525F1D5CC0083B493 /* Assets.xcassets */,
 				5CF2632825F1D5CC0083B493 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
