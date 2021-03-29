@@ -23,7 +23,7 @@ struct MV: UIViewRepresentable {
         mapView.region =  MKCoordinateRegion(center: locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
         mapView.delegate = context.coordinator
         mapView.isRotateEnabled = false
-
+        mapView.setCenter(locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620), animated: true)
         return mapView
     }
     func getAnnotCount()->Int{
@@ -36,6 +36,7 @@ struct MV: UIViewRepresentable {
         }
         
     }
+    
     
     
     func makeCoordinator() -> Coordinator {
@@ -54,7 +55,7 @@ struct MV: UIViewRepresentable {
             let annotationView = NonClusteringMKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
             annotationView.animatesWhenAdded = true
             annotationView.canShowCallout = true
-            
+            annotationView.subtitleVisibility = MKFeatureVisibility.adaptive
             let btn = UIButton(type: .detailDisclosure) //creating button
             annotationView.rightCalloutAccessoryView = btn
             switch annotation.title!! {
