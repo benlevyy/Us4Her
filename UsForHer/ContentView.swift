@@ -37,7 +37,7 @@ struct ContentView: View {
     
     //Time Management Variables
     //  @State var timeManager = TimeManager()
-    let timer = Timer.publish(every: 30, on: .current, in: .common).autoconnect()
+    let timer = Timer.publish(every: 10, on: .current, in: .common).autoconnect()
     @State var newDate = Date()
     
     //Notification Variable
@@ -50,7 +50,6 @@ struct ContentView: View {
     @State var timeError = false
     //Getting Device Size()
     let screenSize = UIScreen.main.bounds.size
-    
     //Showing Info
     @State var showInfo = false
     @State var savedInfoPin = mapAnnotation(tag: "", time: Timestamp.init())
@@ -386,6 +385,9 @@ struct ContentView: View {
                             .resizable()
                             .frame(width: 90.0, height: 90.0)
                     }
+                    if(locSelection == 0){
+                        mls
+                    }
                     
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
@@ -462,13 +464,16 @@ struct ContentView: View {
                             
                             if(locSelection == 0){
                                 pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
-                                
                             }
                             if(locSelection == 1){
                                 pos = CLLocationCoordinate2D(latitude: mls.getCenterLat(), longitude: mls.getCenterLong())
                             }
                             checkLocation(pos, disqualifyDis: 10)
                             containsBadWord(userDescriptionInput)
+                            if(pos.latitude == 0 && pos.longitude == 0){
+                                print("no location found")
+                                showingLocationTooFarAlert = true
+                            }
                             if(!showingLocationTooFarAlert){
                                 print("adding incident at")
                                 print(Timestamp.init())
@@ -523,7 +528,7 @@ struct ContentView: View {
                         }
                         .position(x: horizCenter, y: 340)
                         .alert(isPresented: $showingLocationTooFarAlert){
-                            Alert(title: Text("Oops! Something Went Wrong..."), message: Text("Please Make Sure the Description is Appropriate and Your Incident is Within 50km of Your Location"), dismissButton: .default(Text("Try Again")))
+                            Alert(title: Text("Oops! Something Went Wrong..."), message: Text("Please Make Sure the Description is Appropriate, Your Incident is Within 50km of Your Location, and Location Services are Enabled"), dismissButton: .default(Text("Try Again")))
                         }
                     }
                     
