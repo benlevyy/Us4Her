@@ -55,7 +55,7 @@ struct MV: UIViewRepresentable {
             let annotationView = NonClusteringMKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "MyMarker")
             annotationView.animatesWhenAdded = true
             annotationView.canShowCallout = true
-            annotationView.subtitleVisibility = MKFeatureVisibility.adaptive
+            annotationView.subtitleVisibility = MKFeatureVisibility.hidden
             let btn = UIButton(type: .detailDisclosure) //creating button
             annotationView.rightCalloutAccessoryView = btn
             switch annotation.title!! {
