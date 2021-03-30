@@ -241,8 +241,7 @@ struct ContentView: View {
         
         let horizCenter = screenSize.width/2
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
-        
-        
+       
         let posTitleY = getTitleY()
         ZStack{
             MV(annotations: convertToAnnot(), incidents: incidents){annotation in
@@ -257,7 +256,7 @@ struct ContentView: View {
                     Image("tlogo")
                         .resizable()
                         .padding(.top, 20.0)
-                        .frame(width:158, height: 106)
+                       .frame(width:158, height: 106)
                     
                     
                     Spacer()
@@ -275,7 +274,7 @@ struct ContentView: View {
                         .resizable()
                         .frame(width: 100, height: 90)
                 }
-                .position(x: (screenSize.width) - 70,y: (screenSize.height/2) - 70 )
+                .position(x: (screenSize.width) - 50,y: (screenSize.height/2) - 70 )
                 
                 
             }
