@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,28 +12,22 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" misplaced="YES" image="pink background" translatesAutoresizingMaskIntoConstraints="NO" id="amo-4X-bqy">
-                                <rect key="frame" x="-155" y="-537" width="820" height="2000"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="pink background" translatesAutoresizingMaskIntoConstraints="NO" id="amo-4X-bqy">
+                                <rect key="frame" x="-63" y="-438" width="820" height="2000"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="820" id="KrS-ka-0oj"/>
-                                    <constraint firstAttribute="height" constant="2000" id="jVY-GH-tZM"/>
+                                    <constraint firstAttribute="width" constant="820" id="D3c-bE-XXA"/>
+                                    <constraint firstAttribute="height" constant="2000" id="dI5-1O-gcM"/>
                                 </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="obG-Y5-kRd">
-                                <rect key="frame" x="0.0" y="876" width="414" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoV2" translatesAutoresizingMaskIntoConstraints="NO" id="13E-DK-3or">
-                                <rect key="frame" x="121" y="405" width="172" height="86"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="finalV" translatesAutoresizingMaskIntoConstraints="NO" id="13E-DK-3or">
+                                <rect key="frame" x="67" y="363" width="241" height="86"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="86" id="Qi9-U2-foL"/>
-                                    <constraint firstAttribute="width" constant="172" id="RhA-qf-ekb"/>
+                                    <constraint firstAttribute="width" constant="241" id="G9y-AO-aSM"/>
+                                    <constraint firstAttribute="height" constant="86" id="Lv1-Xw-bVY"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -41,12 +35,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="13E-DK-3or" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="3P6-jH-FZa"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
-                            <constraint firstItem="obG-Y5-kRd" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" symbolic="YES" id="SfN-ll-jLj"/>
+                            <constraint firstItem="amo-4X-bqy" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="-438" id="9BP-eL-Iwi"/>
                             <constraint firstItem="13E-DK-3or" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TCZ-gA-zsH"/>
-                            <constraint firstAttribute="bottom" secondItem="obG-Y5-kRd" secondAttribute="bottom" constant="20" id="Y44-ml-fuU"/>
-                            <constraint firstItem="amo-4X-bqy" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-215" id="hUv-PA-rkR"/>
-                            <constraint firstItem="amo-4X-bqy" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="-766" id="o7R-Nq-3aO"/>
+                            <constraint firstItem="amo-4X-bqy" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-79" id="Ubk-Ci-iAX"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -56,7 +47,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LogoV2" width="316" height="172"/>
+        <image name="finalV" width="482" height="172"/>
         <image name="pink background" width="109" height="153"/>
     </resources>
 </document>

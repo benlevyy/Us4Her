@@ -19,7 +19,7 @@ struct ContentView: View {
     private var incidentOptions = ["Verbal Assault/Cat Call", "Suspicious Behaviour", "Following/Stalking", "Other"]
     @State private var selection = 1
     @State var otherUserInput: String = ""
-    @State var userDescriptionInput: String = "Description"
+    @State var userDescriptionInput: String = "Description..."
     @State var submitState: Bool = false
     @State var mapSelector: Bool = false
     @State private var locSelection = 1
@@ -69,7 +69,7 @@ struct ContentView: View {
     func scheduleLocationNotification(_ sender: Any) {
         for element in incidents{
             let titleText = "WARNING: \(element.type) near your location"
-            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 750, latitude: element.latitude, longitude: element.longitude, title: titleText, body: element.ExtraInfo)
+            let notInfo = LocationNotificationInfo.init(notificationId: element.id, locationId: element.id, radius: 400, latitude: element.latitude, longitude: element.longitude, title: titleText, body: element.ExtraInfo)
             locationNotificationScheduler.requestNotification(with: notInfo)
         }
     }
@@ -266,7 +266,7 @@ struct ContentView: View {
                     Image("tlogo")
                         .resizable()
                         .padding(.top, 20.0)
-                       .frame(width:158, height: 106)
+                        .frame(width:160, height: 75)
                     
                     
                     Spacer()
@@ -349,7 +349,7 @@ struct ContentView: View {
                         .frame(width: 305, height: 160, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .position(x:horizCenter,y:590)
                         .onTapGesture {
-                            if(userDescriptionInput == "Description"){
+                            if(userDescriptionInput == "Description..."){
                                 userDescriptionInput = ""
                             }
                         }
@@ -367,13 +367,13 @@ struct ContentView: View {
                     .alert(isPresented: $verifyState){
                         Alert(
                             title: Text("WARNING"),
-                            message: Text("Once you submit an incident it cannot be edited and will be displayed for 12 hours. Any fake or inappropriate incidents will lead to a permanant ban from this service."),
+                            message: Text("Once you submit an incident it cannot be edited and will be displayed for 12 hours. Any fake or inappropriate incidents will lead to a permanant ban from Us4Her."),
                             primaryButton: .destructive(
                                 Text("Cancel"),
                                 action: close
                             ),
                             secondaryButton: .default(
-                                Text("Continue.."),
+                                Text("Continue..."),
                                 action: enableMapSelecter
                             )
                         )
@@ -497,7 +497,7 @@ struct ContentView: View {
                                 print("adding incident at")
                                 print(Timestamp.init())
                                 let curID = UUID().uuidString
-                                if(userDescriptionInput == "Description"){
+                                if(userDescriptionInput == "Description..."){
                                     userDescriptionInput = ""
                                 }
                                 let incidentDictionary: [String: Any] = [
