@@ -35,6 +35,7 @@ struct ContentView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var zero = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
     
+    @State private var verifyState = false
     //Time Management Variables
     //  @State var timeManager = TimeManager()
     let timer = Timer.publish(every: 10, on: .current, in: .common).autoconnect()
@@ -116,6 +117,7 @@ struct ContentView: View {
             }
         scheduleLocationNotification(self) //compare db to
         locationNotificationScheduler.removeNotificationAfterShow() //delete already shown
+    
         
     }
     func remove(_ element: IncidentPin){
@@ -231,7 +233,15 @@ struct ContentView: View {
             }
         }
     }
-    
+    func enableMapSelecter(){
+        addButtonState = false
+        mapSelector = true
+        
+        UIApplication.shared.endEditing() // Call to dismiss keyboard
+    }
+    func close(){
+        addButtonState = false
+    }
     var body: some View{
         Text("")
             .onReceive(timer){ input in
@@ -347,17 +357,27 @@ struct ContentView: View {
                     //next button
                     Button(){
                         //close the view
-                        addButtonState = false
-                        mapSelector = true
-                        
-                        UIApplication.shared.endEditing() // Call to dismiss keyboard
+                       verifyState = true
                     } label:{
                         ZStack{
                             Text("Next")
                         }
                     }
                     .position(x: getPosX() - 25, y: 692)
-                    
+                    .alert(isPresented: $verifyState){
+                        Alert(
+                            title: Text("WARNING"),
+                            message: Text("Once you submit an incident it cannot be edited and will be displayed for 12 hours. Any fake or inappropriate incidents will lead to a permanant ban from this service."),
+                            primaryButton: .destructive(
+                                Text("Cancel"),
+                                action: close
+                            ),
+                            secondaryButton: .default(
+                                Text("Continue.."),
+                                action: enableMapSelecter
+                            )
+                        )
+                    }
                     Button() { //close button
                         addButtonState = false
                         //  update()
@@ -377,7 +397,7 @@ struct ContentView: View {
             }
             if(mapSelector){
                 ZStack{
-                    
+
                     if(locSelection == 1){
                         mls
                         Image("MapMarker")
@@ -387,39 +407,39 @@ struct ContentView: View {
                     if(locSelection == 0){
                         mls
                     }
-                    
+
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.black)
                         .cornerRadius(4)
                         .frame(width: 352, height: 142)
                         .position(x: horizCenter, y: 300)
-                    
+
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .cornerRadius(3)
                         .frame(width: 350, height: 140)
                         .position(x: horizCenter, y: 300)
-                    
+
                     HStack{
                         Spacer()
                         Text("Where?")
                             .fontWeight(.bold)
                         Spacer()
                     }
-                    
+
                     .font(.title)
                     .foregroundColor(Color.black)
                     .position(x: horizCenter, y: 250)
-                    
-                    
+
+
                     HStack{
                         Picker("loc", selection: $locSelection) {
                             ForEach(0..<locOptions.count) {
                                 Text(self.locOptions[$0])
                                     .foregroundColor(Color.black)
-                                
+
                             }
-                            
+
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .position(x: 150, y: 290 )
@@ -432,7 +452,7 @@ struct ContentView: View {
                         Text("Back")
                     }
                     .position(x: 64, y: 352)
-                    
+
                     //Submit Button
                     if(!checkIfEnoughTimePassed(mostRecentIncidentPin.time, 3600)){
                         Button(){
@@ -460,7 +480,7 @@ struct ContentView: View {
                     }else{
                         Button(){
                             var pos: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-                            
+
                             if(locSelection == 0){
                                 pos = CLLocationCoordinate2D(latitude: locManager.lastLocation?.coordinate.latitude ?? 0.0, longitude: locManager.lastLocation?.coordinate.longitude ?? 0.0)
                             }
@@ -480,9 +500,6 @@ struct ContentView: View {
                                 if(userDescriptionInput == "Description"){
                                     userDescriptionInput = ""
                                 }
-                                
-                                
-                                
                                 let incidentDictionary: [String: Any] = [
                                     "id" : curID,
                                     "type" : incidentOptions[selection],
@@ -491,10 +508,10 @@ struct ContentView: View {
                                     "long": pos.longitude,
                                     "time": Timestamp.init()
                                 ]
-                                
+
                                 let docRef = Firestore.firestore().document("incident_DB/\(curID)")
                                 print("setting data")
-                                
+
                                 docRef.setData(incidentDictionary){ (error) in
                                     if let error = error{
                                         print("error = \(error)")
@@ -502,14 +519,14 @@ struct ContentView: View {
                                         print("data uploaded successfully")
                                     }
                                 }
-                                
+
                                 mostRecentIncidentPin = IncidentPin.init(latitude: pos.latitude, longitude: pos.longitude, type: incidentOptions[selection], ExtraInfo: userDescriptionInput, time: Timestamp.init()) //save most recent incident to check for spam
-                                
+
                                 userDescriptionInput = ""
                                 mapSelector = false
                                 update()
                             }
-                            
+
                         } label:{
                             ZStack{
                                 Rectangle()
@@ -530,9 +547,9 @@ struct ContentView: View {
                             Alert(title: Text("Oops! Something Went Wrong..."), message: Text("Please Make Sure the Description is Appropriate, Your Incident is Within 50km of Your Location, and Location Services are Enabled"), dismissButton: .default(Text("Try Again")))
                         }
                     }
-                    
+
                 }
-                
+
             }
             if(showInfo){
                 annotationInfo(displayedInfo: savedInfoPin)
