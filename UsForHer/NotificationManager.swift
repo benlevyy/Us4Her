@@ -25,7 +25,7 @@ class LocationNotificationScheduler: NSObject {
         switch locationManager.authorizationStatus {
         case .notDetermined:
             print("god fucking damn it not determined")
-            locationManager.requestWhenInUseAuthorization()
+            //locationManager.requestWhenInUseAuthorization()
             askForNotificationPermissions(notificationInfo: notificationInfo)
         case .authorizedWhenInUse, .authorizedAlways:
             print("got authroazation")
@@ -61,7 +61,17 @@ class LocationNotificationScheduler: NSObject {
         print("deleted notif")
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notifId])
     }
-    
+    func getNotifList()-> Int{
+        var out = [UNNotificationRequest]()
+        let center = UNUserNotificationCenter.current()
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            for request in requests {
+                out.append(request)
+                print(request)
+            }
+        })
+        return out.count
+    }
 }
 
 // MARK: - Private Functions

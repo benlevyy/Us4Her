@@ -28,6 +28,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location to find incidents near you and allow you to report incidents. </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to find incidents near you and allow you to report incidents. </string>
 	<key>UIApplicationSceneManifest</key>

@@ -38,7 +38,7 @@ struct ContentView: View {
     @State private var verifyState = false
     //Time Management Variables
     //  @State var timeManager = TimeManager()
-    let timer = Timer.publish(every: 10, on: .current, in: .common).autoconnect()
+    let timer = Timer.publish(every: 30, on: .current, in: .common).autoconnect()
     @State var newDate = Date()
     
     //Notification Variable
@@ -54,6 +54,10 @@ struct ContentView: View {
     //Showing Info
     @State var showInfo = false
     @State var savedInfoPin = mapAnnotation(tag: "", time: Timestamp.init())
+        
+    //banner
+    @State var bannerState = false
+    @State var bannerDescription = ""
     //AntiSpam
     func checkIfEnoughTimePassed(_ submitTime: Timestamp, _ timePassed: Int64 ) -> Bool{
         let currentTime = Timestamp.init()
@@ -115,7 +119,9 @@ struct ContentView: View {
                 }
                 
             }
-        scheduleLocationNotification(self) //compare db to
+        if(!(locationNotificationScheduler.getNotifList() == incidents.count)){
+            scheduleLocationNotification(self) //compare db to
+        }
         locationNotificationScheduler.removeNotificationAfterShow() //delete already shown
     
         
@@ -225,7 +231,7 @@ struct ContentView: View {
     }
     func containsBadWord(_ input: String) {
         //Sorry for bad words
-        let badWords = ["anus","ash0le","ash0les","asholes","ass","Ass Monkey","Assface","assh0le","assh0lez","asshole","assholes","assholz","asswipe","azzhole","bassterds","bastard","bastards","bastardz","basterds","basterdz","biatch","bitch","bitches","Blow Job","boffing","butthole","buttwipe","c0ck","c0cks","c0k","Carpet Muncher","cawk","cawks","Clit","cnts","cock","cockhead","cock-head","cocks","CockSucker","cock-sucker","crap","cum","cunt","cunts","cuntz","dick","dild0","dild0s","dildo","dildos","","dilld0s","dominatricks","dominatrics","dominatrix","dyke","enema","f u c k","f u c k e r","fag","fag1t","faget","fagg1t","faggit","faggot","fagit","fags","fagz","faig","faigs","fart","flipping the bird","fuck","fucker","fuckin","fucking","fucks","Fudge Packer","fuk","Fukah","Fuken","fuker","Fukin","Fukk","Fukkah","Fukken","Fukker","Fukkin","g00k","gayboy","gaygirl","gays","gayz","God-damned","h00r","h0ar","h0re","hells","hoar","hoor","hoore","jackoff","jap","japs","jerk-off","jisim","jiss","jizm","jizz","knob","knobs","knobz","kunts","kuntz","Lesbian","Lezzian","Lipshits","Lipshitz","masochist","massterbait","masstrbait","masstrbate","masterbate","masterbates","Motha Fucker","Motha Fuker","Motha Fukkah","Motha Fukker","Mother Fucker","Mother Fukah","Mother Fuker","Mother Fukkah","Mother Fukker","mother-fucker","Mutha Fucker","Mutha Fukah","Mutha Fuker","Mutha Fukkah","Mutha","Fukker","n1gr","nastt","nigger","nigur","niiger","niigr","orafis","orgasim","orgasm","orgasum","oriface","orifice","packi","packie","packy","paki","pakie","paky","pecker","peeenus","peeenusss","peenus","peinus","pen1s","penas","penis","penis-breath","penus","penuus","Phuc","Phuck","Phuk","Phuker","Phukker","polac","polack","polak","Poonani","pr1c","pr1ck","pr1k","pusse","pussee","pussy","puuke","puuker","queer","queers","queerz","qweers","qweerz","qweir","recktum","rectum","retard","sadist","scank","schlon","screwing","semen","sexy","Sh!t","sh1ter","sh1ts","sh1tter","sh1tz","shits","shitter","Shitty","shitz","Shyte","Shytty","Shyty","skanck","skank","skankee","skankey","skanks","Skanky","slut","sluts","Slutty","slutz","son-of-a-bitch","tit","turd","va1jina","vag1navagiina","vagina","vaj1na","vajina","vullva","vulva","w0p","wh00r","wh0re","whore","xrated","xxx","b!+ch","bitch","clit","arschloch","fuck","shit","ass","asshole","b!tch","b17ch","b1tch","bastard","bi+ch","boiolas","buceta","c0ck","cawk","chink","cipa","clits","cock","cum","cunt","dildo","dirsa","ejakulate","fatass","fcuk","fuk","hoer","hore","jism","kawk","l3itch","l3i+ch","lesbian","masturbate","masterbat*","masterbat3","motherfucker","s.o.b.","mofo","nazi","nigga","nigger","nutsack","phuck","pimpis","pusse","pussy","scrotum","sh!t","shemale","shi+","sh!+","slut","smut","teets","titsboobs","b00bs","teez","testical","testicle","titt","w00se","jackoff","wank","whoar","whore","damn","*dyke","*fuck*","*shit*","@$$","amcik","andskota","arse*","assrammer","ayir","bi7ch","bitch*","bollock*","butt-pirate","cabron","cazzo","chraa","chuj","Cock*","cunt*","d4mn","daygo","dego","dick*","dike*","dupa","dziwka","ejackulate","Ekrem*","Ekto","enculer","faen","fag*","fanculo","fanny","feces","feg","Felcher","ficken","fitt*","Flikker","foreskin","Fotze","Fu(*","fuk*","futkretzn","gay","gook","gguiena","h0r","h4x0r","hell","helvete","hoer*","honkey","Huevon","hui","injun","jizz","kanker*","kike","klootzak","kraut","knulle","kuk","kuksuger","Kurac","kurwa","kusi*","kyrpa*","lesbo","mamhoon","masturbat*","merd*","mibun","monkleigh","mouliewop","muie","mulkku","muschi","nazis","nepesaurio","nigger*","orospu","paska*","perse","picka","pierdol*","pillu*","pimmel","piss*","pizda","poontsee","poop","porn","p0rn","pr0n","preteen","pula","pule","puta","puto","qahbeh","queef*","rautenberg","schaffer","scheiss*","schlampe","schmuck","screw","sh!t*","sharmuta","sharmute","shipal","shiz","skribz","skurwysyn","sphencter","spic","spierdalaj","splooge","suka","b00b*","testicle*","titt*","twat","vittu","wank*","wetback*","wichser","wop*","yed","zabourah"]
+        let badWords = ["anus","ash0le","ash0les","asholes", "bastard","bastards","bastardz","basterds","basterdz","biatch","bitch","bitches","Blow Job","boffing","butthole","buttwipe","c0ck","c0cks","c0k","Carpet Muncher","cawk","cawks","Clit","cnts","cock","cockhead","cock-head","cocks","CockSucker","cock-sucker","crap","cum","cunt","cunts","cuntz","dick","dild0","dild0s","dildo","dildos","","dilld0s","dominatricks","dominatrics","dominatrix","dyke","enema","f u c k","f u c k e r","fag","fag1t","faget","fagg1t","faggit","faggot","fagit","fags","fagz","faig","faigs","fart","flipping the bird","fuck","fucker","fuckin","fucking","fucks","Fudge Packer","fuk","Fukah","Fuken","fuker","Fukin","Fukk","Fukkah","Fukken","Fukker","Fukkin","g00k","gayboy","gaygirl","gays","gayz","God-damned","h00r","h0ar","h0re","hells","hoar","hoor","hoore","jackoff","jap","japs","jerk-off","jisim","jiss","jizm","jizz","knob","knobs","knobz","kunts","kuntz","Lesbian","Lezzian","Lipshits","Lipshitz","masochist","massterbait","masstrbait","masstrbate","masterbate","masterbates","Motha Fucker","Motha Fuker","Motha Fukkah","Motha Fukker","Mother Fucker","Mother Fukah","Mother Fuker","Mother Fukkah","Mother Fukker","mother-fucker","Mutha Fucker","Mutha Fukah","Mutha Fuker","Mutha Fukkah","Mutha","Fukker","n1gr","nastt","nigger","nigur","niiger","niigr","orafis","orgasim","orgasm","orgasum","oriface","orifice","packi","packie","packy","paki","pakie","paky","pecker","peeenus","peeenusss","peenus","peinus","pen1s","penas","penis","penis-breath","penus","penuus","Phuc","Phuck","Phuk","Phuker","Phukker","polac","polack","polak","Poonani","pr1c","pr1ck","pr1k","pusse","pussee","pussy","puuke","puuker","queer","queers","queerz","qweers","qweerz","qweir","recktum","rectum","retard","sadist","scank","schlon","screwing","semen","sexy","Sh!t","sh1ter","sh1ts","sh1tter","sh1tz","shits","shitter","Shitty","shitz","Shyte","Shytty","Shyty","skanck","skank","skankee","skankey","skanks","Skanky","slut","sluts","Slutty","slutz","son-of-a-bitch","tit","turd","va1jina","vag1navagiina","vagina","vaj1na","vajina","vullva","vulva","w0p","wh00r","wh0re","whore","xrated","xxx","b!+ch","bitch","clit","arschloch","fuck","shit","b!tch","b17ch","b1tch","bastard","bi+ch","boiolas","buceta","c0ck","cawk","chink","cipa","clits","cock","cum","cunt","dildo","dirsa","ejakulate","fatass","fcuk","fuk","hoer","hore","jism","kawk","l3itch","l3i+ch","lesbian","masturbate","masterbat*","masterbat3","motherfucker","s.o.b.","mofo","nazi","nigga","nigger","nutsack","phuck","pimpis","pusse","pussy","scrotum","sh!t","shemale","shi+","sh!+","slut","smut","teets","titsboobs","b00bs","teez","testical","testicle","titt","w00se","jackoff","wank","whoar","whore","damn","*dyke","*fuck*","*shit*","@$$","amcik","andskota","arse*","assrammer","ayir","bi7ch","bitch*","bollock*","butt-pirate","cabron","cazzo","chraa","chuj","Cock*","cunt*","d4mn","daygo","dego","dick*","dike*","dupa","dziwka","ejackulate","Ekrem*","Ekto","enculer","faen","fag*","fanculo","fanny","feces","feg","Felcher","ficken","fitt*","Flikker","foreskin","Fotze","Fu(*","fuk*","futkretzn","gay","gook","gguiena","h0r","h4x0r","hell","helvete","hoer*","honkey","Huevon","hui","injun","jizz","kanker*","kike","klootzak","kraut","knulle","kuk","kuksuger","Kurac","kurwa","kusi*","kyrpa*","lesbo","mamhoon","masturbat*","merd*","mibun","monkleigh","mouliewop","muie","mulkku","muschi","nazis","nepesaurio","nigger*","orospu","paska*","perse","picka","pierdol*","pillu*","pimmel","piss*","pizda","poontsee","poop","porn","p0rn","pr0n","preteen","pula","pule","puta","puto","qahbeh","queef*","rautenberg","schaffer","scheiss*","schlampe","schmuck","screw","sh!t*","sharmuta","sharmute","shipal","shiz","skribz","skurwysyn","sphencter","spic","spierdalaj","splooge","suka","b00b*","testicle*","titt*","twat","vittu","wank*","wetback*","wichser","wop*","yed","zabourah"]
         for word in badWords {
             if input.lowercased().contains(word) {
                 print("bad word found")
@@ -241,6 +247,33 @@ struct ContentView: View {
     }
     func close(){
         addButtonState = false
+    }
+    func checkBanner(){
+       Firestore.firestore().collection("banner")
+            .addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error!)")
+                    return
+                }
+                let bd = documents.map{ $0 ["Description"] ?? "DESCRIPION NOT FOUND"}
+                let ba = documents.map { $0["Version"]  ?? "STATE NOT FOUND" }
+            
+                let versionString = ba[0] as! String
+                bannerDescription = bd[0] as! String
+                
+                let currentVersion =  Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+                print("versionString\(versionString)")
+                print("currentVersion\(currentVersion)")
+
+               
+                if(!(versionString == currentVersion)){
+                    bannerState = true
+                }
+                
+                if(versionString == "0"){ //ignore version
+                    bannerState = false
+                }
+    }
     }
     var body: some View{
         Text("")
@@ -296,19 +329,19 @@ struct ContentView: View {
                         .fill(Color.black)
                         .frame(width: 352, height: 432)
                         .cornerRadius(4)
-                    
-                    
-                    
+
+
+
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.white)
                         .frame(width: 350, height: 430)
                         .cornerRadius(3)
-                    
+
                     Rectangle() //creating rectangle for incident report
                         .fill(Color.gray)
                         .frame(width: 330, height: 1)
                         .position(x:horizCenter, y:495)
-                    
+
                     HStack{
                         Spacer()
                         Text("Report an Incident")
@@ -319,31 +352,31 @@ struct ContentView: View {
                     .font(.title)
                     .foregroundColor(Color.black)
                     .position(x: horizCenter, y: 310)
-                    
+
                     HStack{ //picking an incident
                         Picker("Test", selection: $selection) {
                             ForEach(0..<incidentOptions.count) {
                                 Text(self.incidentOptions[$0])
                                     .foregroundColor(Color.black)
-                                
+
                             }
-                            
+
                         }
                         .position(x: 150, y: 410)
                         .frame(width: 300)
                     }
-                    
+
                     Rectangle()
                         .frame(width: 315, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .position(x:horizCenter,y:590)
-                    
-                    
-                    
+
+
+
                     Rectangle()
                         .fill(Color.white)
                         .frame(width: 313, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .position(x:horizCenter,y:590)
-                    
+
                     TextEditor( text: $userDescriptionInput)
                         .font(.title3)
                         .frame(width: 305, height: 160, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -353,7 +386,7 @@ struct ContentView: View {
                                 userDescriptionInput = ""
                             }
                         }
-                    
+
                     //next button
                     Button(){
                         //close the view
@@ -383,17 +416,17 @@ struct ContentView: View {
                         //  update()
                     } label: {
                         ZStack{
-                            
-                            
+
+
                             Image("exit")
                                 .resizable()
                                 .frame(width:25, height:25)
                         }
                     }
                     .position(x: getPosX(), y:305)
-                    
+
                 }
-                
+
             }
             if(mapSelector){
                 ZStack{
@@ -573,9 +606,19 @@ struct ContentView: View {
             locationNotificationScheduler.clearAll()
             incidents.removeAll()
             update()
+            checkBanner()
         }
+        .alert(isPresented:$bannerState) {
+            Alert(title: Text("WARNING"),
+                  message: Text(bannerDescription),
+                  dismissButton: .default(Text("Update"), action: { DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                      exit(0)
+                     }
+                }}))
     }
-    
+    }
     
 }
 

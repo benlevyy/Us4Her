@@ -57,7 +57,7 @@ struct MV: UIViewRepresentable {
             annotationView.canShowCallout = true
             annotationView.subtitleVisibility = MKFeatureVisibility.hidden
             let btn = UIButton(type: .detailDisclosure) //creating button
-            annotationView.rightCalloutAccessoryView = btn
+            annotationView.rightCalloutAccessoryView = btn  
             switch annotation.title!! {
             case "Verbal Assault/Cat Call":
                 annotationView.markerTintColor = UIColor.red

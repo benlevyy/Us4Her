@@ -22,6 +22,7 @@
 		5C5C97EB26086AFB00A0EBAF /* MV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5C97EA26086AFA00A0EBAF /* MV.swift */; };
 		5CB7827625F89CFE00B31FDC /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB7827525F89CFE00B31FDC /* LocationService.swift */; };
 		5CC248A2260E64FC00F97CE6 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CC248A1260E64FB00F97CE6 /* Launch Screen.storyboard */; };
+		5CD2D0F126155FAF00C9BDF3 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD2D0F026155FAF00C9BDF3 /* Banner.swift */; };
 		5CD8E265260FE365005F025C /* NonClusteringMKMarkerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD8E264260FE365005F025C /* NonClusteringMKMarkerAnnotationView.swift */; };
 		5CF2632225F1D5CB0083B493 /* UsForHerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */; };
 		5CF2632425F1D5CB0083B493 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF2632325F1D5CB0083B493 /* ContentView.swift */; };
@@ -63,6 +64,7 @@
 		5C5C97EA26086AFA00A0EBAF /* MV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MV.swift; sourceTree = "<group>"; };
 		5CB7827525F89CFE00B31FDC /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		5CC248A1260E64FB00F97CE6 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		5CD2D0F026155FAF00C9BDF3 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		5CD8E264260FE365005F025C /* NonClusteringMKMarkerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonClusteringMKMarkerAnnotationView.swift; sourceTree = "<group>"; };
 		5CF2631E25F1D5CB0083B493 /* UsForHer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UsForHer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CF2632125F1D5CB0083B493 /* UsForHerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsForHerApp.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				5CC248A1260E64FB00F97CE6 /* Launch Screen.storyboard */,
 				5CD8E264260FE365005F025C /* NonClusteringMKMarkerAnnotationView.swift */,
 				5CF2632725F1D5CC0083B493 /* Preview Content */,
+				5CD2D0F026155FAF00C9BDF3 /* Banner.swift */,
 			);
 			path = UsForHer;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				5CD8E265260FE365005F025C /* NonClusteringMKMarkerAnnotationView.swift in Sources */,
 				5CF2635525F1E1D50083B493 /* IncidentPin.swift in Sources */,
 				5CB7827625F89CFE00B31FDC /* LocationService.swift in Sources */,
+				5CD2D0F126155FAF00C9BDF3 /* Banner.swift in Sources */,
 				5C4884F726040E4F00061499 /* LocationNotificationSchedulerDelegate.swift in Sources */,
 				5CF2632225F1D5CB0083B493 /* UsForHerApp.swift in Sources */,
 			);
@@ -578,7 +582,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"UsForHer/Preview Content\"";
 				DEVELOPMENT_TEAM = Z59UGG7SZG;
 				ENABLE_PREVIEWS = YES;
@@ -588,8 +592,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.usforhedgs;
+				MARKETING_VERSION = 1.6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.usforher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -603,7 +607,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"UsForHer/Preview Content\"";
 				DEVELOPMENT_TEAM = Z59UGG7SZG;
 				ENABLE_PREVIEWS = YES;
@@ -613,8 +617,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.usforhedgs;
+				MARKETING_VERSION = 1.6;
+				PRODUCT_BUNDLE_IDENTIFIER = com.usforher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
