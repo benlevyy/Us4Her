@@ -46,6 +46,9 @@ struct annotationInfo: View {
         if(convertedToInt == 0){
             return "Within the Last Hour"
         }
+        if(convertedToInt == 1){
+            return "\(convertedToInt) hour ago"
+        }
         return "\(convertedToInt) hours ago"
 
     }
