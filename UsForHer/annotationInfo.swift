@@ -78,9 +78,9 @@ struct annotationInfo: View {
                 Spacer()
             }
             //title
-            .font(.title)
+            .font(.title3)
             .foregroundColor(Color.black)
-            .position(x: (screenSize.width/2), y: 412)
+            .position(x: (screenSize.width/2), y: 413)
             
             HStack{
                 Text(description)

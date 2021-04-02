@@ -192,13 +192,14 @@ struct ContentView: View {
         return 200;
     }
     func getPosX()-> CGFloat{
+        print("stuck")
         let width = screenSize.width/2
-        if(screenSize.height > 880 ){
-            return width + 170
+        if(screenSize.height > 900 ){
+            return width + 163;
         }else if(screenSize.height > 800){
-            return width + 165
+            return width + 160;
         }
-        return width + 160
+        return width + 155;
     }
     func checkLocation(_ inputLoc : CLLocationCoordinate2D, disqualifyDis : Double){
         let currentLoc = locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
@@ -283,6 +284,7 @@ struct ContentView: View {
         let mls: MapLocationSelect = MapLocationSelect(centerCoordinate: $centerCoordinate)
        
         let posTitleY = getTitleY()
+        let xPos = getPosX()
         ZStack{
             MV(annotations: convertToAnnot(), incidents: incidents){annotation in
                 savedInfoPin = annotation
@@ -313,7 +315,7 @@ struct ContentView: View {
                         .resizable()
                         .frame(width: 100, height: 90)
                 }
-                .position(x: (screenSize.width) - 50,y: (screenSize.height/2) - 70 )
+                .position(x: (screenSize.width) - 60,y: (screenSize.height/2) - 80 )
                 
             }
             
@@ -384,13 +386,13 @@ struct ContentView: View {
                     //next button
                     Button(){
                         //close the view
+                        print("GOT TO ALERT\(verifyState)")
                        verifyState = true
                     } label:{
                         ZStack{
                             Text("Next")
                         }
                     }
-                    .position(x: getPosX() - 25, y: 692)
                     .alert(isPresented: $verifyState){
                         Alert(
                             title: Text("WARNING"),
@@ -405,6 +407,8 @@ struct ContentView: View {
                             )
                         )
                     }
+                    .position(x: xPos - 25, y: 692)
+
                     Button() { //close button
                         addButtonState = false
                         //  update()
@@ -417,7 +421,7 @@ struct ContentView: View {
                                 .frame(width:25, height:25)
                         }
                     }
-                    .position(x: getPosX(), y:305)
+                    .position(x: xPos, y:305)
 
                 }
 
@@ -602,16 +606,16 @@ struct ContentView: View {
             update()
             checkBanner()
         }
-        .alert(isPresented:$bannerState) {
-            Alert(title: Text("WARNING"),
-                  message: Text(bannerDescription),
-                  dismissButton: .default(Text("Update"), action: { DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
-                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                      exit(0)
-                     }
-                }}))
-    }
+//        .alert(isPresented:$bannerState) {
+//            Alert(title: Text("WARNING"),
+//                  message: Text(bannerDescription),
+//                  dismissButton: .default(Text("Update"), action: { DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                    UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+//                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                      exit(0)
+//                     }
+//                }}))
+//    }
     }
     
 }
