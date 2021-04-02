@@ -285,8 +285,13 @@ struct ContentView: View {
        
         let posTitleY = getTitleY()
         let xPos = getPosX()
+        var currentLoc = CLLocationCoordinate2D(latitude: 50 , longitude: -150)
+        if(locManager.locationStatus?.rawValue ?? 0 > 2){
+            currentLoc = locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+        }
+            
         ZStack{
-            MV(annotations: convertToAnnot(), incidents: incidents){annotation in
+            MV(annotations: convertToAnnot(), incidents: incidents, center: currentLoc){annotation in
                 savedInfoPin = annotation
                 showInfo = true
             }
@@ -606,6 +611,7 @@ struct ContentView: View {
             update()
             checkBanner()
         }
+       
 //        .alert(isPresented:$bannerState) {
 //            Alert(title: Text("WARNING"),
 //                  message: Text(bannerDescription),

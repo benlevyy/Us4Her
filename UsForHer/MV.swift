@@ -12,6 +12,7 @@ import Firebase
 struct MV: UIViewRepresentable {
     var annotations: [MKPointAnnotation]
     var incidents: [IncidentPin]
+    var center: CLLocationCoordinate2D
     @State var selectedAnnotation = mapAnnotation(tag: "", time: Timestamp.init())
     @State var locManager = LocationManager()
     
@@ -20,10 +21,10 @@ struct MV: UIViewRepresentable {
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
-        mapView.region =  MKCoordinateRegion(center: locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
+        mapView.region =  MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
         mapView.delegate = context.coordinator
         mapView.isRotateEnabled = false
-        mapView.setCenter(locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620), animated: true)
+      //  mapView.setCenter(locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620), animated: true)
         return mapView
     }
     func getAnnotCount()->Int{
@@ -56,6 +57,10 @@ struct MV: UIViewRepresentable {
             annotationView.animatesWhenAdded = true
             annotationView.canShowCallout = true
             annotationView.subtitleVisibility = MKFeatureVisibility.hidden
+            if(parent.locManager.locationStatus?.rawValue ?? 0 > 2){
+                mapView.setRegion(MKCoordinateRegion(center: parent.locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude:0), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)), animated: true)
+
+            }
             let btn = UIButton(type: .detailDisclosure) //creating button
             annotationView.rightCalloutAccessoryView = btn  
             switch annotation.title!! {
@@ -86,6 +91,9 @@ struct MV: UIViewRepresentable {
             if let v = view.annotation as? mapAnnotation{
                 parent.didSelect(v) // << here !!
             }
+        }
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            mapView.setRegion(MKCoordinateRegion(center: view.annotation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)), animated: true)
         }
     }
 }
