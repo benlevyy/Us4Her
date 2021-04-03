@@ -46,6 +46,7 @@ struct MV: UIViewRepresentable {
     
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MV
+        private var counter = 0
         
         init(_ parent: MV) {
             self.parent = parent
@@ -57,9 +58,8 @@ struct MV: UIViewRepresentable {
             annotationView.animatesWhenAdded = true
             annotationView.canShowCallout = true
             annotationView.subtitleVisibility = MKFeatureVisibility.hidden
-            if(parent.locManager.locationStatus?.rawValue ?? 0 > 2){
+            if(parent.locManager.locationStatus?.rawValue ?? 0 > 2 && counter < 5){
                 mapView.setRegion(MKCoordinateRegion(center: parent.locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude:0), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)), animated: true)
-
             }
             let btn = UIButton(type: .detailDisclosure) //creating button
             annotationView.rightCalloutAccessoryView = btn  
@@ -94,6 +94,10 @@ struct MV: UIViewRepresentable {
         }
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             mapView.setRegion(MKCoordinateRegion(center: view.annotation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)), animated: true)
+        }
+        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            print("test")
+            counter += 1
         }
     }
 }

@@ -192,7 +192,6 @@ struct ContentView: View {
         return 200;
     }
     func getPosX()-> CGFloat{
-        print("stuck")
         let width = screenSize.width/2
         if(screenSize.height > 900 ){
             return width + 163;
@@ -285,17 +284,24 @@ struct ContentView: View {
        
         let posTitleY = getTitleY()
         let xPos = getPosX()
-        var currentLoc = CLLocationCoordinate2D(latitude: 50 , longitude: -150)
-        if(locManager.locationStatus?.rawValue ?? 0 > 2){
-            currentLoc = locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
-        }
+        var currentLoc = CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
+    
             
         ZStack{
+            if(locManager.locationStatus?.rawValue ?? 0 > 2){
+              let  currentLoc = locManager.lastLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 37.342159, longitude: -122.025620)
             MV(annotations: convertToAnnot(), incidents: incidents, center: currentLoc){annotation in
                 savedInfoPin = annotation
                 showInfo = true
             }
             .frame(height: 1000) //change size
+            }else {
+                MV(annotations: convertToAnnot(), incidents: incidents, center: currentLoc){annotation in
+                    savedInfoPin = annotation
+                    showInfo = true
+            }
+                .frame(height: 1000) //change size
+            }
             VStack{
                 Spacer()
                 HStack{
@@ -324,113 +330,113 @@ struct ContentView: View {
                 
             }
             
-            if(addButtonState){
-                ZStack{
-                    Rectangle() //creating rectangle for incident report
-                        .fill(Color.black)
-                        .frame(width: 352, height: 432)
-                        .cornerRadius(4)
-
-
-
-                    Rectangle() //creating rectangle for incident report
-                        .fill(Color.white)
-                        .frame(width: 350, height: 430)
-                        .cornerRadius(3)
-
-                    Rectangle() //creating rectangle for incident report
-                        .fill(Color.gray)
-                        .frame(width: 330, height: 1)
-                        .position(x:horizCenter, y:495)
-
-                    HStack{
-                        Spacer()
-                        Text("Report an Incident")
-                            .fontWeight(.bold)
-                        Spacer()
-                    }
-                    //title
-                    .font(.title)
-                    .foregroundColor(Color.black)
-                    .position(x: horizCenter, y: 310)
-
-                    HStack{ //picking an incident
-                        Picker("Test", selection: $selection) {
-                            ForEach(0..<incidentOptions.count) {
-                                Text(self.incidentOptions[$0])
-                                    .foregroundColor(Color.black)
-
-                            }
-
-                        }
-                        .position(x: 150, y: 410)
-                        .frame(width: 300)
-                    }
-
-                    Rectangle()
-                        .frame(width: 315, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:590)
-
-
-
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 313, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:590)
-
-                    TextEditor( text: $userDescriptionInput)
-                        .font(.title3)
-                        .frame(width: 305, height: 160, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .position(x:horizCenter,y:590)
-                        .onTapGesture {
-                            if(userDescriptionInput == "Description..."){
-                                userDescriptionInput = ""
-                            }
-                        }
-
-                    //next button
-                    Button(){
-                        //close the view
-                        print("GOT TO ALERT\(verifyState)")
-                       verifyState = true
-                    } label:{
-                        ZStack{
-                            Text("Next")
-                        }
-                    }
-                    .alert(isPresented: $verifyState){
-                        Alert(
-                            title: Text("WARNING"),
-                            message: Text("Once you submit an incident it cannot be edited and will be displayed for 12 hours. Any fake or inappropriate incidents will lead to a permanant ban from Us4Her."),
-                            primaryButton: .destructive(
-                                Text("Cancel"),
-                                action: close
-                            ),
-                            secondaryButton: .default(
-                                Text("Continue..."),
-                                action: enableMapSelecter
-                            )
-                        )
-                    }
-                    .position(x: xPos - 25, y: 692)
-
-                    Button() { //close button
-                        addButtonState = false
-                        //  update()
-                    } label: {
-                        ZStack{
-
-
-                            Image("exit")
-                                .resizable()
-                                .frame(width:25, height:25)
-                        }
-                    }
-                    .position(x: xPos, y:305)
-
-                }
-
-            }
+//            if(addButtonState){
+//                ZStack{
+//                    Rectangle() //creating rectangle for incident report
+//                        .fill(Color.black)
+//                        .frame(width: 352, height: 432)
+//                        .cornerRadius(4)
+//
+//
+//
+//                    Rectangle() //creating rectangle for incident report
+//                        .fill(Color.white)
+//                        .frame(width: 350, height: 430)
+//                        .cornerRadius(3)
+//
+//                    Rectangle() //creating rectangle for incident report
+//                        .fill(Color.gray)
+//                        .frame(width: 330, height: 1)
+//                        .position(x:horizCenter, y:495)
+//
+//                    HStack{
+//                        Spacer()
+//                        Text("Report an Incident")
+//                            .fontWeight(.bold)
+//                        Spacer()
+//                    }
+//                    //title
+//                    .font(.title)
+//                    .foregroundColor(Color.black)
+//                    .position(x: horizCenter, y: 310)
+//
+//                    HStack{ //picking an incident
+//                        Picker("Test", selection: $selection) {
+//                            ForEach(0..<incidentOptions.count) {
+//                                Text(self.incidentOptions[$0])
+//                                    .foregroundColor(Color.black)
+//
+//                            }
+//
+//                        }
+//                        .position(x: 150, y: 410)
+//                        .frame(width: 300)
+//                    }
+//
+//                    Rectangle()
+//                        .frame(width: 315, height: 165, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                        .position(x:horizCenter,y:590)
+//
+//
+//
+//                    Rectangle()
+//                        .fill(Color.white)
+//                        .frame(width: 313, height: 163, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                        .position(x:horizCenter,y:590)
+//
+//                    TextEditor( text: $userDescriptionInput)
+//                        .font(.title3)
+//                        .frame(width: 305, height: 160, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                        .position(x:horizCenter,y:590)
+//                        .onTapGesture {
+//                            if(userDescriptionInput == "Description..."){
+//                                userDescriptionInput = ""
+//                            }
+//                        }
+//
+//                    //next button
+//                    Button(){
+//                        //close the view
+//                        print("GOT TO ALERT\(verifyState)")
+//                       verifyState = true
+//                    } label:{
+//                        ZStack{
+//                            Text("Next")
+//                        }
+//                    }
+//                    .alert(isPresented: $verifyState){
+//                        Alert(
+//                            title: Text("WARNING"),
+//                            message: Text("Once you submit an incident it cannot be edited and will be displayed for 12 hours. Any fake or inappropriate incidents will lead to a permanant ban from Us4Her."),
+//                            primaryButton: .destructive(
+//                                Text("Cancel"),
+//                                action: close
+//                            ),
+//                            secondaryButton: .default(
+//                                Text("Continue..."),
+//                                action: enableMapSelecter
+//                            )
+//                        )
+//                    }
+//                    .position(x: xPos - 25, y: 692)
+//
+//                    Button() { //close button
+//                        addButtonState = false
+//                        //  update()
+//                    } label: {
+//                        ZStack{
+//
+//
+//                            Image("exit")
+//                                .resizable()
+//                                .frame(width:25, height:25)
+//                        }
+//                    }
+//                    .position(x: xPos, y:305)
+//
+//                }
+//
+//            }
             if(mapSelector){
                 ZStack{
 
