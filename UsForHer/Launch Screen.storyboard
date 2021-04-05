@@ -24,10 +24,10 @@
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tlogo" translatesAutoresizingMaskIntoConstraints="NO" id="13E-DK-3or">
-                                <rect key="frame" x="67" y="363" width="241" height="86"/>
+                                <rect key="frame" x="67" y="358.66666666666669" width="241" height="95"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="241" id="G9y-AO-aSM"/>
-                                    <constraint firstAttribute="height" constant="86" id="Lv1-Xw-bVY"/>
+                                    <constraint firstAttribute="height" constant="95" id="Lv1-Xw-bVY"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -48,6 +48,6 @@
     </scenes>
     <resources>
         <image name="pink background" width="109" height="153"/>
-        <image name="tlogo" width="482" height="172"/>
+        <image name="tlogo" width="472" height="182"/>
     </resources>
 </document>
