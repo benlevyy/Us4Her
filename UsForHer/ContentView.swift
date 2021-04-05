@@ -309,12 +309,12 @@ struct ContentView: View {
                     Image("tlogo")
                         .resizable()
                         .padding(.top, 20.0)
-                        .frame(width:160, height: 75)
+                        .frame(width:160, height: 85)
                     
                     
                     Spacer()
                 }
-                .position(x:100, y:  posTitleY)
+                .position(x:90, y:  posTitleY)
                 
                 
                 Spacer()
