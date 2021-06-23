@@ -67,6 +67,7 @@ class LocationNotificationScheduler: NSObject {
         center.getPendingNotificationRequests(completionHandler: { requests in
             for request in requests {
                 out.append(request)
+                print("||||")
                 print(request)
             }
         })

@@ -582,7 +582,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"UsForHer/Preview Content\"";
 				DEVELOPMENT_TEAM = Z59UGG7SZG;
 				ENABLE_PREVIEWS = YES;
@@ -592,7 +592,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.usforher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -607,7 +607,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"UsForHer/Preview Content\"";
 				DEVELOPMENT_TEAM = Z59UGG7SZG;
 				ENABLE_PREVIEWS = YES;
@@ -617,7 +617,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.usforher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -723,7 +723,7 @@
 				5CF2634225F1D5CC0083B493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5CF2634325F1D5CC0083B493 /* Build configuration list for PBXNativeTarget "UsForHer" */ = {
 			isa = XCConfigurationList;
@@ -732,7 +732,7 @@
 				5CF2634525F1D5CC0083B493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5CF2634625F1D5CC0083B493 /* Build configuration list for PBXNativeTarget "UsForHerTests" */ = {
 			isa = XCConfigurationList;
@@ -741,7 +741,7 @@
 				5CF2634825F1D5CC0083B493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5CF2634925F1D5CC0083B493 /* Build configuration list for PBXNativeTarget "UsForHerUITests" */ = {
 			isa = XCConfigurationList;
@@ -750,7 +750,7 @@
 				5CF2634B25F1D5CC0083B493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

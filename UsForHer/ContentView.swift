@@ -120,6 +120,7 @@ struct ContentView: View {
                 
             }
         if(!(locationNotificationScheduler.getNotifList() == incidents.count)){
+            print("Scheduling")
             scheduleLocationNotification(self) //compare db to
         }
         locationNotificationScheduler.removeNotificationAfterShow() //delete already shown
@@ -284,7 +285,7 @@ struct ContentView: View {
        
         let posTitleY = getTitleY()
         let xPos = getPosX()
-        var currentLoc = CLLocationCoordinate2D(latitude: 37, longitude: -122)
+        let currentLoc = CLLocationCoordinate2D(latitude: 37, longitude: -122)
     
             
         ZStack{
@@ -598,7 +599,6 @@ struct ContentView: View {
                 Button() { //close button
                     print("button tapped")
                     showInfo = false
-                    //   clearVars()
                 } label: {
                     ZStack{
                         Image("exit")
